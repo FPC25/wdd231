@@ -1,0 +1,47 @@
+* {
+    font-family: "Baumans", system-ui;;
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --accent-color-1: #cccccc;
+    --accent-color-2: #000;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 50px auto 44px;
+    align-items: center;
+    padding: 5px 0 5px 10px;
+    border-bottom: solid 1px var(--primary-color);
+    column-gap: 5px;
+}
+
+header img {
+    display: block;
+    width: 100%;
+    height: auto;
+    
+}
+
+header span {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  padding-bottom: 2px;
+}
+
+.hamburger {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.hamburger::before {
+  content: "\2630";
+  font-size: 2rem;
+}
+
+.hamburger.show::before {
+  content: "\00D7";
+  font-size: 2rem;
+}
