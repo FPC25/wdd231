@@ -12,4 +12,27 @@
     .hamburger {
         display: none;
     }
+
+    .nav-menu {
+        display: block;
+        text-align: center;
+
+        ul {
+            display: flex;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        li {
+            background-color: var(--primary-color);
+            flex: 1 1 100%;
+            text-wrap: nowrap;
+        }
+
+        a {
+            border: none;
+        }
+    }
 }

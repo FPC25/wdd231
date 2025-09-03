@@ -1,12 +1,17 @@
 * {
-    font-family: "Baumans", system-ui;;
     --primary-color: #333;
     --secondary-color: #fff;
     --accent-color-1: #cccccc;
     --accent-color-2: #000;
 }
 
+body {
+  background-color: var(--accent-color-1);
+  font-family: 'Lora', serif;
+}
+
 header {
+    font-family: "Baumans", system-ui;
     display: grid;
     grid-template-columns: 50px auto 44px;
     align-items: center;
@@ -24,7 +29,7 @@ header img {
 
 header span {
   font-size: 1.5rem;
-  color: var(--primary-color);
+  color: var(--accent-color-2);
   padding-bottom: 2px;
 }
 
@@ -44,4 +49,43 @@ header span {
 .hamburger.show::before {
   content: "\00D7";
   font-size: 2rem;
+}
+
+.nav-menu {
+  display: none;
+  
+
+  ul {
+    list-style-type: none;
+  }
+
+  li {
+    padding: 15px;
+  }
+
+  li.current {
+    background-color: var(--accent-color-2);
+  }
+
+  li.current a {
+    color: gold;
+  }
+
+  & a:hover {
+    text-decoration: overline;
+  }
+
+  a {
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    color: var(--secondary-color);
+    border: solid 1px var(--primary-color);
+    padding: 1rem;
+  }
+
+  .show {
+    display: block;
+  }
 }
