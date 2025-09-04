@@ -11,26 +11,26 @@ body {
 }
 
 header {
-    font-family: "Baumans", system-ui;
-    display: grid;
-    grid-template-columns: 50px auto 44px;
-    align-items: center;
-    padding: 5px 0 5px 10px;
-    border-bottom: solid 1px var(--primary-color);
-    column-gap: 5px;
-}
+  font-family: "Baumans", system-ui;
+  display: grid;
+  grid-template-columns: 50px auto 44px;
+  align-items: center;
+  padding: 5px 0 5px 10px;
+  border-bottom: solid 1px var(--primary-color);
+  column-gap: 5px;
 
-header img {
+  img {
     display: block;
     width: 100%;
     height: auto;
-    
-}
 
-header span {
+  }
+
+  span {
   font-size: 1.5rem;
   color: var(--accent-color-2);
   padding-bottom: 2px;
+}
 }
 
 .hamburger {
@@ -54,13 +54,15 @@ header span {
 .nav-menu {
   display: none;
   
-
   ul {
     list-style-type: none;
+    padding: 0;
+    margin: 0;
   }
 
   li {
     padding: 15px;
+    background-color: var(--primary-color);
   }
 
   li.current {
@@ -71,8 +73,14 @@ header span {
     color: gold;
   }
 
-  & a:hover {
+  li:hover{
     text-decoration: overline;
+    color: var(--secondary-color);
+    background-color: gray;
+  }
+
+  li.current:hover {
+    color: gold;
   }
 
   a {
@@ -81,11 +89,10 @@ header span {
     font-size: 1.1rem;
     transition: all 0.3s ease;
     color: var(--secondary-color);
-    border: solid 1px var(--primary-color);
-    padding: 1rem;
+    padding: 0.8rem 0px;
   }
+}
 
-  .show {
-    display: block;
-  }
+.nav-menu.show {
+  display: block;
 }
