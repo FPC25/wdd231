@@ -53,36 +53,37 @@ header {
 .nav-menu {
   display: none;
   
-  ul {
+  & ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
 
-  li {
+  & li {
     padding: 15px;
     background-color: var(--primary-color);
   }
 
-  li.current {
+  & li.current {
     background-color: var(--accent-color-2);
   }
 
-  li.current a {
+  & li.current a {
     color: gold;
   }
 
-  li:hover{
+  & li:hover{
     text-decoration: overline;
     color: var(--secondary-color);
     background-color: gray;
+    transform: translateY(1px);
   }
 
-  li.current:hover {
-    color: gold;
+  & li.current:hover {
+    color: #ffd700;
   }
 
-  a {
+  & a {
     text-decoration: none;
     text-align: center;
     font-size: 1.1rem;
@@ -94,4 +95,44 @@ header {
 
 .nav-menu.show {
   display: block;
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 1rem 0px;
+}
+
+.footer-content p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    column-gap: 8px;
+
+    & a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      transition: all 0.3s ease;
+      width: 44px;
+      height: 44px;
+    }
+
+    & a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    & img {
+      width: 25px;
+      height: 25px;
+    }
 }
