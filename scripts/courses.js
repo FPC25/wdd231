@@ -85,6 +85,7 @@ const wddButton = document.querySelector('#wdd-btn');
 const cseButton = document.querySelector('#cse-btn');
 const filterButton = document.querySelectorAll('.filter-btn');
 const container = document.querySelector('#showcase');
+const summary = document.querySelector('#courses-summary');
 
 function credits(courses_array) {
     const completedCredits = courses_array.reduce((total, item) => item.completed ? total + item.credits : total, 0);
@@ -125,13 +126,13 @@ function filterCourses(event){
     filteredCourses.forEach(course => {
         const symbol = course.completed ? '\u2713' : '';
         container.innerHTML += `
-            <p class="${course.completed ? 'done' : 'not-done'}">
+            <div class="course-card class="${course.completed ? 'done' : 'not-done'}">
                 ${symbol} ${course.subject} ${course.number}
-            </p>
+            </div>
         `;
     });
 
-    container.innerHTML += `
+    summary.innerHTML += `
         <p class="credits">Total credits for the <strong>${filteredCourses.length}</strong> courses above: <strong>${total}</strong></p>
         <p class="credits">Credits completed: <strong>${completed}</strong> out of <strong>${total}</strong></p>
     `;
