@@ -6,7 +6,16 @@
     --contrast-color: #ffd700;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: var(--secondary-color);
   font-family: 'Lora', serif;
   padding: 0;
@@ -112,6 +121,7 @@ header {
 /* ================ Main ================ */
 
 main {
+  flex: 1 1 auto;
   h1, h2{
     font-family: "Baumans", system-ui;
   }
