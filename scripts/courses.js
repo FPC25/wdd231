@@ -1,3 +1,4 @@
+// creating courses list
 const courses = [
     {
         subject: 'CSE',
@@ -77,3 +78,14 @@ const courses = [
         completed: false
     }
 ]
+
+// creating DOM elements 
+const allButton = document.querySelector("#all-btn");
+const wddButton = document.querySelector("#wdd-btn");
+const cseButton = document.querySelector("#cse-btn");
+
+// adding select up when clicked behavior to filter button 
+navButton.addEventListener('click', () => {
+  navButton.classList.toggle('show');
+  
+});
