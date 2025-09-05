@@ -101,12 +101,13 @@ function filtering(string_filter) {
 }
 
 function filterCourses(){
-    if (filterButton.id == 'wdd-btn') {
+    if (filterButton.id === 'wdd-btn') {
         const { filtered_courses, completed, uncompleted, total } = filtering('WDD');
     } 
-    else if (filterButton.id == 'cse-btn') {
+    else if (filterButton.id === 'cse-btn') {
         const { filtered_courses, completed, uncompleted, total } = filtering('CSE');
-
+    } else if (filterButton.id === 'all-btn') {
+        const { completed, uncompleted, total } = credits(courses);
     }
 
 }
