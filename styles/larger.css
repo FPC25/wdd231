@@ -1,7 +1,7 @@
 @media only screen and (min-width: 38rem) {
 
-    header, main, nav, footer {
-        margin: 0 auto;
+    header, nav, footer {
+        margin: 0;
     }
 
     header {
