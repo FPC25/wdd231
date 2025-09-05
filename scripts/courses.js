@@ -80,12 +80,39 @@ const courses = [
 ]
 
 // creating DOM elements 
-const allButton = document.querySelector("#all-btn");
-const wddButton = document.querySelector("#wdd-btn");
-const cseButton = document.querySelector("#cse-btn");
+const allButton = document.querySelector('#all-btn');
+const wddButton = document.querySelector('#wdd-btn');
+const cseButton = document.querySelector('#cse-btn');
+const filterButton = document.querySelectorAll('.filter-btn')
+
+function credits(courses_array) {
+    const completed_credits = courses_array.reduce((total, item) => item.completed ? total + item.credits : total, 0);
+    const uncompleted_credits = courses_array.reduce((total, item) => !item.completed ? total + item.credits : total, 0);
+    const total_credits = completed_credits + uncompleted_credits;
+
+    return [completed_credits, uncompleted_credits, total_credits]
+}
+
+function filtering(string_filter) {
+    const filtered = courses.filter(item => item.subject === string_filter);
+    const [completed_credits, uncompleted_credits, total_credits]= credits(filtered);
+
+    return {filtered_courses: filtered, completed: completed_credits, uncompleted: uncompleted_credits, total: total_credits};
+}
+
+function filterCourses(){
+    if (filterButton.id == 'wdd-btn') {
+        const { filtered_courses, completed, uncompleted, total } = filtering('WDD');
+    } 
+    else if (filterButton.id == 'cse-btn') {
+        const { filtered_courses, completed, uncompleted, total } = filtering('CSE');
+
+    }
+
+}
 
 // adding select up when clicked behavior to filter button 
-navButton.addEventListener('click', () => {
-  navButton.classList.toggle('show');
+filterButton.forEach(btn => {
+    btn.addEventListener('click', filterCourses())
   
 });
