@@ -27,7 +27,6 @@ header {
     display: block;
     width: 100%;
     height: auto;
-
   }
 
   span {
@@ -47,52 +46,52 @@ header {
   color: var(--primary-color);
   cursor: pointer;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
 
-.hamburger::before {
-  content: "\2630";
-  font-size: 2rem;
-}
+  &::before {
+    content: "\2630";
+    font-size: 2rem;
+  }
 
-.hamburger.show::before {
-  content: "\00D7";
-  font-size: 2rem;
+  &.show::before {
+    content: "\00D7";
+    font-size: 2rem;
+  }
 }
 
 .nav-menu {
   display: none;
   font-weight:600 ;
   
-  & ul {
+  ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
 
-  & li {
+  li {
     padding: 15px;
     background-color: var(--primary-color);
   }
 
-  & li.current {
+  li.current {
     background-color: var(--accent-color-2);
   }
 
-  & li.current a {
+  li.current a {
     color: var(--contrast-color);
   }
 
-  & li:hover{
+  li:hover{
     text-decoration: overline;
     color: var(--secondary-color);
     background-color: gray;
   }
 
-  & li.current:hover {
+  li.current:hover {
     color:  var(--contrast-color);
   }
 
-  & a {
+  a {
     text-decoration: none;
     text-align: center;
     font-size: 1.1rem;
@@ -100,22 +99,22 @@ header {
     color: var(--secondary-color);
     padding: 0.8rem 0px;
   }
-}
 
-.nav-menu.show {
-  display: block;
+  &.show {
+    display: block;
+  }
 }
 
 main {
-  & h1, h2{
+  h1, h2{
     font-family: "Baumans", system-ui;
   }
 
-  & h1 {
+  h1 {
     padding: 0 0 0 12px;
   }
 
-  & h2 {
+  h2 {
     text-align: center;
     color: var(--secondary-color);
     background-color: var(--primary-color);
@@ -126,26 +125,25 @@ main {
     border-bottom: none;
   }
 
-  & section {
+  section {
     padding: 0 10px 10px 10px;
   }
 
-  & .my-info {
+  .my-info {
     display: grid;
-  }
 
-  & .my-info section {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
+    section {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+    }
   }
-
-  & .content, .photo, .courses {
+  .content, .photo, .courses {
     flex: 1 1 0;
     padding: 10px;
   }
 
-  & .content, .photo {
+  .content, .photo {
     background-color: var(--accent-color-1);
     border-radius: 0 0 10px 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -153,12 +151,12 @@ main {
     border-top: none;
   }
 
-  & .photo{
+  .photo{
     display: flex;
     justify-content: center;
     align-items: center;
 
-    & img {
+    img {
       max-width: 16rem;
       width: 500px;
       height: auto;
@@ -187,7 +185,7 @@ footer {
     justify-content: center;
     column-gap: 8px;
 
-    & a {
+    a {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -199,11 +197,11 @@ footer {
       height: 44px;
     }
 
-    & a:hover {
+    &:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    & img {
+    img {
       width: 25px;
       height: 25px;
     }
