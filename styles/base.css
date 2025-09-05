@@ -218,6 +218,16 @@ main {
       color: var(--secondary-color);
     }
 
+    .done {
+      background-color: rgb(11, 88, 11);
+      color: var(--secondary-color);
+    }
+
+    .not-done {
+      background-color: #920b0b;
+      color: var(--secondary-color);
+    }
+
     p {
       text-align: center;
     }
