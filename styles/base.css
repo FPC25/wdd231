@@ -64,7 +64,7 @@ header {
 
 .nav-menu {
   display: none;
-  font-weight:600 ;
+  font-weight: 600;
   
   ul {
     list-style-type: none;
@@ -149,7 +149,7 @@ main {
     padding: 10px;
   }
 
-  .content, .photo {
+  .content, .photo, .courses-showcase {
     background-color: var(--accent-color-1);
     border-radius: 0 0 10px 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -171,6 +171,58 @@ main {
       border-radius: 10px;
     }
   }
+
+  .buttons {
+    display: flex;
+    justify-content: center;   
+    align-items: center;
+    gap: 3rem;                 
+    padding: 10px;
+    margin: 0 auto;   
+    border: 0;
+    width: fit-content;
+    
+    .filter-btn {
+      padding: 10px 0;
+      width: 7rem;
+      background-color: var(--secondary-color);
+      font-weight: 600;
+      border-radius: 10px;
+
+      &.selected {
+        background-color: var(--accent-color-2);
+        color: var(--contrast-color);
+      }
+
+      &:hover {
+        text-decoration: overline;
+        color: var(--contrast-color);
+        background-color: var(--accent-color-2);
+      }
+
+      &:hover.selected {
+        color: var(--accent-color-2);
+        background-color: var(--contrast-color);
+      }
+    }
+  }
+
+  .courses {
+    
+    .done, .not-done {
+      text-align: center;
+      border: solid 1px gray;
+      border-radius: 5px;
+      padding: 5px 10px;
+      background-color: var(--accent-color-2);
+      color: var(--secondary-color);
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+  
 }
 
 /* ================ Footer ================ */
