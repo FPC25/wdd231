@@ -211,7 +211,6 @@ main {
   }
 
   .courses {
-    
     .done, .not-done {
       text-align: center;
       border: solid 1px gray;
