@@ -13,6 +13,8 @@ body {
   margin: 0;
 }
 
+/* ================ Header ================ */
+
 header {
   font-family: "Baumans", system-ui;
   display: grid;
@@ -57,6 +59,8 @@ header {
     font-size: 2rem;
   }
 }
+
+/* ================ Navigation ================ */
 
 .nav-menu {
   display: none;
@@ -104,6 +108,8 @@ header {
     display: block;
   }
 }
+
+/* ================ Main ================ */
 
 main {
   h1, h2{
@@ -166,6 +172,8 @@ main {
     }
   }
 }
+
+/* ================ Footer ================ */
 
 footer {
     background-color: var(--primary-color);
