@@ -7,10 +7,10 @@
     header {
         grid-template-columns: 50px auto;
         border-bottom: none;
-
-        span {
-            font-size: xx-large;
-        }
+    }
+    
+    header span {
+        font-size: xx-large;
     }
 
     .hamburger {
@@ -20,29 +20,29 @@
     .nav-menu {
         display: block;
         text-align: center;
+    }
 
-        ul {
-            display: flex;
-            padding: 0;
-            margin: 0;
-            border: 0;
-            align-items: center;
-            justify-content: center;
-        }
+    .nav-menu ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        align-items: center;
+        justify-content: center;
+    }
 
-        li {
-            background-color: var(--primary-color);
-            flex: 1 1 100%;
-            text-wrap: nowrap;
-        }
+    .nav-menu li {
+        background-color: var(--primary-color);
+        flex: 1 1 100%;
+        text-wrap: nowrap;
+    }
 
-        & li:hover{
-            border: none
-        }
+    .nav-menu li:hover{
+        border: none
+    }
 
-        a {
-            border: none;
-        }
+    .nav-menu a {
+        border: none;
     }
 
     .my-info {
