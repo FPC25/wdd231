@@ -274,10 +274,10 @@ footer {
       transition: all 0.3s ease;
       width: 44px;
       height: 44px;
-    }
-
-    &:hover {
+    
+      &:hover {
       background-color: rgba(255, 255, 255, 0.1);
+      }
     }
 
     img {
