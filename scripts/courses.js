@@ -126,13 +126,13 @@ function filterCourses(event){
     filteredCourses.forEach(course => {
         const symbol = course.completed ? '\u2713' : '';
         container.innerHTML += `
-            <div class="course-card class="${course.completed ? 'done' : 'not-done'}">
+            <div class="course-card ${course.completed ? 'done' : 'not-done'}">
                 ${symbol} ${course.subject} ${course.number}
             </div>
         `;
     });
 
-    summary.innerHTML += `
+    summary.innerHTML = `
         <p class="credits">Total credits for the <strong>${filteredCourses.length}</strong> courses above: <strong>${total}</strong></p>
         <p class="credits">Credits completed: <strong>${completed}</strong> out of <strong>${total}</strong></p>
     `;
