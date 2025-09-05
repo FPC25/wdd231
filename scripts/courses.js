@@ -95,9 +95,9 @@ function credits(courses_array) {
 
 function filtering(string_filter) {
     const filtered = courses.filter(item => item.subject === string_filter);
-    const { completedCredits, totalCredits } = credits(filtered);
+    ({ completed: completedCredits, total: totalCredits } = credits(filtered));
 
-    return {filteredCourses: filtered, completed: completedCredits, total: totalCredits};
+    return { filteredCourses: filtered, completed: completedCredits, total: totalCredits };
 }
 
 function filterCourses(event){
@@ -105,6 +105,10 @@ function filterCourses(event){
     let completed = 0;
     let total = 0;
     const btn = event.currentTarget;
+
+    filterButton.forEach(b => b.classList.remove('selected'));
+
+    btn.classList.toggle('selected');
 
     if (btn.id === 'wdd-btn') {
         ({ filteredCourses, completed, total } = filtering('WDD'));
@@ -128,8 +132,8 @@ function filterCourses(event){
     });
 
     container.innerHTML += `
-        <p>Total credits for the <strong>${filteredCourses.length}</strong> courses above: <strong>${total}</strong></p>
-        <p>Credits completed: <strong>${completed}</strong> out of <strong>${total}</strong></p>
+        <p class="credits">Total credits for the <strong>${filteredCourses.length}</strong> courses above: <strong>${total}</strong></p>
+        <p class="credits">Credits completed: <strong>${completed}</strong> out of <strong>${total}</strong></p>
     `;
 }
 
