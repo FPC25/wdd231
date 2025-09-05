@@ -210,14 +210,17 @@ main {
     }
   }
 
-  .courses {
-    .done, .not-done {
+  .courses-showcase {
+    .course-card {
       text-align: center;
       border: solid 1px gray;
       border-radius: 5px;
-      padding: 5px 10px;
-      background-color: var(--accent-color-2);
-      color: var(--secondary-color);
+      padding: 7px 10px;
+      margin: 5px;
+    }
+
+    .course-card:nth-last-child {
+      margin: 0;
     }
 
     .done {
