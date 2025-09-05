@@ -132,7 +132,6 @@ main {
 
   & .my-info {
     display: grid;
-    gap: 10px;
   }
 
   & .my-info section {
