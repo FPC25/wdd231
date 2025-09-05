@@ -83,37 +83,60 @@ const courses = [
 const allButton = document.querySelector('#all-btn');
 const wddButton = document.querySelector('#wdd-btn');
 const cseButton = document.querySelector('#cse-btn');
-const filterButton = document.querySelectorAll('.filter-btn')
+const filterButton = document.querySelectorAll('.filter-btn');
+const container = document.querySelector('#showcase');
 
 function credits(courses_array) {
-    const completed_credits = courses_array.reduce((total, item) => item.completed ? total + item.credits : total, 0);
-    const uncompleted_credits = courses_array.reduce((total, item) => !item.completed ? total + item.credits : total, 0);
-    const total_credits = completed_credits + uncompleted_credits;
+    const completedCredits = courses_array.reduce((total, item) => item.completed ? total + item.credits : total, 0);
+    const totalCredits = courses_array.reduce((total, item) => total + item.credits, 0);
 
-    return [completed_credits, uncompleted_credits, total_credits]
+    return { completed: completedCredits, total: totalCredits }
 }
 
 function filtering(string_filter) {
     const filtered = courses.filter(item => item.subject === string_filter);
-    const [completed_credits, uncompleted_credits, total_credits]= credits(filtered);
+    const { completedCredits, totalCredits } = credits(filtered);
 
-    return {filtered_courses: filtered, completed: completed_credits, uncompleted: uncompleted_credits, total: total_credits};
+    return {filteredCourses: filtered, completed: completedCredits, total: totalCredits};
 }
 
-function filterCourses(){
-    if (filterButton.id === 'wdd-btn') {
-        const { filtered_courses, completed, uncompleted, total } = filtering('WDD');
+function filterCourses(event){
+    let filteredCourses = [];
+    let completed = 0;
+    let total = 0;
+    const btn = event.currentTarget;
+
+    if (btn.id === 'wdd-btn') {
+        ({ filteredCourses, completed, total } = filtering('WDD'));
     } 
-    else if (filterButton.id === 'cse-btn') {
-        const { filtered_courses, completed, uncompleted, total } = filtering('CSE');
-    } else if (filterButton.id === 'all-btn') {
-        const { completed, uncompleted, total } = credits(courses);
+    else if (btn.id === 'cse-btn') {
+        ({ filteredCourses, completed, total } = filtering('CSE'));
+    } else if (btn.id === 'all-btn') {
+        ({ completed, total } = credits(courses));
+        filteredCourses = courses;
     }
 
+    container.innerHTML = '';
+
+    filteredCourses.forEach(course => {
+        const symbol = course.completed ? '\u2713' : '';
+        container.innerHTML += `
+            <p class="${course.completed ? 'done' : 'not-done'}">
+                ${symbol} ${course.subject} ${course.number}
+            </p>
+        `;
+    });
+
+    container.innerHTML += `
+        <p>Total credits for the <strong>${filteredCourses.length}</strong> courses above: <strong>${total}</strong></p>
+        <p>Credits completed: <strong>${completed}</strong> out of <strong>${total}</strong></p>
+    `;
 }
 
 // adding select up when clicked behavior to filter button 
 filterButton.forEach(btn => {
-    btn.addEventListener('click', filterCourses())
+    btn.addEventListener('click', filterCourses)
   
 });
+
+filterCourses({ currentTarget: allButton });
