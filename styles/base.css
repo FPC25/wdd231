@@ -1,6 +1,6 @@
 * {
   --primary-color: #2d3250;
-  --secondary-color: #ddd;
+  --secondary-color: #EBEBEB;
   --accent-color-1: #57096727;
   --accent-color-2: #2d3250;
   --contrast-color: #ffd700;
@@ -236,12 +236,12 @@ main section {
 }
 
 .done {
-  background-color: rgb(11, 88, 11);
+  background-color: #084008;
   color: var(--secondary-color);
 }
 
 .not-done {
-  background-color: #920b0b;
+  background-color: #720909;
   color: var(--secondary-color);
 }
 
