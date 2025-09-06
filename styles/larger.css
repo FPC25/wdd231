@@ -67,4 +67,8 @@
         width: 95%;
         box-sizing: border-box;
     }
+
+    .summary p,.content p{
+        font-size: large;
+    }
 }
