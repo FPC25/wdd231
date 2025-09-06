@@ -7,10 +7,10 @@
     header {
         grid-template-columns: 50px auto;
         border-bottom: none;
-
-        span {
-            font-size: xx-large;
-        }
+    }
+    
+    header span {
+        font-size: xx-large;
     }
 
     .hamburger {
