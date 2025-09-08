@@ -1,7 +1,7 @@
 * {
   --primary-color: #2d3250;
   --secondary-color: #EBEBEB;
-  --accent-color-1: #57096727;
+  --accent-color-1: #d4c8d7;
   --accent-color-2: #2d3250;
   --contrast-color: #ffd700;
 }
@@ -223,6 +223,8 @@ main section {
 }
 
 .courses {
+  display: flex;
+  flex-direction: column;
   width: 95%;
   margin: 0 auto;
 }
@@ -250,10 +252,53 @@ main section {
   color: var(--secondary-color);
 }
 
-
 .courses-showcase p {
   text-align: center;
 }
+
+/* ================ Dialog ================ */
+
+#course-details {
+  width: 90%;
+  background-color: var(--accent-color-1);
+  border-radius:25px;
+  font-size: large;
+}
+
+#course-details h3, h4, strong{
+  font-family: "Baumans", system-ui;
+}
+
+#course-details h3, h4 {
+  text-align: center;
+}
+
+#course-details h3 {
+  font-size: x-large;
+}
+
+#course-details h4 {
+  font-size: larger;
+}
+
+#course-details p {
+  text-align: left;
+}
+
+#course-details::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);     
+}
+
+#closeButton {
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--accent-color-2);
+  color: var(--contrast-color);
+  font-weight: 700;
+}
+
 
 /* ================ Footer ================ */
 

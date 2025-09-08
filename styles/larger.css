@@ -71,4 +71,9 @@
     .summary p,.content p{
         font-size: large;
     }
+
+    #closeButton {
+        width: 44px;
+        height: 44px;
+    }
 }
