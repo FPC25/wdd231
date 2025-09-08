@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+
     <meta charset="UTF-8">
     <meta name="author" content="Felipe Proença Corral">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Landing page for Felipe Proença Corral's WDD 231 page">
+
     <title>WDD 231 Student Info: Felipe Proença Corral</title>
+
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/larger.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baumans&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <script src="scripts/nav.js" defer></script>
     <script src="scripts/courses.js" defer></script>
     <script src="scripts/dates.js" defer></script>
+
 </head>
 <body>
     <header>
@@ -22,6 +28,7 @@
         <span>WDD 231 - Web Frontend Development I</span>
         <button id="ham-btn" class="hamburger" aria-label="navigation"></button>
     </header>
+
     <nav id="nav-bar" class="nav-menu">
         <ul>
             <li class="current"><a href="https://fpc25.github.io/wdd231/index.html">Home</a></li>
@@ -29,8 +36,10 @@
             <li><a href="#">Final Project</a></li>
         </ul>
     </nav>
+
     <main>
         <h1>WDD 231 Student Info: Felipe Proença Corral</h1>
+
         <div class="my-info">
             <section>
                 <h2>About Me</h2>
@@ -43,6 +52,7 @@
                     </p>            
                 </div>
             </section>
+
             <section>
                 <h2>Student Photo</h2>
                 <div class="photo">
@@ -50,6 +60,7 @@
                 </div>
             </section>
         </div>
+
         <section >
             <h2>Web Certificate Courses</h2>
             <div class="courses-showcase">
@@ -59,10 +70,12 @@
                     <button id="wdd-btn" class="filter-btn" aria-label="wdd-filter">WDD</button>
                 </div>
                 <div class="courses" id="showcase"></div>
+                <dialog id="course-details"></dialog>
                 <div class="summary" id="courses-summary"></div>
             </div>
         </section>
     </main>
+
     <footer>
         <div class="social">
             <a href="https://www.linkedin.com/in/felipe-proenca-corral/" target="_blank">
@@ -75,11 +88,11 @@
                 <img src="./images/instagram.svg" alt="Instagram logo" width="16" height="16">
             </a> 
         </div>
-
         <p>
             &copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral &#128187; São Paulo, Brazil
         </p>
         <p id="lastModified"></p>
     </footer>
+
 </body>
 </html>

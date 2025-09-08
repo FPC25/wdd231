@@ -80,13 +80,22 @@ const courses = [
 ]
 
 // creating DOM elements 
+
+// filtering buttons
 const allButton = document.querySelector('#all-btn');
-const wddButton = document.querySelector('#wdd-btn');
-const cseButton = document.querySelector('#cse-btn');
 const filterButton = document.querySelectorAll('.filter-btn');
+
+// display cases
 const container = document.querySelector('#showcase');
 const summary = document.querySelector('#courses-summary');
 
+// dialog pop up window
+const dialog = document.querySelector('#course-details')
+
+
+//functions
+
+// function to calculate the total amount of credits and completed credits
 function credits(courses_array) {
     const completedCredits = courses_array.reduce((total, item) => item.completed ? total + item.credits : total, 0);
     const totalCredits = courses_array.reduce((total, item) => total + item.credits, 0);
@@ -94,6 +103,7 @@ function credits(courses_array) {
     return { completed: completedCredits, total: totalCredits }
 }
 
+// function to filter the selected credits given a string 
 function filtering(string_filter) {
     const filtered = courses.filter(item => item.subject === string_filter);
     ({ completed: completedCredits, total: totalCredits } = credits(filtered));
@@ -101,6 +111,24 @@ function filtering(string_filter) {
     return { filteredCourses: filtered, completed: completedCredits, total: totalCredits };
 }
 
+function displayCourseDetails(course) {
+    dialog.innerHTML = `
+        <button id="closeButton">X</button>
+        <h3>${course.subject} ${course.number}</h3>
+        <h4>${course.title}</h4>
+        <p><strong>Credits</strong>: ${course.credits}</p>
+        <p>${course.description}</p>
+        <p><strong>Technologies</strong>: ${course.technology.join(
+        ", ")}</p>
+    `;
+
+    dialog.showModal();
+    document.getElementById("closeButton").addEventListener("click", () => {
+        dialog.close();
+    });
+}
+
+// main filtering function that builds the html to display the courses
 function filterCourses(event){
     let filteredCourses = [];
     let completed = 0;
@@ -113,6 +141,10 @@ function filterCourses(event){
 
     if (btn.id === 'wdd-btn') {
         ({ filteredCourses, completed, total } = filtering('WDD'));
+        const filtered = courses.filter(item => item.subject === string_filter);
+        const totalCredits = courses_array.reduce((total, item) => total + item.credits, 0);
+
+
     } 
     else if (btn.id === 'cse-btn') {
         ({ filteredCourses, completed, total } = filtering('CSE'));
@@ -126,10 +158,17 @@ function filterCourses(event){
     filteredCourses.forEach(course => {
         const symbol = course.completed ? '\u2713' : '';
         container.innerHTML += `
-            <div class="course-card ${course.completed ? 'done' : 'not-done'}">
+            <button type="button" class="course-card ${course.completed ? 'done' : 'not-done'}">
                 ${symbol} ${course.subject} ${course.number}
-            </div>
+            </button>
         `;
+    });
+
+    const courseCards = container.querySelectorAll('.course-card');
+    courseCards.forEach((card, idx) => {
+        card.addEventListener('click', () => {
+            displayCourseDetails(filteredCourses[idx]);
+        });
     });
 
     summary.innerHTML = `

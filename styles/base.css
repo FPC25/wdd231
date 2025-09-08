@@ -235,6 +235,11 @@ main section {
   margin: 5px;
 }
 
+.course-card:focus {
+  outline: 2px solid var(--accent-color-2, #2d3250);
+  outline-offset: 2px;
+}
+
 .done {
   background-color: #084008;
   color: var(--secondary-color);
@@ -244,6 +249,7 @@ main section {
   background-color: #720909;
   color: var(--secondary-color);
 }
+
 
 .courses-showcase p {
   text-align: center;
