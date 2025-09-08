@@ -117,6 +117,7 @@ function displayCourseDetails(course) {
         <h3>${course.subject} ${course.number}</h3>
         <h4>${course.title}</h4>
         <p><strong>Credits</strong>: ${course.credits}</p>
+        <p><strong>Description</strong>:</p>
         <p>${course.description}</p>
         <p><strong>Technologies</strong>: ${course.technology.join(
         ", ")}</p>
