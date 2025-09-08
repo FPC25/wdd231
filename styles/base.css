@@ -261,6 +261,7 @@ main section {
 #course-details {
   width: 90%;
   background-color: var(--accent-color-1);
+  border: solid 2px;
   border-radius:25px;
   font-size: large;
 }
