@@ -1,0 +1,13 @@
+* {
+  --primary-color: #2d3250;
+  --secondary-color: #EBEBEB;
+  --accent-color-1: #d4c8d7;
+  --accent-color-2: #2d3250;
+  --contrast-color: #ffd700;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
