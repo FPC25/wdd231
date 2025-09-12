@@ -1,13 +1,191 @@
 * {
   --primary-color: #2d3250;
-  --secondary-color: #EBEBEB;
+  --secondary-color: #ffd700;
+  --background-color: #EBEBEB;
   --accent-color-1: #d4c8d7;
-  --accent-color-2: #2d3250;
-  --contrast-color: #ffd700;
+  --contrast-color: #8a1c58;
 }
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  font-family: 'Roboto', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+/* ================ Header ================ */
+
+header {
+  font-family: "Merriweather";
+  display: grid;
+  grid-template-columns: 50px auto 44px 44px;
+  align-items: center;
+  padding: 5px 10px;
+  column-gap: 10px;
+  background-color: var(--accent-color-1);
+  border-bottom: solid 1px var(--primary-color);
+}
+
+header img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+header span {
+  font-size: x-large;
+  color: black;
+}
+
+header.no-border {
+  border-bottom: none;
+}
+
+.hamburger {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.hamburger::before {
+  content: "\2630";
+  font-size: 2rem;
+}
+
+.hamburger.show::before {
+  content: "\00D7";
+  font-size: 2rem;
+}
+
+.dark {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 4rem;
+  margin: auto 0;
+  padding: 0 5px;
+  padding-bottom: 10px;
+}
+
+.dark::before{
+  content: "\25D1";
+  font-weight: bold;
+}
+
+.dark::before.show {
+  content: "\25D0";
+}
+
+/* ================ Navigation ================ */
+
+.nav-menu {
+  display: none;
+  font-weight: 600;
+}
+
+.nav-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu li {
+  padding: 15px;
+  background-color: var(--primary-color);
+}
+
+.nav-menu li.current {
+  background-color: var(--contrast-color);
+}
+
+.nav-menu li.current a {
+  color: var(--secondary-color);
+}
+
+.nav-menu li:hover {
+  text-decoration: overline;
+  color: var(--secondary-color);
+  background-color: gray;
+}
+
+.nav-menu li.current:hover {
+  color: var(--secondary-color);
+}
+
+.nav-menu a {
+  text-decoration: none;
+  text-align: center;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  color: var(--secondary-color);
+  padding: 0.8rem 0px;
+}
+
+.nav-menu.show {
+  display: block;
+}
+
+/* ================ Main ================ */
+
+/* ================ Dialog ================ */
+
+/* ================ Footer ================ */
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5rem 0;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 0.5rem 0px;
+  font-size: 1rem;
+}
+
+.cc-info, .my-info {
+  max-width: 900px;      
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: left;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 8px;
+  padding: 0.5rem;
+  margin: 0 auto;
+}
+
+.social a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
+  width: 44px;
+  height: 44px;
+}
+
+.social a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.social img {
+  width: 30px;
+  height: 30px;
 }
