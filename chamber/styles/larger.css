@@ -3,6 +3,69 @@
     header, nav, footer {
         margin: 0;
     }
+    header {
+        grid-template-columns: 50px auto auto 50px;
+        border-bottom: none;
+    }
+    
+    header span {
+        font-size: xx-large;
+    }
+
+    .hamburger {
+        display: none;
+    }
+
+    .nav-menu {
+        display: block;
+        text-align: center;
+    }
+
+    .nav-menu ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-menu li {
+        background-color: var(--accent-color);
+        flex: 1 1 100%;
+        text-wrap: nowrap;
+    }
+
+    .nav-menu li.current {
+        background-color: var(--accent-color);
+    }
+
+    .nav-menu li.current a {
+        color: black;
+        position: relative;
+        padding-bottom: 0;
+    }
+    .nav-menu li.current a::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: black;
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+    }
+
+    .nav-menu li:hover{
+        border: none;
+        background-color: var(--accent-color);
+        text-decoration: underline;
+    }
+    
+    .nav-menu a {
+        border: none;
+        color: black;
+    }
 
     footer {
         display: grid;
