@@ -17,8 +17,12 @@
     }
 
     .nav-menu {
+        position: static;
+        width: auto;
         display: block;
         text-align: center;
+        background: none;
+        box-shadow: none;
     }
 
     .nav-menu ul {
@@ -59,7 +63,7 @@
     .nav-menu li:hover{
         border: none;
         background-color: var(--accent-color);
-        text-decoration: underline;
+        text-decoration: none;
     }
     
     .nav-menu a {
