@@ -21,8 +21,8 @@
         width: auto;
         display: block;
         text-align: center;
-        background: none;
         box-shadow: none;
+        background-color: transparent;
     }
 
     .nav-menu ul {
@@ -35,13 +35,13 @@
     }
 
     .nav-menu li {
-        background-color: var(--accent-color);
+        background-color: transparent;
         flex: 1 1 100%;
         text-wrap: nowrap;
     }
 
     .nav-menu li.current {
-        background-color: var(--accent-color);
+        background-color: transparent;
     }
 
     .nav-menu li.current a {
@@ -62,7 +62,7 @@
 
     .nav-menu li:hover{
         border: none;
-        background-color: var(--accent-color);
+        background-color: transparent;
         text-decoration: none;
     }
     

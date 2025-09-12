@@ -72,7 +72,7 @@ header.no-border {
 .dark {
   background: none;
   border: none;
-  color: var(--primary-color);
+  color: black;
   cursor: pointer;
   font-size: 4rem;
   margin: auto 0;
@@ -81,14 +81,13 @@ header.no-border {
 }
 
 .dark::before{
-  color: black;
   content: "\25D1";
   font-weight: bold;
 }
 
 .dark::before.show {
   content: "\25D0";
-  color: black;
+  font-weight: bold;
 }
 
 /* ================ Navigation ================ */
@@ -97,12 +96,11 @@ header.no-border {
   display: none;
   font-weight: 600;
   position: absolute;
-  top: 100%;      /* Logo abaixo do header */
+  top: 100%;
   left: 0;
-  width: 100vw;   /* Ocupa toda a largura da tela */
+  width: 100vw;
   z-index: 1000;
   background-color: var(--primary-color);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .nav-menu ul {
