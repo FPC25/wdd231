@@ -192,7 +192,7 @@ main {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1rem;
   padding: 1.5rem 0;
 }
@@ -207,10 +207,11 @@ main {
   border-radius: 12px;
   box-shadow: 0 2px 20px rgba(0,0,0, 0.3);
   padding: 0;
+  margin-right: 15px;
   padding-bottom: 5px;
-  min-height: 160px;
-  min-width: 350px;
+  min-width: 320px;
   max-width: 800px;
+  width: 80%;
   margin: 0 10px;
   border: solid 1px var(--primary-color);
 }
@@ -224,24 +225,27 @@ main {
   color: var(--secondary-color);
   padding: 10px auto;
   border-radius: 10px 10px 0 0;
+  min-width: 320px;
+  width: 100%;
 }
 
 .card > .name h2, 
 .card > .name p {
   grid-column: 1;
   justify-self: center; 
-  text-align: center;
-  padding-left: 50px;
+  text-align: left;
 }
 
 .card > .name h2 {
   font-family: "Merriweather";
-  font-size: x-large;
+  font-size: large;
 }
 
 .card > .name p {
   font-size: smaller;
   padding-bottom: 10px;
+  word-break: break-word;
+  width: 90%;
 }
 
 .card > .name div {
@@ -254,7 +258,7 @@ main {
 .card > .name div img {
   width: 25px;
   height: 25px;
-  padding-right: 10px;
+  padding-right: 20px;
 }
 
 /* Left: logo/photo */
@@ -266,9 +270,10 @@ main {
 }
 
 .card > .photo img {
-  width: 110px;
-  height: 110px;
+  width: 90%;
+  height: auto;
   border-radius: 10px;
+  margin-left: 5px;
 }
 
 /* Right: info */
@@ -279,12 +284,13 @@ main {
   justify-content: center;
   text-align: left;
 }
-.card p {
+.card > .info p {
   font-size: 1rem;
   padding: 0;
   margin: 0.6rem 0;
+  word-break: break-word;
 }
-.card a {
+.card > .info a {
   color: var(--primary-color);
   text-decoration: underline;
   margin: 0.6rem 0;
@@ -310,7 +316,7 @@ main {
   padding: 1.2rem 1.5rem;
   margin: 0 auto;
   max-width: 700px;
-  width: 90%;
+  width: 80%;
   display: flex;
   flex-direction: column;
 }
@@ -346,11 +352,12 @@ main {
 footer {
   display: flex;
   flex-wrap: wrap;
-  margin: 0.5rem 0;
+  margin-top: auto;
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  padding: 0.5rem 0px;
+  padding: 1.5rem 0;
   font-size: 1rem;
+  width: 100%;
 }
 
 .cc-info, .my-info {
@@ -358,14 +365,25 @@ footer {
   margin: 0 auto;
   padding: 1rem;
   text-align: left;
+  width: 90%;
+}
+
+.cc-info {
+  padding-bottom: 1.5rem;
+  margin-bottom: 1rem;
+} 
+
+.cc-info p {
+  margin: 0.3rem 0;
+  line-height: 1.4;
 }
 
 .social {
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 8px;
-  padding: 0.5rem;
+  column-gap: 15px;
+  padding: 1rem 0;
   margin: 0 auto;
 }
 
@@ -382,10 +400,17 @@ footer {
 }
 
 .social a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--contrast-color);
 }
 
 .social img {
   width: 30px;
   height: 30px;
+}
+
+
+.my-info p {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+  line-height: 1.3;
 }
