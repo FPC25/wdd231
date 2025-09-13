@@ -270,8 +270,8 @@ main {
 }
 
 .card > .photo img {
-  width: 90%;
-  height: auto;
+  width: 90px;
+  height: 90px;
   border-radius: 10px;
   margin-left: 5px;
 }
