@@ -125,11 +125,12 @@ header.no-border {
 .nav-menu li:hover {
   text-decoration: overline;
   color: var(--secondary-color);
-  background-color: gray;
+  background-color: var(--contrast-color);
 }
 
 .nav-menu li.current:hover {
   color: var(--secondary-color);
+  background-color: gray;
 }
 
 .nav-menu a {
@@ -146,8 +147,38 @@ header.no-border {
 }
 
 /* ================ Main ================ */
+.menu {
+  display: grid;
+  grid-template-columns: auto 44px 44px;
+  padding: 0 35px 0 15px;
+  align-items: center;
+  gap: 10px;
+}
 
-/* ================ Dialog ================ */
+.menu span {
+  font-family: "Merriweather";
+  font-size: xx-large;
+}
+
+.layout {
+  padding: 10px;
+  margin: 10px;
+  width: 50px;
+  height: auto;
+  background-color: var(--accent-color);
+  border-radius: 10px;
+}
+
+.layout:hover {
+  background-color: var(--contrast-color);
+}
+
+.layout img {
+  width: 1.1rem;
+  height: auto;
+  padding: 0;
+}
+
 
 /* ================ Footer ================ */
 
