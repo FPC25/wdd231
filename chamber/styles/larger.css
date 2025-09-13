@@ -5,7 +5,6 @@
     }
     header {
         grid-template-columns: 50px auto auto 50px;
-        border-bottom: none;
     }
     
     header span {
@@ -65,10 +64,18 @@
         background-color: transparent;
         text-decoration: none;
     }
+
+    .nav-menu li.current:hover{
+        background-color: transparent;
+    }
     
     .nav-menu a {
         border: none;
         color: black;
+    }
+
+    main {
+        height: 100vh;
     }
 
     footer {
