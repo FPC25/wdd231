@@ -7,11 +7,13 @@ const companies = document.querySelector('#companies');
 async function getCompanyData() {
     const response = await fetch(url);
     const data = await response.json();
-    displayCompanies(data.members);
+    console.log(data)
+    displayCompanies(data);
 }
 
 const displayCompanies = (Companies) => {
     Companies.forEach((company) => {
+        console.log(company)
         let card = document.createElement('section');
         let namePlace = document.createElement('div');
         let name = document.createElement('h2');
@@ -52,7 +54,7 @@ const displayCompanies = (Companies) => {
         namePlace.appendChild(memberStatus);
 
         // populating company logo
-        logo.setAttribute(company.image);
+        logo.setAttribute('src', company.image);
         logo.setAttribute('alt', `${company.name} trademark`);
         logo.setAttribute('loading', 'lazy');
         logo.setAttribute('width', '1024');
@@ -80,7 +82,7 @@ const displayCompanies = (Companies) => {
         card.appendChild(infoPlace);
 
         // populating cards
-        cards.appendChild(card);
+        companies.appendChild(card);
     });
 }
 
