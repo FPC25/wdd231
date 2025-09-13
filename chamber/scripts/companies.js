@@ -7,13 +7,11 @@ const companies = document.querySelector('#companies');
 async function getCompanyData() {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data)
     displayCompanies(data);
 }
 
 const displayCompanies = (Companies) => {
     Companies.forEach((company) => {
-        console.log(company)
         let card = document.createElement('section');
         let namePlace = document.createElement('div');
         let name = document.createElement('h2');
