@@ -7,10 +7,11 @@ const companies = document.querySelector('#companies');
 async function getCompanyData() {
     const response = await fetch(url);
     const data = await response.json();
-    displayCompanies(data);
+
+    return data;
 }
 
-const displayCompanies = (Companies) => {
+const displayGridCompanies = (Companies) => {
     Companies.forEach((company) => {
         let card = document.createElement('section');
 
@@ -36,15 +37,18 @@ const displayCompanies = (Companies) => {
         address.textContent = `${company.address}`;
 
         namePlace.appendChild(name);
-        namePlace.appendChild(address)
+        namePlace.appendChild(address);
 
-        let status = company.membershipLevel
+        let status = company.membershipLevel;
         if (status === 3) {
             memberStatus.setAttribute('src', `images/goldCard.svg`);
+            memberStatus.classList.add('gold');
         } else if (status === 2) {
             memberStatus.setAttribute('src', `images/silverCard.svg`);
+            memberStatus.classList.add('silver');
         } else {
             memberStatus.setAttribute('src', `images/memberCard.svg`);
+            memberStatus.classList.add('member');
         }
         
         memberStatus.setAttribute('alt', `Member status card`);
@@ -76,8 +80,9 @@ const displayCompanies = (Companies) => {
         infoPlace.appendChild(contact);
         infoPlace.appendChild(url);
 
-        // populating the card
+        // adding the card class
         card.classList.add('card');
+        card.classList.remove('line');
 
         card.appendChild(namePlace);
         card.appendChild(photoPlace);  
@@ -88,12 +93,53 @@ const displayCompanies = (Companies) => {
     });
 }
 
+const displayListCompanies = (Companies) => {
+    Companies.forEach((company) => {
+        let card = document.createElement('section');
+        let name = document.createElement('h2');
+        let address = document.createElement('p');
+        let memberStatus = document.createElement('p');
+        let phone = document.createElement('p');
+        let contact = document.createElement('p');
+        let url = document.createElement('a');
+
+        name.textContent = `${company.name}`;
+        address.textContent = `${company.address}`;
+        phone.textContent = `${company.phone}`;
+        contact.textContent = `${company.contact}`;
+
+        url.setAttribute('href', company.website);
+        url.setAttribute('target', '_blank');
+        url.textContent = "Company webpage";
+
+        let status = company.membershipLevel;
+        if (status === 3) {
+            memberStatus.textContent = `Gold`;
+        } else if (status === 2) {
+            memberStatus.textContent = `Silver`;
+        } else {
+            memberStatus.textContent = `Member`;
+        }
+
+        card.appendChild(name);
+        card.appendChild(address);
+        card.appendChild(memberStatus);
+        card.appendChild(phone);
+        card.appendChild(contact);
+        card.appendChild(url);
+
+        card.classList.add('line');
+        card.classList.remove('card');
+    });
+}
+
 function toggleView(view) {
     companies.classList.toggle('list', view === 'list');
     companies.classList.toggle('grid', view === 'grid');
 }
 
-getCompanyData();
-
-listButton.addEventListener("click", () => toggleView('list'));
-gridButton.addEventListener("click", () => toggleView('grid'));
+getCompanyData().then(data => {
+    displayGridCompanies(data);
+    listButton.addEventListener("click", () => toggleView('list'));
+    gridButton.addEventListener("click", () => toggleView('grid'));
+});
