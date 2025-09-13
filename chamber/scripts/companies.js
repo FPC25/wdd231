@@ -13,19 +13,23 @@ async function getCompanyData() {
 const displayCompanies = (Companies) => {
     Companies.forEach((company) => {
         let card = document.createElement('section');
+
         let namePlace = document.createElement('div');
+        namePlace.classList.add('name');
         let name = document.createElement('h2');
-        let memberStatus = document.createElement('img');
         let address = document.createElement('p');
+        let memberStatusShowcase = document.createElement('div');
+        let memberStatus = document.createElement('img');
 
         let photoPlace = document.createElement('div');
+        photoPlace.classList.add("photo");
         let logo = document.createElement('img');
         
         let infoPlace = document.createElement('div');
+        infoPlace.classList.add('info')
         let phone = document.createElement('p');
         let contact = document.createElement('p');
         let url = document.createElement('a');
-        
 
         // populating company title
         name.textContent = `${company.name}`;
@@ -36,20 +40,20 @@ const displayCompanies = (Companies) => {
 
         let status = company.membershipLevel
         if (status === 3) {
-            memberStatus.classList.add('gold');
+            memberStatus.setAttribute('src', `images/goldCard.svg`);
         } else if (status === 2) {
-            memberStatus.classList.add('silver');
+            memberStatus.setAttribute('src', `images/silverCard.svg`);
         } else {
-            memberStatus.classList.add('member');
+            memberStatus.setAttribute('src', `images/memberCard.svg`);
         }
-
-        memberStatus.setAttribute('src', `images/memberCard.svg`);
+        
         memberStatus.setAttribute('alt', `Member status card`);
         memberStatus.setAttribute('loading', 'lazy');
         memberStatus.setAttribute('width', '16');
         memberStatus.setAttribute('height', '16');
+        memberStatusShowcase.appendChild(memberStatus);
 
-        namePlace.appendChild(memberStatus);
+        namePlace.appendChild(memberStatusShowcase);
 
         // populating company logo
         logo.setAttribute('src', `images/${company.image}`);
