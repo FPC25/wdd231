@@ -43,11 +43,6 @@ header img, .card img, .social img {
   display: block;
 }
 
-header span {
-  font-size: larger;
-  color: black;
-}
-
 header.no-border {
   border-bottom: none;
 }
