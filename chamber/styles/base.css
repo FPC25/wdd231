@@ -36,10 +36,11 @@ header {
   border-bottom: solid 1px var(--primary-color);
 }
 
-header img {
-  display: block;
-  width: 100%;
+header img, .card img, .social img {
+  width: auto;
   height: auto;
+  max-width: 100%;
+  display: block;
 }
 
 header span {
@@ -172,7 +173,7 @@ main {
   padding: 10px;
   margin: 10px;
   width: 50px;
-  height: auto;
+  height: 50px;
   background-color: var(--accent-color);
   border-radius: 10px;
 }
@@ -182,7 +183,7 @@ main {
 }
 
 .layout img {
-  width: 1.1rem;
+  width: 1.2rem;
   height: auto;
   padding: 0;
 }
@@ -349,21 +350,24 @@ main {
 /* ================ Footer ================ */
 
 footer {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 1rem;
+  margin: 0 auto;
   background-color: var(--primary-color);
   color: var(--secondary-color);
   padding: 1.5rem 0;
   font-size: 1rem;
   width: 100%;
+  height: 100%;
 }
 
 .cc-info, .my-info {
-  max-width: 900px;      
+  max-width: 900px;
   margin: 0 auto;
-  padding: 1rem;
-  text-align: left;
+  padding: 0.5rem 1rem;
+  text-align: center;
   width: 90%;
 }
 

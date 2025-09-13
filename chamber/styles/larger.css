@@ -93,8 +93,16 @@
 
     footer {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: auto;
+        align-items: center;
     }
 
-    
+    .cc-info {
+        text-align: left;
+    }
+
+    .my-info {
+        text-align: right;
+    }
 }
