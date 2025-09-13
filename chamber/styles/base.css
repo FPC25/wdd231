@@ -112,6 +112,8 @@ header.no-border {
 .nav-menu li {
   padding: 15px;
   background-color: var(--primary-color);
+  border-bottom: solid 1px var(--accent-color);
+
 }
 
 .nav-menu li.current {
@@ -147,6 +149,13 @@ header.no-border {
 }
 
 /* ================ Main ================ */
+
+main {
+  padding: 15px;
+}
+
+/* title and buttons*/
+
 .menu {
   display: grid;
   grid-template-columns: auto 44px 44px;
@@ -181,14 +190,10 @@ header.no-border {
 
 /* Style for the grid layout */
 
-main {
-  padding: 15px;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 1.5rem;
+  gap: 1rem;
   padding: 1.5rem 0;
 }
 
@@ -210,6 +215,7 @@ main {
   border: solid 1px var(--primary-color);
 }
 
+/* top: name */
 .card > .name {
   grid-column: 1 / 3;
   display: grid;
@@ -248,6 +254,7 @@ main {
 .card > .name div img {
   width: 25px;
   height: 25px;
+  padding-right: 10px;
 }
 
 /* Left: logo/photo */
@@ -259,8 +266,8 @@ main {
 }
 
 .card > .photo img {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   border-radius: 10px;
 }
 
@@ -270,21 +277,60 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.5rem;
   text-align: left;
 }
 .card p {
-  margin: 0.1rem 0;
   font-size: 1rem;
+  padding: 0;
+  margin: 0.6rem 0;
 }
 .card a {
   color: var(--primary-color);
   text-decoration: underline;
-  font-size: 0.98rem;
+  margin: 0.6rem 0;
+  font-size: 1rem;
   word-break: break-all;
 }
 .card strong {
   font-weight: bold;
+}
+
+/* Style for the list layout */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 0;
+}
+
+.line {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  border: 1px solid #2d3250;
+  padding: 1.2rem 1.5rem;
+  margin: 0 auto;
+  max-width: 700px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.line h2 {
+  font-family: "Merriweather", serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0 0 0.2rem 0;
+  color: #2d3250;
+}
+
+.line a {
+  color: #2d3250;
+  text-decoration: underline;
+  font-size: 1rem;
+  word-break: break-all;
 }
 
 /* ================ Footer ================ */
