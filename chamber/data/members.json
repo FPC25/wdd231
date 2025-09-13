@@ -3,90 +3,90 @@
     "name": "Alpha Tech Solutions",
     "address": "123 Innovation Ave, São Paulo, SP",
     "phone": "+55 11 4002-8922",
-    "website": "https://alphatech.com.br",
+    "website": "https://alphatech.com",
     "image": "alpha-tech.webp",
     "membershipLevel": 3,
     "industry": "Technology",
-    "contact": "contato@alphatech.com.br"
+    "contact": "contato@alphatech.com"
   },
   {
     "name": "Beta Financial Group",
     "address": "456 Finance St, São Paulo, SP",
     "phone": "+55 11 3003-1234",
-    "website": "https://betafinancial.com.br",
+    "website": "https://betafinancial.com",
     "image": "beta-financial.webp",
     "membershipLevel": 2,
     "industry": "Finance",
-    "contact": "info@betafinancial.com.br"
+    "contact": "info@betafinancial.com"
   },
   {
     "name": "Gamma Health Clinic",
     "address": "789 Wellness Rd, São Paulo, SP",
     "phone": "+55 11 3222-4455",
-    "website": "https://gammahealth.com.br",
+    "website": "https://gammahealth.com",
     "image": "gamma-health.webp",
     "membershipLevel": 1,
     "industry": "Healthcare",
-    "contact": "atendimento@gammahealth.com.br"
+    "contact": "atendimento@gammahealth.com"
   },
   {
     "name": "Delta Logistics",
     "address": "101 Cargo Blvd, São Paulo, SP",
     "phone": "+55 11 3555-6677",
-    "website": "https://deltalog.com.br",
+    "website": "https://deltalog.com",
     "image": "delta-logistics.webp",
     "membershipLevel": 2,
     "industry": "Logistics",
-    "contact": "contato@deltalog.com.br"
+    "contact": "contato@deltalog.com"
   },
   {
     "name": "Epsilon Marketing",
     "address": "202 Branding Ave, São Paulo, SP",
     "phone": "+55 11 3777-8899",
-    "website": "https://epsilonmkt.com.br",
+    "website": "https://epsilonmkt.com",
     "image": "epsilon-marketing.webp",
     "membershipLevel": 1,
     "industry": "Marketing",
-    "contact": "hello@epsilonmkt.com.br"
+    "contact": "hello@epsilonmkt.com"
   },
   {
     "name": "Zeta Construction",
     "address": "303 Builder St, São Paulo, SP",
     "phone": "+55 11 3999-1010",
-    "website": "https://zetaconstrucoes.com.br",
+    "website": "https://zetaconstrucoes.com",
     "image": "zeta-construction.webp",
     "membershipLevel": 3,
     "industry": "Construction",
-    "contact": "contato@zetaconstrucoes.com.br"
+    "contact": "contato@zetaconstrucoes.com"
   },
   {
     "name": "Eta Foods",
     "address": "404 Gourmet Rd, São Paulo, SP",
     "phone": "+55 11 4111-1212",
-    "website": "https://etafoods.com.br",
+    "website": "https://etafoods.com",
     "image": "eta-foods.webp",
     "membershipLevel": 2,
     "industry": "Food & Beverage",
-    "contact": "vendas@etafoods.com.br"
+    "contact": "vendas@etafoods.com"
   },
   {
     "name": "Theta Education",
     "address": "505 Learning Ln, São Paulo, SP",
     "phone": "+55 11 4222-2323",
-    "website": "https://thetaedu.com.br",
+    "website": "https://thetaedu.com",
     "image": "theta-education.webp",
     "membershipLevel": 1,
     "industry": "Education",
-    "contact": "info@thetaedu.com.br"
+    "contact": "info@thetaedu.com"
   },
   {
     "name": "Omega Motors",
     "address": "343 Auto Blvd, São Paulo, SP",
     "phone": "+55 11 5888-2828",
-    "website": "https://omegamotors.com.br",
+    "website": "https://omegamotors.com",
     "image": "omega-motors.webp",
     "membershipLevel": 3,
     "industry": "Automotive",
-    "contact": "vendas@omegamotors.com.br"
+    "contact": "vendas@omegamotors.com"
   }
 ]
