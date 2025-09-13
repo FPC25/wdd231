@@ -223,7 +223,7 @@ main {
   grid-template-columns: 10fr 1fr;
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  padding: 10px auto;
+  padding: 10px 0;
   border-radius: 10px 10px 0 0;
   min-width: 320px;
   width: 100%;
