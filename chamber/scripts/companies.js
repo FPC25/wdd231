@@ -45,7 +45,7 @@ const displayCompanies = (Companies) => {
             memberStatus.classList.add('member');
         }
 
-        memberStatus.setAttribute('src', `images/memberCard`);
+        memberStatus.setAttribute('src', `images/memberCard.svg`);
         memberStatus.setAttribute('alt', `Member status card`);
         memberStatus.setAttribute('loading', 'lazy');
         memberStatus.setAttribute('width', '16');
@@ -54,7 +54,7 @@ const displayCompanies = (Companies) => {
         namePlace.appendChild(memberStatus);
 
         // populating company logo
-        logo.setAttribute('src', company.image);
+        logo.setAttribute('src', `images/${company.image}`);
         logo.setAttribute('alt', `${company.name} trademark`);
         logo.setAttribute('loading', 'lazy');
         logo.setAttribute('width', '1024');
