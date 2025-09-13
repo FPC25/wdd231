@@ -1,4 +1,4 @@
-@media only screen and (min-width: 38rem) {
+@media only screen and (min-width: 701px) {
 
     header, nav, footer {
         margin: 0;
@@ -8,7 +8,7 @@
     }
     
     header span {
-        font-size: xx-large;
+        font-size: x-large;
     }
 
     .hamburger {
@@ -74,8 +74,21 @@
         color: black;
     }
 
-    main {
-        height: 100vh;
+    .list {
+        margin-bottom: 10px;
+    }
+
+    .line {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        max-width: 1100px;
+        gap: 10px;
+    }
+
+    .line p {
+        word-break: break-word;
     }
 
     footer {
