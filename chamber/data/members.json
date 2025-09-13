@@ -4,7 +4,7 @@
     "address": "123 Innovation Ave, São Paulo, SP",
     "phone": "+55 11 4002-8922",
     "website": "https://alphatech.com.br",
-    "image": "alpha-tech.png",
+    "image": "alpha-tech.webp",
     "membershipLevel": 3,
     "industry": "Technology",
     "contact": "contato@alphatech.com.br"
@@ -14,7 +14,7 @@
     "address": "456 Finance St, São Paulo, SP",
     "phone": "+55 11 3003-1234",
     "website": "https://betafinancial.com.br",
-    "image": "beta-financial.png",
+    "image": "beta-financial.webp",
     "membershipLevel": 2,
     "industry": "Finance",
     "contact": "info@betafinancial.com.br"
@@ -24,7 +24,7 @@
     "address": "789 Wellness Rd, São Paulo, SP",
     "phone": "+55 11 3222-4455",
     "website": "https://gammahealth.com.br",
-    "image": "gamma-health.png",
+    "image": "gamma-health.webp",
     "membershipLevel": 1,
     "industry": "Healthcare",
     "contact": "atendimento@gammahealth.com.br"
@@ -34,7 +34,7 @@
     "address": "101 Cargo Blvd, São Paulo, SP",
     "phone": "+55 11 3555-6677",
     "website": "https://deltalog.com.br",
-    "image": "delta-logistics.png",
+    "image": "delta-logistics.webp",
     "membershipLevel": 2,
     "industry": "Logistics",
     "contact": "contato@deltalog.com.br"
@@ -44,7 +44,7 @@
     "address": "202 Branding Ave, São Paulo, SP",
     "phone": "+55 11 3777-8899",
     "website": "https://epsilonmkt.com.br",
-    "image": "epsilon-marketing.png",
+    "image": "epsilon-marketing.webp",
     "membershipLevel": 1,
     "industry": "Marketing",
     "contact": "hello@epsilonmkt.com.br"
@@ -54,7 +54,7 @@
     "address": "303 Builder St, São Paulo, SP",
     "phone": "+55 11 3999-1010",
     "website": "https://zetaconstrucoes.com.br",
-    "image": "zeta-construction.png",
+    "image": "zeta-construction.webp",
     "membershipLevel": 3,
     "industry": "Construction",
     "contact": "contato@zetaconstrucoes.com.br"
@@ -64,7 +64,7 @@
     "address": "404 Gourmet Rd, São Paulo, SP",
     "phone": "+55 11 4111-1212",
     "website": "https://etafoods.com.br",
-    "image": "eta-foods.png",
+    "image": "eta-foods.webp",
     "membershipLevel": 2,
     "industry": "Food & Beverage",
     "contact": "vendas@etafoods.com.br"
@@ -74,7 +74,7 @@
     "address": "505 Learning Ln, São Paulo, SP",
     "phone": "+55 11 4222-2323",
     "website": "https://thetaedu.com.br",
-    "image": "theta-education.png",
+    "image": "theta-education.webp",
     "membershipLevel": 1,
     "industry": "Education",
     "contact": "info@thetaedu.com.br"
@@ -84,7 +84,7 @@
     "address": "343 Auto Blvd, São Paulo, SP",
     "phone": "+55 11 5888-2828",
     "website": "https://omegamotors.com.br",
-    "image": "omega-motors.png",
+    "image": "omega-motors.webp",
     "membershipLevel": 3,
     "industry": "Automotive",
     "contact": "vendas@omegamotors.com.br"
