@@ -164,9 +164,8 @@ main {
   gap: 10px;
 }
 
-.menu span {
+.menu h1 {
   font-family: "Merriweather";
-  font-size: xx-large;
 }
 
 .layout {
