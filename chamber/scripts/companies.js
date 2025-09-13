@@ -12,6 +12,11 @@ async function getCompanyData() {
 }
 
 const displayGridCompanies = (Companies) => {
+    // Limpa o container e define classes
+    companies.innerHTML = '';
+    companies.classList.add('grid');
+    companies.classList.remove('list');
+
     Companies.forEach((company) => {
         let card = document.createElement('section');
 
@@ -94,6 +99,11 @@ const displayGridCompanies = (Companies) => {
 }
 
 const displayListCompanies = (Companies) => {
+    // Limpa o container e define classes
+    companies.innerHTML = '';
+    companies.classList.add('list');
+    companies.classList.remove('grid');
+
     Companies.forEach((company) => {
         let card = document.createElement('section');
         let name = document.createElement('h2');
@@ -130,16 +140,16 @@ const displayListCompanies = (Companies) => {
 
         card.classList.add('line');
         card.classList.remove('card');
-    });
-}
 
-function toggleView(view) {
-    companies.classList.toggle('list', view === 'list');
-    companies.classList.toggle('grid', view === 'grid');
+        // populating cards
+        companies.appendChild(card);
+    });
 }
 
 getCompanyData().then(data => {
     displayGridCompanies(data);
-    listButton.addEventListener("click", () => toggleView('list'));
-    gridButton.addEventListener("click", () => toggleView('grid'));
+
+    listButton.addEventListener("click", () => displayListCompanies(data));
+
+    gridButton.addEventListener("click", () => displayGridCompanies(data));
 });
