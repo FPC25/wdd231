@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link rel="stylesheet" href="../../styles/normalize.css">
+    <link rel="stylesheet" href="styles/weather.css">
+
     <script type="module" src="scripts/weather.js"></script>
 </head>
 <body>
-    <header>
-        <h1>OpenWeatherMap.org API Test</h1>
-    </header>
-    
     <main>
-        <p>The current temperature in Trier, Germany is <span id="current-temp"></span></p>
-        <figure>
-            <img id="weather-icon" src="" alt="">
-            <figcaption></figcaption>
-        </figure>
+        <h1>OpenWeatherMap.org API Test</h1>
+        <div class="card">
+            <h2 id="town"></h2>
+            <figure>
+                <img id="weather-icon" src="" alt="">
+                <figcaption></figcaption>
+            </figure>
+            <p id="temp"><span id="current-temp"></span></p>
+        </div>
     </main>
     <footer>
     Felipe Proença Corral | OpenWeatherMap.org | CC BY-SA 4.0
