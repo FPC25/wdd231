@@ -13,5 +13,5 @@ const lon = 6.64;
 const apiKey = config.appid
 
 // OpenWeather api
-const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`;
+const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
