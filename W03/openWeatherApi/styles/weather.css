@@ -1,0 +1,38 @@
+* {
+    --border: #5d6f67;
+    --card-color: beige;
+    --font-color: #45717a;
+}
+
+
+
+.card {
+    border: 1px solid var(--font-color);
+    margin: 15px;
+    border-radius: 10px;
+    background-color: var(--card-color);
+    text-align: center;
+    
+    #town {
+        color: var(--font-color);
+        margin: .3rem 0;
+    }
+
+    figcaption {
+        text-transform: capitalize;
+        color: var(--font-color);
+        
+    }
+
+    #temp {
+        font-size: 2rem;
+        color: var(--font-color);
+        margin: 0.3rem 0;
+    }
+}
+
+footer{
+    text-align: center;
+
+}
+
