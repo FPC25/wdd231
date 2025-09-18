@@ -1,9 +1,5 @@
 import { config } from '../../../scripts/openWeather.mjs';
-
-// DOM elements
-const temp = document.querySelector('#current-temp');
-const icon = document.querySelector("#weather-icon");
-const caption = document.querySelector('figcaption');
+import { displayWeather } from './display.mjs';
 
 // Trier region coordinates 
 const lat = 49.75;
@@ -22,8 +18,8 @@ async function apiFetch() {
         const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
-            console.log('Weather data:', data);
-            return data;
+            console.log(data);
+            displayWeather(data);
         } else {
             const errorText = await response.text();
             throw new Error(errorText);
