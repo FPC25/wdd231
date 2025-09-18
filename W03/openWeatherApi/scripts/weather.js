@@ -1,5 +1,5 @@
 import { config } from '../../../scripts/openWeather.mjs';
-import { displayWeather } from './display.mjs';
+import { displayWeather } from './displayWeather.mjs';
 
 // Trier region coordinates 
 const lat = 49.75;
