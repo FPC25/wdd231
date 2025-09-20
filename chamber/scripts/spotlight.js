@@ -7,6 +7,5 @@ const companies = document.querySelector('#spotlight');
 
 getCompanyData().then(data => {
     const highMembers = data.filter(member => member.membershipLevel > 1);
-    console.table(highMembers);
     displayCompanies(randomMember(highMembers, 3), displayCard, companies)
 });
