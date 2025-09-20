@@ -10,7 +10,7 @@ const lon = config.longitude;
 const apiKey = config.appid;
 
 // Amount of days to be forecast
-const days = 2;
+const days = 3;
 
 // OpenWeather api
 const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en&cnt=${days}`;
