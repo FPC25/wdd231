@@ -1,26 +1,26 @@
-function cleanDisplay(name){
-    companies.innerHTML = '';
+function cleanDisplay(functionName, companiesElement){
+    companiesElement.innerHTML = '';
     let add;
     let remove;
-    if (name === "displayCard" ){
+    if (functionName === "displayCard" ){
         add = "grid";
         remove = "list";
     }
-    else if (name === "displayList"){
+    else if (functionName === "displayList"){
         add = "list";
         remove = "grid";
     }
-    companies.classList.add(add);
-    companies.classList.remove(remove);
+    companiesElement.classList.add(add);
+    companiesElement.classList.remove(remove);
 }
 
-export function displayCompanies(companiesList, displayOption, clean = false) {
+export function displayCompanies(companiesList, displayOption, companiesElement, clean = false) {
     if (clean === true) {
-        cleanDisplay(displayOption.name);
+        cleanDisplay(displayOption.name, companiesElement);
     }
     
     companiesList.forEach((company) => {
         let card = displayOption(company);
-        companies.appendChild(card);
+        companiesElement.appendChild(card);
     });
 }
