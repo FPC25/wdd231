@@ -3,14 +3,22 @@
     header, nav, footer {
         margin: 0;
     }
+
     header {
         grid-template-columns: 50px auto auto 50px;
     }
-    
-    header span {
-        font-size: x-large;
-    }
 
+    @media only screen and (((min-width: 701px) and (max-width: 1000px)) or (max-width: 360px)) {
+        
+        header .normal-title {
+            display: none;
+        }
+
+        header .medium-title {
+            display: block;
+        }
+    }
+    
     .hamburger {
         display: none;
     }

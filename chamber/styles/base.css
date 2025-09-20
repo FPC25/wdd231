@@ -36,6 +36,27 @@ header {
   border-bottom: solid 1px var(--primary-color);
 }
 
+@media only screen and (max-width: 370px) {
+    header .normal-title {
+        display: none;
+    }
+    header .medium-title {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 371px) {
+  header .normal-title {
+    display: block;
+  }
+
+  header .medium-title {
+    display: none;
+  }
+}
+
+
+
 header img, .card img, .social img {
   width: auto;
   height: auto;
