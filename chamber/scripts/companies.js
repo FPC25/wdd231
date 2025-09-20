@@ -10,7 +10,7 @@ const companies = document.querySelector('#companies');
 getCompanyData().then(data => {
     displayCompanies(data, displayCard, companies, true);
 
-    listButton.addEventListener("click", () => displayCompanies(data, displayList, companies,true));
+    listButton.addEventListener("click", () => displayCompanies(data, displayList, companies, true));
 
-    gridButton.addEventListener("click", () => displayCompanies(data, displayCard, companies,true));
+    gridButton.addEventListener("click", () => displayCompanies(data, displayCard, companies, true));
 });
