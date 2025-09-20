@@ -8,9 +8,9 @@ const listButton = document.querySelector('#list-btn');
 const companies = document.querySelector('#companies');
 
 getCompanyData().then(data => {
-    displayCompanies(data, displayCard, true);
+    displayCompanies(data, displayCard, companies, true);
 
-    listButton.addEventListener("click", () => displayCompanies(data, displayList, true));
+    listButton.addEventListener("click", () => displayCompanies(data, displayList, companies,true));
 
-    gridButton.addEventListener("click", () => displayCompanies(data, displayCard, true));
+    gridButton.addEventListener("click", () => displayCompanies(data, displayCard, companies,true));
 });
