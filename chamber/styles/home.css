@@ -57,6 +57,8 @@ main > h1, h2, h3 {
     border: solid 1px var(--primary-color);
     border-radius: 12px;
     background-color: var(--accent-color);
+    min-width: 320px;
+    max-width: 800px;
 }
 
 .cardTitle {
@@ -69,7 +71,7 @@ main > h1, h2, h3 {
 
 .eventsCard > .cardBody {
     text-align: center;
-    min-height: 200px;
+    min-height: 100px;
     align-content: center;
 }
 
