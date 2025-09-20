@@ -1,5 +1,5 @@
 import { config } from './openWeather.mjs';
-import { apiFetch } from './fetching.mjs';
+import { apiFetch } from './fetchWeather.mjs';
 import { displayWeather } from './displayWeather.mjs';
 
 // region coordinates 
