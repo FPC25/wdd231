@@ -30,6 +30,7 @@
     <!-- JS link -->
     <script src="scripts/nav.js" defer></script>
     <script src="scripts/dates.js" defer></script>
+    <script type="module" src="scripts/weather.js"></script>
     <script type="module" src="scripts/forecast.js"></script>
 </head>
 <body>
@@ -57,9 +58,22 @@
             <img src="images/hero.webp" alt="Hero image displaying a group of businesses person ">
         </section>
         <div class="news">
-            <section class="events"></section>
-            <section class="forescast"></section>
-            <section class="weather"></section>
+            <section id="eventCard" class="events"></section>
+            <section id="weatherCard" class="weather">
+                <div class="cardTitle">
+                    <h2>Current Weather</h2>
+                </div>
+                <div class="cardBody">
+                    <div class="weatherIconPlace">
+                        <figure>
+                            <img id="weatherIcon" src="" alt="">
+                            <figcaption id="weatherCaption"></figcaption>
+                        </figure>
+                    </div>
+                    <div id="infoPlace" class="info"></div>
+                </div>
+            </section>
+            <section id="forecastCard" class="forescast"></section>
         </div>
         <section class="spotlight"></section>
     </main>
