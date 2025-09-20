@@ -5,7 +5,7 @@ export async function apiFetch(url, display) {
         if (response.ok) {
             const data = await response.json();
             console.log(data);
-            // display(data);
+            display(data);
         } else {
             const errorText = await response.text();
             throw new Error(errorText);
