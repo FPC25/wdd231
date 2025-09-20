@@ -1,152 +1,31 @@
-const url = 'https://fpc25.github.io/wdd231/chamber/data/members.json';
+import { getCompanyData } from "./fetchCompanies.mjs";
+import { displayCard } from "./displayCompanyCard.mjs";
+import { displayList } from "./displayCompanyList.mjs";
 
 const gridButton = document.querySelector('#grid-btn');
 const listButton = document.querySelector('#list-btn');
 const companies = document.querySelector('#companies');
 
-async function getCompanyData() {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    return data;
+function cleanDisplay(companies, add, remove) {
+    companies.innerHTML = '';
+    companies.classList.add(add);
+    companies.classList.remove(remove);
 }
 
-const displayGridCompanies = (Companies) => {
-    // Limpa o container e define classes
-    companies.innerHTML = '';
-    companies.classList.add('grid');
-    companies.classList.remove('list');
+function displayCompanies(companiesList, add, remove, displayOption) {
+    cleanDisplay(companies, add, remove);
 
-    Companies.forEach((company) => {
-        let card = document.createElement('section');
+    companiesList.forEach((company) => {
+        let card = displayOption(company);
 
-        let namePlace = document.createElement('div');
-        namePlace.classList.add('name');
-        let name = document.createElement('h2');
-        let address = document.createElement('p');
-        let memberStatusShowcase = document.createElement('div');
-        let memberStatus = document.createElement('img');
-
-        let photoPlace = document.createElement('div');
-        photoPlace.classList.add("photo");
-        let logo = document.createElement('img');
-        
-        let infoPlace = document.createElement('div');
-        infoPlace.classList.add('info')
-        let phone = document.createElement('p');
-        let contact = document.createElement('p');
-        let url = document.createElement('a');
-
-        // populating company title
-        name.textContent = `${company.name}`;
-        address.textContent = `${company.address}`;
-
-        namePlace.appendChild(name);
-        namePlace.appendChild(address);
-
-        let status = company.membershipLevel;
-        if (status === 3) {
-            memberStatus.setAttribute('src', `images/goldCard.svg`);
-            memberStatus.classList.add('gold');
-        } else if (status === 2) {
-            memberStatus.setAttribute('src', `images/silverCard.svg`);
-            memberStatus.classList.add('silver');
-        } else {
-            memberStatus.setAttribute('src', `images/memberCard.svg`);
-            memberStatus.classList.add('member');
-        }
-        
-        memberStatus.setAttribute('alt', `Member status card`);
-        memberStatus.setAttribute('loading', 'lazy');
-        memberStatus.setAttribute('width', '16');
-        memberStatus.setAttribute('height', '16');
-        memberStatusShowcase.appendChild(memberStatus);
-
-        namePlace.appendChild(memberStatusShowcase);
-
-        // populating company logo
-        logo.setAttribute('src', `images/${company.image}`);
-        logo.setAttribute('alt', `${company.name} trademark`);
-        logo.setAttribute('loading', 'lazy');
-        logo.setAttribute('width', '1024');
-        logo.setAttribute('height', '1024');
-
-        photoPlace.appendChild(logo);
-
-        // populating company info
-        phone.innerHTML = `<strong>Phone:</strong> ${company.phone}`;
-        contact.innerHTML = `<strong>Contact:</strong> ${company.contact}`;
-
-        url.setAttribute('href', company.website);
-        url.setAttribute('target', '_blank');
-        url.textContent = "Company webpage";
-        
-        infoPlace.appendChild(phone);
-        infoPlace.appendChild(contact);
-        infoPlace.appendChild(url);
-
-        // adding the card class
-        card.classList.add('card');
-        card.classList.remove('line');
-
-        card.appendChild(namePlace);
-        card.appendChild(photoPlace);  
-        card.appendChild(infoPlace);
-
-        // populating cards
-        companies.appendChild(card);
-    });
-}
-
-const displayListCompanies = (Companies) => {
-    // Limpa o container e define classes
-    companies.innerHTML = '';
-    companies.classList.add('list');
-    companies.classList.remove('grid');
-
-    Companies.forEach((company) => {
-        let card = document.createElement('section');
-        let name = document.createElement('h2');
-        let address = document.createElement('p');
-        let memberStatus = document.createElement('p');
-        let contact = document.createElement('p');
-        let url = document.createElement('a');
-
-        name.textContent = `${company.name}`;
-        address.textContent = `${company.address}`;
-        contact.textContent = `${company.contact} | ${company.phone}`;
-
-        url.setAttribute('href', company.website);
-        url.setAttribute('target', '_blank');
-        url.textContent = "Company webpage";
-
-        let status = company.membershipLevel;
-        if (status === 3) {
-            memberStatus.textContent = `Membership Level: Gold`;
-        } else if (status === 2) {
-            memberStatus.textContent = `Membership Level: Silver`;
-        } else {
-            memberStatus.textContent = `Membership Level: Member`;
-        }
-
-        card.appendChild(name);
-        card.appendChild(address);
-        card.appendChild(memberStatus);
-        card.appendChild(contact);
-        card.appendChild(url);
-
-        card.classList.add('line');
-        card.classList.remove('card');
-
-        // populating cards
         companies.appendChild(card);
     });
 }
 
 getCompanyData().then(data => {
-    displayGridCompanies(data);
+    displayCompanies(data, 'grid', 'list', displayCard);
 
-    listButton.addEventListener("click", () => displayListCompanies(data));
+    listButton.addEventListener("click", () => displayCompanies(data, 'list', 'grid', displayList));
 
-    gridButton.addEventListener("click", () => displayGridCompanies(data));
+    gridButton.addEventListener("click", () => displayCompanies(data, 'grid', 'list', displayCard));
 });
