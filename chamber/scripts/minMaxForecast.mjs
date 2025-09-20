@@ -39,8 +39,8 @@ export function getMinMax(data){
             }
         };
 
-        day.min_temp = parseInt(min);
-        day.max_temp = parseInt(max);
+        day.min_temp = min;
+        day.max_temp = max;
     });
 
     return daysToForecast;
