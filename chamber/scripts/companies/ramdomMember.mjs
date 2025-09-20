@@ -1,11 +1,11 @@
 export function randomMember(list, count) {
     let selected = [];
-    let copy = [...list]; // Faz uma cópia da lista para não alterar a original
+    let copy = [...list]; // Makes a copy of the list to avoid altering the original
 
     while (selected.length < count && copy.length > 0) {
-        let randomIndex = Math.floor(Math.random() * copy.length); // Gera um índice aleatório
-        selected.push(copy[randomIndex]); // Adiciona o número correspondente ao índice
-        copy.splice(randomIndex, 1); // Remove o número da lista para evitar duplicatas
+        let randomIndex = Math.floor(Math.random() * copy.length); // Generates a random index
+        selected.push(copy[randomIndex]); // Adds the number corresponding to the index
+        copy.splice(randomIndex, 1); // Removes the number from the list to avoid duplicates
     }
 
     return selected;
