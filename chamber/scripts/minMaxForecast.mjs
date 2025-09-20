@@ -7,7 +7,7 @@ function getWeekday(Date){
 function getForecastObj(Date) {
     return {
         Date: Date.toISOString().split("T")[0], // YYYY-MM-DD date
-        weekDay: getWeekday(Date)
+        weekday: getWeekday(Date)
     };
 }
 
