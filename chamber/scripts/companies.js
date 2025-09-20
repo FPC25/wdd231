@@ -1,7 +1,7 @@
-import { getCompanyData } from "./fetchCompanies.mjs";
-import { displayCompanies } from "./displayCompanies.mjs";
-import { displayCard } from "./displayCompanyCard.mjs";
-import { displayList } from "./displayCompanyList.mjs";
+import { getCompanyData } from "./companies/fetchCompanies.mjs";
+import { displayCompanies } from "./companies/displayCompanies.mjs";
+import { displayCard } from "./companies/displayCompanyCard.mjs";
+import { displayList } from "./companies/displayCompanyList.mjs";
 
 const gridButton = document.querySelector('#grid-btn');
 const listButton = document.querySelector('#list-btn');

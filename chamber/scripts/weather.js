@@ -1,6 +1,6 @@
 import { config } from './openWeather.mjs';
 import { apiFetch } from './fetchWeather.mjs';
-import { displayWeather } from './displayWeather.mjs';
+import { displayWeather } from './weather/displayWeather.mjs';
 
 // region coordinates 
 const lat = config.latitude;
