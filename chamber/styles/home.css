@@ -46,3 +46,58 @@ main > h1, h2, h3 {
 .hero ~ div {
     padding: 15px;
 }
+
+.news .content {
+    display: grid;
+    grid-template-columns: (auto-fit, minmax(320px, 1fr));
+    gap: 10px;
+}
+
+.eventsCard, .weatherCard, .forecastCard {
+    border: solid 1px var(--primary-color);
+    border-radius: 12px;
+    background-color: var(--accent-color);
+}
+
+.cardTitle {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    padding: 3px 0;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+}
+
+.eventsCard > .cardBody {
+    text-align: center;
+    min-height: 200px;
+    align-content: center;
+}
+
+.forecastCard > .cardBody {
+    padding-left: 15px;
+    font-size: large;
+}
+
+.weatherCard > .cardBody {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+}
+
+.weatherCard > .cardBody .weatherIconPlace {
+    text-align: center;
+    margin: 0;
+}
+
+.weatherCard > .cardBody figcaption {
+    font-family: "Merriweather"; 
+}
+
+.weatherCard > .cardBody .weatherIconPlace p {
+    margin-top: 5px;
+}
+
+.weatherCard > .cardBody .info p:first-child {
+    margin-top: 25px;
+}
+
