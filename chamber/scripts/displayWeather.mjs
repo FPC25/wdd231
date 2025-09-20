@@ -24,8 +24,8 @@ export function displayWeather(data) {
 
     //populating infoPlace
     currentTemp.innerHTML = `<strong>Temperature</strong>: ${main.temp.toFixed(0)}&deg;C`;
-    humidity.innerHTML = `<strong>Humidity</strong>:${main.humidity}%`;
-    feelsLikeTemp.innerHTML = `<strong>Feels Like</strong>:${main.feels_like.toFixed(0)}&deg;C`;
+    humidity.innerHTML = `<strong>Humidity</strong>: ${main.humidity}%`;
+    feelsLikeTemp.innerHTML = `<strong>Feels Like</strong>: ${main.feels_like.toFixed(0)}&deg;C`;
 
     infoPlace.appendChild(currentTemp);
     infoPlace.appendChild(humidity);
