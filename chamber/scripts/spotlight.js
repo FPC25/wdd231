@@ -1,7 +1,7 @@
-import { getCompanyData } from "./fetchCompanies.mjs";
-import { randomMember } from "./ramdomMember.mjs";
-import { displayCompanies } from "./displayCompanies.mjs";
-import { displayCard } from "./displayCompanyCard.mjs";
+import { getCompanyData } from "./companies/fetchCompanies.mjs";
+import { randomMember } from "./companies/randomMember.mjs";
+import { displayCompanies } from "./companies/displayCompanies.mjs";
+import { displayCard } from "./companies/displayCompanyCard.mjs";
 
 const companies = document.querySelector('#spotlight');
 
