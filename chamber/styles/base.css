@@ -45,7 +45,7 @@ header {
     }
 }
 
-@media only screen and (min-width: 371px) {
+@media only screen and (min-width: 371px) and (max-width: 700px){
   header .normal-title {
     display: block;
   }

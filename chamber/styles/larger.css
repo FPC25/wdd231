@@ -7,17 +7,6 @@
     header {
         grid-template-columns: 50px auto auto 50px;
     }
-
-    @media only screen and (((min-width: 701px) and (max-width: 1000px)) or (max-width: 360px)) {
-        
-        header .normal-title {
-            display: none;
-        }
-
-        header .medium-title {
-            display: block;
-        }
-    }
     
     .hamburger {
         display: none;
@@ -112,5 +101,23 @@
 
     .my-info {
         text-align: right;
+    }
+}
+
+@media only screen and (min-width: 1001px){
+    header .normal-title {
+        display: block;
+    }
+    header .medium-title {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 701px) and (max-width: 1000px) {
+    header .normal-title {
+        display: none;
+    }
+    header .medium-title {
+        display: block;
     }
 }
