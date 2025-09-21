@@ -12,8 +12,8 @@ export function displayWeather(data) {
     const desc = `${data.weather[0].description}`
     
     //Populating Icon elements
-    weatherIcon.setAttribute('SRC', iconSRC);
-    weatherIcon.setAttribute('ALT', desc);
+    weatherIcon.setAttribute('src', iconSRC);
+    weatherIcon.setAttribute('alt', desc);
     weatherCaption.textContent = desc
     minMax.innerHTML = `${main.temp_min.toFixed(0)}&deg;C / ${main.temp_max.toFixed(0)}&deg;C`;
 
