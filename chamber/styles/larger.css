@@ -116,6 +116,7 @@
     }
     .news .content {
         grid-template-columns: minmax(320px, 2fr) repeat(auto-fit, minmax(320px, 1.3fr));
+        gap: 15px;
     }
 }
 

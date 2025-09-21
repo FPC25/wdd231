@@ -1,13 +1,23 @@
 /* ================ Main Home ================ */
 
+header span {
+    font-family: "Merriweather";
+    font-size: xx-large;
+}
+
 main{
     padding: 0; 
     margin: 0;
 }
 
-main > h1, h2, h3 {
+main h1 {
+    display: none;
+}
+
+main > h2, h3 {
     font-family: "Merriweather";
 }
+
 
 .hero {
     position: relative;
