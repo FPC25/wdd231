@@ -98,7 +98,8 @@ main > h1, h2, h3 {
 }
 
 .weatherCard > .cardBody .weatherIconPlace p {
-    margin: 0 5px;
+    margin-bottom: 10px;
+    margin-top: 0;
 }
 
 .weatherCard > .cardBody .info p:first-child {
