@@ -1,0 +1,783 @@
+/* Container do formulário - fundo branco */
+.recipe-form-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--secondary-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header do formulário */
+.form-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+}
+
+#back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem; /* Aumentado para mais área clicável */
+    width: 4rem; /* Aumentado de 2.5rem para 3rem */
+    height: 4rem; /* Aumentado de 2.5rem para 3rem */
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 2.8rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0; /* Evita que encolha */
+    line-height: 1; /* Garante alinhamento vertical perfeito */
+}
+
+#back-btn:hover {
+    background-color: var(--light-gray);
+    transform: translateX(-2px); /* Efeito visual sutil */
+}
+
+#back-btn:active {
+    transform: translateX(0);
+    background-color: var(--border-color);
+}
+
+.form-header h1 {
+    flex: 1;
+    text-align: center;
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.2; /* Garante alinhamento com o botão */
+}
+
+/* Seções do formulário */
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-section h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Upload de imagem - usando accent-color para bordas */
+.image-upload-container {
+    margin-bottom: 1rem;
+}
+
+.image-preview {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed var(--accent-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--light-gray);
+    gap: 0.5rem;
+}
+
+.image-preview:hover {
+    border-color: var(--primary-color);
+    background-color: #f0f0f0;
+}
+
+.image-preview #camera-icon {
+    width: 32px;
+    height: 32px;
+    filter: invert(0.4);
+}
+
+.image-preview span {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.image-preview small {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.image-preview.has-image {
+    border: none;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 3;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-image-btn:hover {
+    background: rgba(255, 0, 0, 1);
+    transform: scale(1.1);
+}
+
+/* Recipe preview image - Remove inline styles */
+.recipe-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Layout de formulário */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-row.two-columns {
+    grid-template-columns: 1fr 1fr;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+    background-color: var(--secondary-color);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
+}
+
+/* Inputs de tempo */
+.time-inputs {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0.5rem;
+}
+
+/* Grupos de checkbox - usando cores corretas */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.checkbox-label:hover {
+    color: var(--accent-color);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+}
+
+/* Ingredientes - Enhanced styling */
+.ingredient-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr auto;
+    gap: 0.75rem;
+    align-items: start;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem 2rem; /* Aumentar padding lateral para mais largura */
+    background: var(--secondary-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    max-width: 100%; /* Garante que usa toda a largura disponível */
+}
+
+.ingredient-row:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
+}
+
+/* Container para cada campo de ingrediente */
+.ingredient-row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; /* Reduzido de 0.5rem para 0.25rem */
+    width: 100%;
+}
+
+.ingredient-row label {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem; /* Reduzido de 0.5rem para 0.25rem */
+    display: block;
+    order: 1;
+}
+
+/* Estilos específicos para os campos de ingredientes */
+.ingredient-row .quantity-input,
+.ingredient-row .unit-input,
+.ingredient-row .ingredient-input {
+    min-height: 44px;
+    height: 44px;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+    background-color: var(--secondary-color);
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    order: 2;
+}
+
+.ingredient-row .quantity-input:focus,
+.ingredient-row .unit-input:focus,
+.ingredient-row .ingredient-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
+}
+
+.ingredient-row .quantity-input:hover,
+.ingredient-row .unit-input:hover,
+.ingredient-row .ingredient-input:hover {
+    border-color: var(--primary-color);
+}
+
+/* Estilos específicos para o select de quantidade */
+.ingredient-row .quantity-input {
+    color: var(--text-color);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.ingredient-row .quantity-input:invalid {
+    color: #999;
+}
+
+.ingredient-row .quantity-input option {
+    color: var(--text-color);
+    background: var(--secondary-color);
+    padding: 0.5rem;
+    min-height: 32px;
+}
+
+/* Estilos específicos para o select de unidade */
+.ingredient-row .unit-input {
+    color: var(--text-color);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.ingredient-row .unit-input:invalid {
+    color: #999;
+}
+
+.ingredient-row .unit-input option {
+    color: var(--text-color);
+    background: var(--secondary-color);
+    padding: 0.5rem;
+    min-height: 32px;
+}
+
+/* Estilos específicos para o input de ingrediente */
+.ingredient-row .ingredient-input {
+    color: var(--text-color);
+}
+
+.ingredient-row .ingredient-input::placeholder {
+    color: #999;
+    opacity: 0.7;
+}
+
+/* Input desabilitado - enhanced styling */
+.ingredient-row .unit-input.disabled-gray {
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+    border-color: #dee2e6 !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+}
+
+/* Remove button - enhanced styling */
+.remove-ingredient {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    font-weight: bold;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-self: end;
+    margin-top: 1.5rem; /* Reduzido de 1.75rem para 1.5rem */
+}
+
+.remove-ingredient:hover {
+    background: #8B4A28;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Add ingredient button - enhanced styling */
+#add-ingredient-btn {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+}
+
+#add-ingredient-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#add-ingredient-btn::before {
+    content: "+";
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Ingredients container - mais largura */
+#ingredients-container {
+    background: var(--light-gray);
+    border-radius: 12px;
+    padding: 1.5rem 1rem; /* Reduzir padding lateral para dar mais espaço aos ingredient-rows */
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+#ingredients-container:empty::before {
+    content: "No ingredients added yet. Click 'Add Ingredient' to start.";
+    color: var(--text-color);
+    opacity: 0.6;
+    font-style: italic;
+    display: block;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Form Actions - Botões de ação do formulário */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Botão primário - Save Recipe */
+.btn-primary {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 140px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(169, 92, 50, 0.3);
+}
+
+/* Botão secundário - Save Draft */
+.btn-secondary {
+    background: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-secondary:hover {
+    background: var(--light-gray);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+    background: var(--border-color);
+}
+
+.btn-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(169, 92, 50, 0.2);
+}
+
+/* Estados desabilitados */
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-primary:disabled:hover,
+.btn-secondary:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Responsividade - Updated para manter proporções */
+@media (max-width: 768px) {
+    .recipe-form-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .form-header {
+        gap: 0.75rem;
+    }
+    
+    #back-btn {
+        width: 2.75rem;
+        height: 2.75rem;
+        font-size: 1.6rem;
+        padding: 0.65rem;
+    }
+    
+    .form-header h1 {
+        font-size: 1.6rem;
+    }
+    
+    .form-row.two-columns {
+        grid-template-columns: 1fr;
+    }
+    
+    .ingredient-row {
+        grid-template-columns: 1fr 1fr 1.5fr auto;
+        gap: 0.75rem;
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .ingredient-row > div {
+        gap: 0.25rem;
+    }
+    
+    .ingredient-row label {
+        margin-bottom: 0.25rem;
+    }
+    
+    .ingredient-row .quantity-input,
+    .ingredient-row .unit-input,
+    .ingredient-row .ingredient-input {
+        min-height: 44px;
+        padding: 0.65rem;
+        font-size: 0.9rem;
+    }
+    
+    .remove-ingredient {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        margin-top: 1.25rem;
+    }
+    
+    /* Form actions responsivo */
+    .form-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        min-width: unset;
+        padding: 0.875rem 1.5rem;
+    }
+    
+    #ingredients-container {
+        padding: 1.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .recipe-form-container {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .form-header {
+        gap: 0.5rem;
+    }
+    
+    #back-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.4rem;
+        padding: 0.5rem;
+    }
+    
+    .form-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .ingredient-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        text-align: left;
+        padding: 1rem 1.25rem;
+        align-items: stretch;
+    }
+    
+    .ingredient-row > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        width: 100%;
+    }
+    
+    .ingredient-row label {
+        margin-bottom: 0.2rem;
+        order: 1;
+    }
+    
+    .ingredient-row .quantity-input,
+    .ingredient-row .unit-input,
+    .ingredient-row .ingredient-input {
+        min-height: 44px;
+        padding: 0.65rem;
+        font-size: 0.9rem;
+        order: 2;
+    }
+    
+    .remove-ingredient {
+        justify-self: center;
+        align-self: center;
+        margin-top: 0.75rem;
+        width: 40px;
+        height: 40px;
+    }
+    
+    /* Form actions mobile */
+    .form-actions {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+    }
+    
+    #ingredients-container {
+        padding: 1rem 0.5rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .recipe-form-container {
+        max-width: 98%;
+        margin: 0.25rem auto;
+        padding: 0.75rem;
+    }
+    
+    #back-btn {
+        width: 2.25rem;
+        height: 2.25rem;
+        font-size: 1.3rem;
+        padding: 0.4rem;
+    }
+    
+    .form-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .ingredient-row {
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+    }
+    
+    .ingredient-row > div {
+        gap: 0.2rem;
+    }
+    
+    .ingredient-row label {
+        margin-bottom: 0.15rem;
+    }
+    
+    .ingredient-row .quantity-input,
+    .ingredient-row .unit-input,
+    .ingredient-row .ingredient-input {
+        min-height: 44px;
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .remove-ingredient {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+        margin-top: 0.5rem;
+    }
+    
+    /* Form actions extra small */
+    .btn-primary,
+    .btn-secondary {
+        padding: 0.7rem 0.875rem;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+}
+
+/* Mark as Favorite - Centralizar verticalmente - regra mais específica */
+.form-section .form-group .checkbox-label {
+    display: flex;
+    align-items: center; /* Centralizar verticalmente */
+    justify-content: flex-start;
+    gap: 6px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.form-section .form-group .checkbox-label:hover {
+    color: var(--accent-color);
+}
+
+.form-section .form-group .checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    appearance: none;
+    border: 2px solid var(--text-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    order: 0; /* Checkbox vem primeiro (antes do texto) */
+    margin: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.form-section .form-group .checkbox-label input[type="checkbox"]:checked {
+    background-color: var(--accent-color);
+    border-color: var(--text-color);
+}

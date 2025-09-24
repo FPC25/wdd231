@@ -1,0 +1,455 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta de cores conforme site plan */
+    --background-color: #F5EFE6;
+    --text-color: #4D403D;
+    --primary-color: #5A7454;
+    --accent-color: #A95C32;
+    --secondary-color: #FFFFFF;
+    --light-gray: #f8f9fa;
+    --border-color: #e0e0e0;
+    --star: #FFAE42; 
+}
+
+/* Estilos gerais do body */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    overflow-x: hidden;
+}
+
+/* Header principal - usando background-color conforme mudança solicitada */
+header {
+    background-color: var(--background-color); 
+    color: var(--text-color);
+    padding: 1rem;
+    position: relative;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Hamburger menu - ajustar cor para contrastar com novo fundo */
+#hamburger {
+    background: none;
+    border: none;
+    color: var(--text-color); 
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+#hamburger:hover {
+    background-color: rgba(77, 64, 61, 0.1); /* Usar text-color com transparência */
+}
+
+/* Logo */
+#logo {
+    height: 60px;
+    width: auto;
+}
+
+/* Menu de navegação - fundo branco conforme site plan */
+.hamburger-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--secondary-color);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1000;
+    padding-top: 2rem;
+}
+
+.hamburger-menu.open {
+    left: 0;
+}
+
+/* Header do menu com botão fechar */
+.menu-header {
+    position: relative;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-title {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.menu-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.menu-close-btn:hover {
+    background-color: var(--light-gray);
+    color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
+.hamburger-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hamburger-menu ul li {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hamburger-menu ul li a {
+    display: block;
+    padding: 1rem 2rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu ul li a:hover {
+    background-color: var(--light-gray);
+    color: var(--accent-color);
+    transform: translateX(10px);
+}
+
+/* Overlay para menu mobile */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Welcome container - texto usando text-color */
+.welcome-container {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+#welcome-message h1 {
+    font-family: 'Lora', serif;
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+    color: var(--text-color);
+}
+
+/* Main content - fundo background-color */
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 200px);
+    background-color: var(--background-color);
+}
+
+/* Títulos usando Lora conforme site plan */
+h1, h2, h3 {
+    font-family: 'Lora', serif;
+    color: var(--text-color);
+}
+
+/* Grid padrão para receitas */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Recipe Card - Estilos base com cores corretas */
+.recipe-card {
+    background: var(--secondary-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    user-select: none; /* Evita seleção de texto ao clicar */
+}
+
+.recipe-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-card:active {
+    transform: translateY(-1px);
+}
+
+/* Container da imagem da receita */
+.recipe-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.recipe-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Placeholder para receitas sem imagem */
+.recipe-image.no-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-gray);
+}
+
+.recipe-image.no-photo img {
+    width: auto;
+    height: 60%;
+    object-fit: contain;
+    filter: invert(0.4);
+}
+
+/* Actions dos recipe cards */
+.recipe-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.recipe-card:hover .recipe-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.action-btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn img {
+    width: 18px;
+    height: 18px;
+    transition: filter 0.3s ease;
+}
+
+/* Botão de favorito - usando --star color quando ativo */
+.favorite-btn:not(.active) img {
+    filter: invert(0.5);
+}
+
+.favorite-btn.active img,
+.favorite-btn:hover img {
+    filter: none;
+}
+
+/* Efeito especial para botão favorito ativo */
+.favorite-btn.active {
+    background: rgba(255, 174, 66, 0.10); /* Mais suave, menos amarelo */
+    border: 1px solid var(--star);
+}
+
+.favorite-btn.active:hover {
+    background: rgba(255, 174, 66, 0.18);
+    transform: scale(1.15);
+}
+
+/* Botão de salvar - usando primary-color (mantém como estava) */
+.save-btn:not(.active) img {
+    filter: invert(0.5);
+}
+
+.save-btn.active img,
+.save-btn:hover img {
+    filter: invert(0.35) sepia(1) saturate(2) hue-rotate(90deg) brightness(0.8);
+}
+
+/* Info da receita */
+.recipe-info {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.recipe-name {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.recipe-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.recipe-meta span {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.cook-time::before {
+    content: "⏱️ ";
+}
+
+.difficulty::before {
+    content: "📊 ";
+}
+
+.serves::before {
+    content: "👥 ";
+}
+
+/* Mensagem vazia */
+.empty-message {
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-style: italic;
+    grid-column: 1 / -1;
+    padding: 2rem;
+}
+
+/* Footer - usando primary-color conforme site plan */
+footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.footer-content p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.sociallinks {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.sociallinks a {
+    display: inline-block;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.sociallinks a:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.sociallinks img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+    
+    main {
+        padding: 1rem;
+    }
+    
+    .recipe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    #welcome-message h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .recipe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    #welcome-message h1 {
+        font-size: 1.5rem;
+    }
+}
+

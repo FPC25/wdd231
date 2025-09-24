@@ -1,0 +1,854 @@
+/* Container principal */
+.calculator-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    margin-bottom: 100px;
+}
+
+/* Seções gerais - usando elementos section semânticos */
+.recipe-selection-section,
+.recipe-display-section,
+.cost-input-section,
+.results-section,
+.calculation-history-section {
+    background: var(--secondary-color);
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-container h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Headers de seção */
+.ingredients-section-header {
+    font-family: 'Lora', serif;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+.section-description {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* Recipe Selection */
+.recipe-selector {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+#recipe-select {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    background: var(--secondary-color);
+    color: var(--text-color);
+}
+
+#recipe-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
+}
+
+#load-recipe-btn {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+#load-recipe-btn:hover:not(:disabled) {
+    background: var(--primary-color);
+}
+
+#load-recipe-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Recipe Display - sem imagem, layout simplificado */
+.recipe-header-calc {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.recipe-basic-info {
+    width: 100%;
+}
+
+#selected-recipe-name {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.recipe-meta-calc {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.recipe-meta-calc span {
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    background: var(--secondary-color);
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+}
+
+/* Instructions */
+.instructions {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+/* Ingredient Items - Estilo unificado */
+.ingredient-item {
+    background: var(--light-gray);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.ingredient-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
+}
+
+.ingredient-item.optional {
+    background: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.ingredient-item.optional:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(90, 116, 84, 0.15);
+}
+
+/* Header do ingrediente */
+.ingredient-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ingredient-name {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.recipe-needs {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.remove-btn {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.remove-btn:hover {
+    background: #8B4A28;
+    transform: scale(1.1);
+}
+
+/* Seção de uso real */
+.actual-usage {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(90, 116, 84, 0.1);
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+}
+
+.actual-usage h5 {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-family: 'Lora', serif;
+}
+
+.usage-inputs {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Inputs de compra */
+.purchase-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Estilos unificados para todos os inputs */
+.purchase-quantity,
+.purchase-unit,
+.purchase-price,
+.actual-quantity,
+.actual-unit {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    background: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.purchase-quantity:focus,
+.purchase-unit:focus,
+.purchase-price:focus,
+.actual-quantity:focus,
+.actual-unit:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
+}
+
+.price-input {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.currency {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.purchase-price {
+    font-weight: 600;
+}
+
+/* Display de custos */
+.cost-display {
+    background: var(--secondary-color);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--accent-color);
+}
+
+.conversion-info {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(169, 92, 50, 0.1);
+    border-radius: 4px;
+}
+
+.conversion-text {
+    color: var(--accent-color);
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.unit-cost,
+.recipe-cost {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.recipe-cost {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.unit-cost-value,
+.recipe-cost-value {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.recipe-cost-value {
+    font-size: 1.1rem;
+}
+
+/* Seção "to taste" */
+.to-taste-section {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.to-taste-controls {
+    margin-bottom: 1.5rem;
+}
+
+/* Botões unificados */
+.add-btn,
+.confirm-btn,
+.cancel-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border: none;
+}
+
+.add-btn {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.add-btn:hover {
+    background: var(--accent-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.confirm-btn {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+}
+
+.confirm-btn:hover {
+    background: var(--primary-color);
+}
+
+.cancel-btn {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+}
+
+.cancel-btn:hover {
+    background: var(--light-gray);
+}
+
+.to-taste-selector {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--secondary-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.to-taste-selector select {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Calculate Button */
+.calculate-button {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+}
+
+.calculate-button:hover:not(:disabled) {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.calculate-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Results */
+.result-card {
+    background: var(--light-gray);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.result-header {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-header h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.toggle-btn {
+    background: none;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.result-content {
+    padding: 1.5rem;
+}
+
+.cost-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.cost-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    font-family: 'Lora', serif;
+}
+
+.cost-description {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* Margin Controls */
+.margin-controls {
+    margin-bottom: 1.5rem;
+}
+
+.margin-controls label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.margin-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 150px;
+}
+
+.margin-input-group input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.input-suffix {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Suggested Prices */
+.suggested-prices {
+    display: grid;
+    gap: 1rem;
+}
+
+.price-suggestion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--secondary-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.price-label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.price-suggestion .cost-display .cost-value {
+    font-size: 1.5rem;
+}
+
+.profit-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.profit-amount {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Cost Breakdown */
+.cost-breakdown {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--secondary-color);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.breakdown-item.excluded {
+    opacity: 0.6;
+    background: #f8f8f8;
+}
+
+.breakdown-ingredient {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.breakdown-name {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.breakdown-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.breakdown-details > div {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.breakdown-details .conversion-info {
+    font-style: italic;
+    color: var(--primary-color);
+}
+
+.breakdown-cost {
+    font-weight: 600;
+    color: var(--accent-color);
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 0.875rem 2rem;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+}
+
+.btn-primary:hover {
+    background: var(--primary-color);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--text-color);
+    color: var(--secondary-color);
+}
+
+/* Calculation History */
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.history-item {
+    background: var(--light-gray);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.history-recipe-name {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.history-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.history-cost {
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.empty-history {
+    text-align: center;
+    color: black;
+    opacity: 0.7;
+    font-style: italic;
+    padding: 2rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .calculator-container {
+        margin: 1rem auto;
+        padding: 0 1rem;
+    }
+    
+    .recipe-selection-section,
+    .recipe-display-section,
+    .cost-input-section,
+    .results-section,
+    .calculation-history-section {
+        padding: 1.5rem;
+    }
+    
+    .recipe-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .recipe-meta-calc {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .recipe-meta-calc span {
+        text-align: center;
+    }
+    
+    .purchase-inputs {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .usage-inputs {
+        flex-direction: column;
+    }
+    
+    .to-taste-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .to-taste-selector select {
+        margin-bottom: 0.5rem;
+    }
+    
+    .ingredient-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .remove-btn {
+        align-self: flex-end;
+    }
+    
+    .price-suggestion {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .cost-value {
+        font-size: 2rem;
+    }
+    
+    .breakdown-item {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: left;
+    }
+    
+    .breakdown-cost {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator-container {
+        padding: 0 0.5rem;
+    }
+    
+    .recipe-selection-section,
+    .recipe-display-section,
+    .cost-input-section,
+    .results-section,
+    .calculation-history-section {
+        padding: 1rem;
+    }
+    
+    .ingredient-item {
+        padding: 1rem;
+    }
+    
+    .cost-display {
+        padding: 0.75rem;
+    }
+    
+    .actual-usage {
+        padding: 0.75rem;
+    }
+    
+    .to-taste-selector {
+        padding: 0.75rem;
+    }
+    
+    .unit-cost,
+    .recipe-cost {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+    
+    #selected-recipe-name {
+        font-size: 1.5rem;
+    }
+}
