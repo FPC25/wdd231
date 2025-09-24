@@ -1,0 +1,58 @@
+#loader {
+    margin: 5rem;
+    width: 50px;
+    height: 50px;
+    border: solid 5px;
+    border-radius: 50%;
+    border-color: #999 transparent #999 transparent;
+    animation: spin 1.5s linear infinite;
+    box-shadow: 0 0 1rem rgb(0 0 255/40%);
+}
+
+#loader::after {
+    content: '⚙️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 1.5s ease-in-out delay infinite;
+}
+
+#loader-t {
+    margin: 5rem;
+    width: 50px;
+    height: 50px;
+    border: solid 5px transparent;
+    border-radius: 50%;
+    border-color: #999 transparent #999 transparent;
+    transition: transform 1.5s linear;
+    box-shadow: 0 0 1rem rgb(0 0 255/40%);
+}
+
+#loader-t::after {
+    content: '⚙️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 1.5s ease-in-out;
+    font-size: 2rem;
+}
+
+#loader-t:hover {
+    transform: rotate(360deg);
+}
+
+#loader-t:hover::after {
+    transform: rotate(360deg);
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+@keyframes spin {
+    100% {transform: rotate(360deg);}    
+}
+
+@keyframes pulse {
+    0%, 100% {transform: scale(1);}
+    50% {transform: scale(1.25);}
+}
