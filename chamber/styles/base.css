@@ -55,7 +55,10 @@ header {
   }
 }
 
-
+header span {
+    font-family: "Merriweather";
+    font-size: x-large;
+}
 
 header img, .card img, .social img {
   width: auto;
