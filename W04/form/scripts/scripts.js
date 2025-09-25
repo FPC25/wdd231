@@ -12,9 +12,6 @@ const temple = myInfo.get('location');
 const phoneNumber = myInfo.get('phone');
 const email = myInfo.get('email');
 
-console.log(results);
-
-
 results.innerHTML = `
     <p>Appointment for ${capitalizeFirstLetter(firstName)} ${capitalizeFirstLetter(lastName)}</p>
     <p>Proxy ${ordinance} on ${date} in the ${capitalizeFirstLetter(temple)} Temple</p>
