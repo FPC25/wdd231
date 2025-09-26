@@ -271,7 +271,7 @@ input[type=submit] {
 
 .membership-modal {
     border: none;
-    border-radius: 8px;
+    border-radius: 15px;
     padding: 0;
     max-width: 500px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -290,7 +290,17 @@ input[type=submit] {
     color: var(--primary-color);
 }
 
+.modal-content p {
+    margin-bottom: 10px;
+}
+
+.modal-content p:last-of-type {
+    margin-bottom: 5px;
+}
+
 .modal-content ul {
+    margin-top: 0;
+    padding-top: 0;
     padding-left: 20px;
 }
 
