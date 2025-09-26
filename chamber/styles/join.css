@@ -139,7 +139,7 @@ input[type=submit] {
 }
 
 .bronze {
-    background-image: 
+    background: 
         linear-gradient(
             var(--metallic-deg),
             transparent 20%,
@@ -164,7 +164,7 @@ input[type=submit] {
 }
 
 .silver {
-    background-image: 
+    background: 
         linear-gradient(
             var(--metallic-deg),
             transparent 20%,
@@ -187,7 +187,7 @@ input[type=submit] {
 }
 
 .gold {
-    background-image: 
+    background: 
         linear-gradient(
             var(--metallic-deg),
             transparent 20%,
@@ -212,7 +212,7 @@ input[type=submit] {
 }
 
 .nonprofit {
-    background-image: 
+    background: 
         linear-gradient(
             var(--metallic-deg),
             transparent 20%,
