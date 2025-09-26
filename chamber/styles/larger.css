@@ -12,6 +12,10 @@
         display: none;
     }
 
+    .dark {
+        color: var(--secondary-color);
+    }
+
     .nav-menu {
         position: static;
         width: auto;
@@ -34,6 +38,7 @@
         background-color: transparent;
         flex: 1 1 100%;
         text-wrap: nowrap;
+        border-bottom: none;
     }
 
     .nav-menu li.current {
@@ -41,7 +46,7 @@
     }
 
     .nav-menu li.current a {
-        color: black;
+        color: var(--secondary-color);
         position: relative;
         padding-bottom: 0;
     }
@@ -50,7 +55,7 @@
         display: block;
         width: 100%;
         height: 2px;
-        background: black;
+        background: var(--secondary-color);
         position: absolute;
         left: 0;
         bottom: -2px;
@@ -68,7 +73,7 @@
     
     .nav-menu a {
         border: none;
-        color: black;
+        color: var(--secondary-color);
     }
 
     .list {

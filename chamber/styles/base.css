@@ -75,7 +75,7 @@ header.no-border {
 .hamburger {
   background: none;
   border: none;
-  color: var(--primary-color);
+  color: var(--accent-color);
   cursor: pointer;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -93,7 +93,7 @@ header.no-border {
 .dark {
   background: none;
   border: none;
-  color: black;
+  color: var(--accent-color);
   cursor: pointer;
   font-size: 4rem;
   margin: auto 0;
@@ -134,7 +134,6 @@ header.no-border {
   padding: 15px;
   background-color: var(--primary-color);
   border-bottom: solid 1px var(--accent-color);
-
 }
 
 .nav-menu li.current {
