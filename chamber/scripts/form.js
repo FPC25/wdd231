@@ -3,7 +3,7 @@ const myInfo = new URLSearchParams(window.location.search)
 
 results.innerHTML = `
     <p>Dear ${capitalizeFirstLetter(myInfo.get('first'))} ${capitalizeFirstLetter(myInfo.get('last'))},</p>
-    <p>Thank you for subscribing your company, <strong>${myInfo.get('organization-name')}</strong>, as a <strong>${myInfo.get('level')}</strong> member of the São Paulo Chamber of Commerce. We are thrilled to have you join us!</p>
+    <p>Thank you for subscribing your company, <strong>${myInfo.get('organization-name')}</strong>, as a <strong>${myInfo.get('level').toLowerCase()}</strong> member of the São Paulo Chamber of Commerce. We are thrilled to have you join us!</p>
     <p>Your membership was successfully registered on <strong>${myInfo.get('timestamp')}</strong>.</p>
     <p>Here is the contact information you provided:</p>
     <ul>
