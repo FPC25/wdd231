@@ -94,10 +94,21 @@
     }
 
     footer {
+        max-height: fit-content;
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         grid-template-rows: auto;
         align-items: center;
+        margin-top: auto;
+    }
+
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
     }
 
     .cc-info {
@@ -119,9 +130,16 @@
         font-size: 1.2rem;
         bottom: 60px;
     }
+
     .news .content {
         grid-template-columns: minmax(320px, 2fr) repeat(auto-fit, minmax(320px, 1.3fr));
         gap: 15px;
+    }
+
+    /* thank you page */
+
+    #results {
+        width: 50%;
     }
 }
 
