@@ -12,7 +12,7 @@ results.innerHTML = `
     </ul>
     <p>If any of this information is incorrect, please contact us to update your details.</p>
     <p>We look forward to working with you!</p>
-    <p>S.P.C.C. Counsel</p>
+    <p><strong>S.P.C.C. Counsel</strong></p>
 `;
 
 function capitalizeFirstLetter(string) {
