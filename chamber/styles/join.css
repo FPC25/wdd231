@@ -1,6 +1,6 @@
 *{
     box-sizing: border-box;
-    --metallic-deg: 45deg;
+    --metallic-deg: 25deg;
 }
 
 main div {
@@ -101,7 +101,7 @@ input[type=submit] {
     align-content: center;
     text-align: center;
     border-radius: 5px 30px 5px 30px;
-    border: solid 2px var(--contrast-color);
+    border: solid 1px var(--contrast-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -139,7 +139,7 @@ input[type=submit] {
 }
 
 .bronze {
-    background: 
+    background-image: 
         linear-gradient(
             var(--metallic-deg),
             transparent 20%,
@@ -164,7 +164,7 @@ input[type=submit] {
 }
 
 .silver {
-    background: 
+    background-image: 
         linear-gradient(
             var(--metallic-deg),
             transparent 20%,
@@ -187,7 +187,7 @@ input[type=submit] {
 }
 
 .gold {
-    background: 
+    background-image: 
         linear-gradient(
             var(--metallic-deg),
             transparent 20%,
@@ -212,7 +212,7 @@ input[type=submit] {
 }
 
 .nonprofit {
-    background: 
+    background-image: 
         linear-gradient(
             var(--metallic-deg),
             transparent 20%,
@@ -267,7 +267,6 @@ input[type=submit] {
     transform: scale(1.05);
 }
 
-
 /* Modals */
 
 .membership-modal {
@@ -307,15 +306,5 @@ input[type=submit] {
 
 .close-modal:hover {
     background-color: var(--contrast-color);
-}
-
-.learn-more {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.learn-more:hover {
-    color: var(--contrast-color);
 }
 
