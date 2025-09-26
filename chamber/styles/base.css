@@ -32,7 +32,8 @@ header {
   align-items: center;
   padding: 5px 10px;
   column-gap: 10px;
-  background-color: var(--accent-color);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--contrast-color) 100%);
+  color: var(--secondary-color);
   border-bottom: solid 1px var(--primary-color);
 }
 
