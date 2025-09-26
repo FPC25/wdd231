@@ -75,7 +75,7 @@ header.no-border {
 .hamburger {
   background: none;
   border: none;
-  color: var(--accent-color);
+  color: var(--background-color);
   cursor: pointer;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -93,7 +93,7 @@ header.no-border {
 .dark {
   background: none;
   border: none;
-  color: var(--accent-color);
+  color: var(--background-color);
   cursor: pointer;
   font-size: 4rem;
   margin: auto 0;
