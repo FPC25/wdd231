@@ -1,4 +1,7 @@
-*{box-sizing: border-box;}
+*{
+    box-sizing: border-box;
+    --metallic-deg: 45deg;
+}
 
 main div {
     display: grid;
@@ -6,12 +9,13 @@ main div {
     gap: 20px
 }
 
-h1, p {
+h1, p, .form-section, .membership-info {
     margin: 1rem 2%;
 }
 
+/* Formulary section */
+
 form {
-    margin: 1rem 2%;
     background-color: var(--accent-color);
     padding: 10px;
     border-radius: 15px;
@@ -22,12 +26,12 @@ label {
     display: block;
     font-size: .8rem;
     color: var(--primary-color);
+    font-weight: bolder;
     padding-top: .2rem;
 }
 
 form h3 {
     font-size: .9rem;
-    color: var(--contrast-color);
     margin: 1.5rem 0 .2rem 0;
     border-bottom: 1px solid ;
 }
@@ -47,7 +51,7 @@ select {
     border-left-color: #555;
     font-size: 1rem;
     color: #3D405B;
-    width: 95%;
+    width: 98%;
 }
 
 input:required {
@@ -72,12 +76,246 @@ input[type=submit] {
     padding: .75rem 1.5rem;
     margin-top: 2rem;
     font-size: 1.2rem;
-    -webkit-appearance: none;
-    appearance: none;
+    display: block;
+    margin: 2rem auto 0;
 }
 
-input:-webkit-autofill {
-    -webkit-text-fill-color: var(--primary-color);
+/* Membership cards */
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+.membership-card {
+    margin: 10px 0;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    border-radius: 5px 30px 5px 30px;
+    border: solid 2px var(--contrast-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: -100% 0, 0 0;
+    background-size: 250% 250%, 100% 100%;
+    transition: background-position 0s ease;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideInUp 0.6s ease-out forwards;
+}
+
+.nonprofit {
+    animation-delay: 0.2s;
+}
+
+.bronze {
+    animation-delay: 0.4s;
+}
+
+.silver {
+    animation-delay: 0.6s;
+}
+
+.gold {
+    animation-delay: 0.8s;
+}
+
+.membership-card:hover {
+    transform: translateY(-2px);
+    background-position: 200% 0, 0 0;
+    transition-duration: 1.5s;
+}
+
+.bronze {
+    background-image: 
+        linear-gradient(
+            var(--metallic-deg),
+            transparent 20%,
+            transparent 40%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.3) 55%,
+            transparent 70%,
+            transparent 100%
+        ),
+        linear-gradient(
+            var(--metallic-deg),
+            #8B4513 5%,
+            #CD853F 15%,
+            #D2691E 25%,
+            #F4A460 35%,
+            #DEB887 50%,
+            #F4A460 65%,
+            #D2691E 75%,
+            #CD853F 85%,
+            #8B4513 95%
+        );
+}
+
+.silver {
+    background-image: 
+        linear-gradient(
+            var(--metallic-deg),
+            transparent 20%,
+            transparent 40%,
+            rgba(255, 255, 255, 0.4) 50%,
+            rgba(255, 255, 255, 0.4) 55%,
+            transparent 70%,
+            transparent 100%
+        ),
+        linear-gradient(
+            var(--metallic-deg),
+            #999 5%,
+            #fff 10%,
+            #ccc 30%,
+            #ddd 50%,
+            #ccc 70%,
+            #fff 80%,
+            #999 95%
+        );
+}
+
+.gold {
+    background-image: 
+        linear-gradient(
+            var(--metallic-deg),
+            transparent 20%,
+            transparent 40%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(255, 255, 255, 0.5) 55%,
+            transparent 70%,
+            transparent 100%
+        ),
+        linear-gradient(
+            var(--metallic-deg),
+            #B8860B 10%,
+            #FFD700 20%,
+            #FFE066 30%,
+            #FFF200 40%,
+            #FFF200 50%,
+            #FFF200 60%,
+            #FFE066 70%,
+            #FFD700 80%,
+            #B8860B 90%
+        );
+}
+
+.nonprofit {
+    background-image: 
+        linear-gradient(
+            var(--metallic-deg),
+            transparent 20%,
+            transparent 40%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0.2) 55%,
+            transparent 70%,
+            transparent 100%
+        ),
+        linear-gradient(
+            var(--metallic-deg),
+            #4B4B4B 10%,
+            #696969 20%,
+            #808080 30%,
+            #A9A9A9 40%,
+            #808080 50%,
+            #696969 60%,
+            #5A5A5A 70%,
+            #696969 80%,
+            #4B4B4B 90%
+        );
+}
+
+.membership-card h3 {
+    color: var(--primary-color);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
+}
+
+.membership-card p {
+    color: var(--primary-color);
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+    margin-bottom: 15px;
+}
+
+.learn-more {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: 35%;
+    align-self: center;
+}
+
+.learn-more:hover {
+    color: var(--contrast-color);
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+
+/* Modals */
+
+.membership-modal {
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.membership-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.modal-content ul {
+    padding-left: 20px;
+}
+
+.close-modal {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.close-modal:hover {
+    background-color: var(--contrast-color);
+}
+
+.learn-more {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.learn-more:hover {
+    color: var(--contrast-color);
+}
 
