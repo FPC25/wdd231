@@ -1,4 +1,4 @@
-@media only screen and (min-width: 701px) {
+@media only screen and (min-width: 1024px) {
 
     header, nav, footer {
         margin: 0;
@@ -6,6 +6,13 @@
 
     header {
         grid-template-columns: 50px auto auto 50px;
+    }
+
+    header .normal-title {
+        display: block;
+    }
+    header .medium-title {
+        display: none;
     }
     
     .hamburger {
@@ -93,6 +100,11 @@
         word-break: break-word;
     }
 
+    #allplaces {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
     footer {
         max-height: fit-content;
         display: grid;
@@ -140,23 +152,5 @@
 
     #results {
         width: 50%;
-    }
-}
-
-@media only screen and (min-width: 1001px){
-    header .normal-title {
-        display: block;
-    }
-    header .medium-title {
-        display: none;
-    }
-}
-
-@media only screen and (min-width: 701px) and (max-width: 1000px) {
-    header .normal-title {
-        display: none;
-    }
-    header .medium-title {
-        display: block;
     }
 }

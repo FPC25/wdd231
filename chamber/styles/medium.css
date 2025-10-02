@@ -1,0 +1,20 @@
+@media only screen and (min-width: 641px) {
+    header .normal-title {
+        display: none;
+    }
+    header .medium-title {
+        display: block;
+    }
+
+    #allplaces div {
+        display: grid;
+        grid-template-areas: 
+        "photo name"
+        "photo description"
+        "photo location";
+    }
+
+    #allplaces div img {
+        width: 300px;
+    }
+}
