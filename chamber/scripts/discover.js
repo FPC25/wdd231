@@ -23,6 +23,13 @@ function displayCards(places){
         description.innerHTML = place.description;
         card.appendChild(description);
 
+        const learnMore = document.createElement('button');
+        learnMore.innerHTML = `<a href='${place.site}'>Learn More</a>`;
+        learnMore.type = "button";
+        learnMore.classList.add('learn-more-btn');
+         
+        card.appendChild(learnMore);
+
         showhere.appendChild(card)
     });
 }  
