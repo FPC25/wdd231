@@ -11,10 +11,11 @@
         grid-template-areas: 
         "photo name"
         "photo description"
-        "photo location";
+        "photo location"
+        "photo learn";
     }
 
-    #allplaces div img {
-        width: 300px;
+    #allplaces div address {
+        margin-bottom: 0;
     }
 }

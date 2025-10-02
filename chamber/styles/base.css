@@ -248,34 +248,49 @@ footer {
 
 #allplaces div {
   margin: 1rem 0.5rem;
-  border: 1px solid #999;
-  background-color: #eee;
+  border: 1px solid;
+  box-shadow: 0 2px 20px rgba(0,0,0, 0.2);
+  background-color: var(--accent-color);
   border-radius: 0.5rem;
   overflow: hidden;
   display: grid;
   grid-template-areas: 
-    "name"
     "photo"
+    "name"
     "description"
-    "location";
+    "location"
+    "learn";
 }
 
 #allplaces div h2 {
-  margin: 1rem 1.125rem;
+  margin: 0.75rem 1.125rem; /* Vertical: 1rem, Lateral: 1.125rem */
   grid-area: name;
 }
 
 #allplaces div img {
   width: 100%;
   grid-area: photo;
+  justify-items: center;
+  align-items: center;
 }
 
 #allplaces div p {
-  margin: 1rem 1.125rem;
+  margin-left: 1.125rem;
   grid-area: description;
 }
 
 #allplaces div address {
-  margin: 1rem 1.125rem;
+  margin-left: 1.125rem;
+  margin-bottom: 1.125rem;
   grid-area: location;
+}
+
+#allplaces div button {
+  grid-area: learn;
+  background-color: var(--primary-color);
+}
+
+#allplaces div a {
+  text-decoration: none;
+  color: var(--background-color);
 }
