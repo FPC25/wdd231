@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+#allplaces div {
+    margin: 1rem 8px;
+    border: 1px solid #999;
+    background-color: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-areas: 
+    "name"
+    "photo"
+    "description"
+    "location";
+}
+
+#allplaces div h2 {
+    margin: 1rem 18px;
+    grid-area: name;
+}
+
+#allplaces div img {
+    width: 100%;
+    grid-area: photo;
+}
+
+#allplaces div p {
+    margin: 1rem 18px;
+    grid-area: description;
+}
+
+#allplaces div address {
+    margin: 1rem 18px;
+    grid-area: location;
+}
