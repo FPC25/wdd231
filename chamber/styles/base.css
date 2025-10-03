@@ -262,6 +262,15 @@ footer {
     "learn";
 }
 
+#message {
+  margin: 0 15px;
+  padding: 0 15px;
+  border: solid var(--primary-color);
+  border-radius: 10px;
+  background-color: var(--accent-color);
+  
+}
+
 #allplaces div h2 {
   margin: 0.75rem 1.125rem; /* Vertical: 1rem, Lateral: 1.125rem */
   grid-area: name;
@@ -275,12 +284,12 @@ footer {
 }
 
 #allplaces div p {
-  margin-left: 1.125rem;
+  margin: 0 1.125rem;
   grid-area: description;
 }
 
 #allplaces div address {
-  margin-left: 1.125rem;
+  margin: 0 1.125rem;
   margin-bottom: 1.125rem;
   grid-area: location;
 }
