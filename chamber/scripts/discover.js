@@ -9,6 +9,7 @@ function displayCards(places){
         const photo = document.createElement('img');
         photo.src = place.image_url;
         photo.alt = place.name;
+        photo.loading = 'lazy';
         card.appendChild(photo);
 
         const title = document.createElement('h2');
