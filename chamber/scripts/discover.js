@@ -10,6 +10,9 @@ function displayCards(places){
         photo.src = place.image_url;
         photo.alt = place.name;
         photo.loading = 'lazy';
+        photo.width = 400;
+        photo.height = 200;
+        photo.style.aspectRatio = '2/1';
         card.appendChild(photo);
 
         const title = document.createElement('h2');
