@@ -175,6 +175,10 @@ main {
   padding: 15px;
 }
 
+main h1{
+  padding: 15px;
+}
+
 /* ================ Footer ================ */
 
 footer {
@@ -295,13 +299,11 @@ footer {
 }
 
 #allplaces div button {
-  padding: auto 0;
   grid-area: learn;
   background-color: var(--primary-color);
 }
 
 #allplaces div a {
-  padding: auto;
   text-decoration: none;
   color: var(--background-color);
 }
