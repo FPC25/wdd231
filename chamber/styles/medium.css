@@ -15,6 +15,10 @@
         "photo learn";
     }
 
+    #allplaces div img{
+      border-right: solid 1px #bbb;
+    }
+
     #allplaces div address {
         margin-bottom: 0;
     }
