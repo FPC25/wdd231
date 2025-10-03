@@ -299,6 +299,7 @@ footer {
 }
 
 #allplaces div button {
+  padding: 8px 0;
   grid-area: learn;
   background-color: var(--primary-color);
 }
