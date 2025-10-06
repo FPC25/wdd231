@@ -91,36 +91,30 @@ export class PageManager {
     // ================== RENDER SECTIONS ==================
 
     /**
-     * Render the favorites section with favorite recipes
+     * Render the favorites section with user's favorite recipes
+     * Applies current search filters and displays recipes in the favorites grid
      */
     renderFavoritesSection() {
         const currentSearch = this.searchManager.getCurrentSearch();
         const favoriteRecipes = window.RecipeUtils.filterRecipes('favorites', currentSearch);
-        const emptyMessage = this.cardRenderer.createFavoritesEmptyState();
         
         if (this.favoritesGrid) {
-            if (favoriteRecipes.length === 0) {
-                this.favoritesGrid.innerHTML = emptyMessage;
-            } else {
-                window.RecipeUtils.renderRecipes(favoriteRecipes, this.favoritesGrid, emptyMessage);
-            }
+            // Render favorite recipes using the unified rendering method
+            this.cardRenderer.renderRecipes(favoriteRecipes, this.favoritesGrid, 'library', 'favorites');
         }
     }
 
     /**
-     * Render the saved recipes section with recently saved recipes
+     * Render the saved recipes section with user's recently saved recipes
+     * Applies current search filters and displays recipes in the saved recipes grid
      */
     renderSavedSection() {
         const currentSearch = this.searchManager.getCurrentSearch();
         const savedRecipes = window.RecipeUtils.filterRecipes('saved', currentSearch);
-        const emptyMessage = this.cardRenderer.createSavedEmptyState();
         
         if (this.savedGrid) {
-            if (savedRecipes.length === 0) {
-                this.savedGrid.innerHTML = emptyMessage;
-            } else {
-                window.RecipeUtils.renderRecipes(savedRecipes, this.savedGrid, emptyMessage);
-            }
+            // Render saved recipes using the unified rendering method
+            this.cardRenderer.renderRecipes(savedRecipes, this.savedGrid, 'library', 'saved');
         }
     }
 
@@ -129,7 +123,11 @@ export class PageManager {
      */
     renderUserRecipesSection() {
         const allUserContent = this.userRecipeManager.getAllUserContent();
-        this.cardRenderer.renderUserRecipes(allUserContent, this.userRecipesContainer);
+        
+        if (this.userRecipesContainer) {
+            // MUDAR para usar o método unificado
+            this.cardRenderer.renderUserRecipes(allUserContent, this.userRecipesContainer);
+        }
     }
 
     // ================== USER RECIPE EVENT LISTENERS ==================
