@@ -1,66 +1,63 @@
-// Define the MenuManager class to manage the behavior of a hamburger menu
+/**
+ * MenuManager - Handles ONLY menu UI interactions
+ * Single Responsibility: Menu visibility and mobile behavior
+ */
 export class MenuManager {
     constructor() {
-        // Get references to DOM elements
-        this.hamburger = document.getElementById('hamburger'); // The hamburger button
-        this.hamburgerMenu = document.querySelector('.hamburger-menu'); // The menu container
-        this.menuOverlay = document.querySelector('.menu-overlay'); // The overlay behind the menu
-        this.menuCloseBtn = null; // Placeholder for the close button (created dynamically)
+        this.menuButton = null;
+        this.mobileMenu = null;
+        this.isMenuOpen = false;
         
-        // Initialize the menu manager
         this.init();
     }
 
     init() {
-        // If the menu container doesn't exist, exit early
-        if (!this.hamburgerMenu) return;
+        this.menuButton = document.getElementById('menu-btn');
+        this.mobileMenu = document.getElementById('mobile-menu');
         
-        // Create the menu header and set up event listeners
-        this.createMenuHeader();
-        this.setupEventListeners();
-    }
-
-    createMenuHeader() {
-        // If the menu header already exists, do nothing
-        if (this.hamburgerMenu.querySelector('.menu-header')) return;
-
-        // Create a new menu header element
-        const menuHeader = document.createElement('div');
-        menuHeader.className = 'menu-header'; // Add a class for styling
-        menuHeader.innerHTML = `
-            <span class="menu-title">Menu</span>
-            <button class="menu-close-btn" id="menu-close-btn" aria-label="Close menu">×</button>
-        `;
-
-        // Insert the menu header before the menu list
-        const menuList = this.hamburgerMenu.querySelector('ul');
-        this.hamburgerMenu.insertBefore(menuHeader, menuList);
-
-        // Store a reference to the close button
-        this.menuCloseBtn = document.getElementById('menu-close-btn');
+        if (this.menuButton && this.mobileMenu) {
+            this.setupEventListeners();
+        }
     }
 
     setupEventListeners() {
-        // Add a click event listener to the hamburger button to toggle the menu
-        this.hamburger?.addEventListener('click', () => this.toggleMenu());
-        
-        // Add a click event listener to the close button to close the menu
-        this.menuCloseBtn?.addEventListener('click', () => this.closeMenu());
-        
-        // Add a click event listener to the overlay to close the menu
-        this.menuOverlay?.addEventListener('click', () => this.closeMenu());
-        
-        // Add a keydown event listener to close the menu when the ESC key is pressed
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isMenuOpen()) {
+        // Menu toggle
+        this.menuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleMenu();
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (this.isMenuOpen && !this.mobileMenu.contains(e.target)) {
                 this.closeMenu();
             }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isMenuOpen) {
+                this.closeMenu();
+            }
+        });
+
+        // Close on window resize (when menu becomes desktop)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && this.isMenuOpen) {
+                this.closeMenu();
+            }
+        });
+
+        // Handle menu item clicks
+        this.mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                this.closeMenu();
+            });
         });
     }
 
     toggleMenu() {
-        // Toggle the menu open or closed based on its current state
-        if (this.isMenuOpen()) {
+        if (this.isMenuOpen) {
             this.closeMenu();
         } else {
             this.openMenu();
@@ -68,27 +65,49 @@ export class MenuManager {
     }
 
     openMenu() {
-        // Add classes to open the menu and activate the overlay
-        this.hamburgerMenu.classList.add('open');
-        this.menuOverlay?.classList.add('active');
-        document.body.classList.add('menu-open');
+        this.isMenuOpen = true;
+        this.mobileMenu.classList.add('active');
+        this.menuButton.setAttribute('aria-expanded', 'true');
         
-        // Focus on the close button for accessibility after a short delay
-        setTimeout(() => this.menuCloseBtn?.focus(), 300);
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+        
+        // Focus management
+        this.mobileMenu.focus();
+        
+        this.dispatchMenuEvent('opened');
     }
 
     closeMenu() {
-        // Remove classes to close the menu and deactivate the overlay
-        this.hamburgerMenu.classList.remove('open');
-        this.menuOverlay?.classList.remove('active');
-        document.body.classList.remove('menu-open');
+        this.isMenuOpen = false;
+        this.mobileMenu.classList.remove('active');
+        this.menuButton.setAttribute('aria-expanded', 'false');
         
-        // Return focus to the hamburger button for accessibility
-        this.hamburger?.focus();
+        // Restore body scroll
+        document.body.style.overflow = '';
+        
+        this.dispatchMenuEvent('closed');
     }
 
-    isMenuOpen() {
-        // Check if the menu is currently open
-        return this.hamburgerMenu?.classList.contains('open') || false;
+    // Custom event for extensibility
+    dispatchMenuEvent(action) {
+        const event = new CustomEvent('menuStateChanged', {
+            detail: { action, isOpen: this.isMenuOpen }
+        });
+        document.dispatchEvent(event);
+    }
+
+    // Public API
+    getMenuState() {
+        return this.isMenuOpen;
+    }
+
+    forceClose() {
+        if (this.isMenuOpen) {
+            this.closeMenu();
+        }
     }
 }
+
+// Global instance
+window.menuManager = new MenuManager();
