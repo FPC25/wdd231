@@ -1,6 +1,6 @@
-import { UserRecipeManager } from './UserRecipeManager.mjs';
-import { SearchManager } from './SearchManager.mjs';
-import { RecipeCardRenderer } from './RecipeCardRenderer.mjs';
+import { UserRecipeManager } from './modules/UserRecipeManager.mjs';
+import { SearchManager } from './modules/SearchManager.mjs';
+import { RecipeCardRenderer } from './modules/RecipeCardRenderer.mjs';
 
 /**
  * PageManager class handles the main functionality for the index page
