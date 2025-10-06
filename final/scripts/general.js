@@ -1,10 +1,8 @@
 import { MenuManager } from './modules/MenuManager.mjs';
-import { NavigationManager } from './modules/NavigationManager.mjs';
 import { DateManager } from './modules/DateManager.mjs';
 
 // Initialize managers
 const menuManager = new MenuManager();
-const navigationManager = new NavigationManager();
 const dateManager = new DateManager();
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -62,7 +60,7 @@ function initializePageFeatures() {
     backButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
-            navigationManager.goBack();
+            window.history.back();
         });
     });
 
@@ -141,18 +139,21 @@ function setupAccessibilityFeatures() {
 // Utility functions
 window.GlobalUtils = {
     dateManager,
-    navigationManager,
     menuManager,
     
     // Helper functions
     formatDate: (date, format) => dateManager.formatDate(date, format),
-    goBack: () => navigationManager.goBack(),
+    goBack: () => window.history.back(),
     closeMenu: () => menuManager.forceClose(),
     
     // Debug helpers
-    getCurrentPage: () => navigationManager.getActivePage(),
+    getCurrentPage: () => {
+        const path = window.location.pathname;
+        const page = path.split('/').pop() || 'index.html';
+        return page.replace('.html', '');
+    },
     getMenuState: () => menuManager.getMenuState()
 };
 
 // Export for modules that need it
-export { menuManager, navigationManager, dateManager };
+export { menuManager, dateManager };
