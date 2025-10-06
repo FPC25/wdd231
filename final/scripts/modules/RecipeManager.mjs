@@ -1,16 +1,17 @@
-import { RecipeBusinessLogic } from './RecipeBusinessLogic.mjs';
-import { RecipeRenderingService } from './RecipeRenderingService.mjs';
+import { RecipeDataService } from './RecipeDataService.mjs';
+import { RecipeCard } from './RecipeCard.mjs';
 
 /**
- * RecipeManager - Facade Pattern (Simplified Interface)
- * Provides a simple interface to complex subsystems
+ * RecipeManager - Main facade for recipe operations
+ * Consolidates all recipe business logic and rendering
  */
 export class RecipeManager {
-    constructor(businessLogic = null, renderingService = null) {
-        this.businessLogic = businessLogic || new RecipeBusinessLogic();
-        this.renderingService = renderingService || new RecipeRenderingService();
+    constructor() {
+        this.dataService = new RecipeDataService();
+        this.cardRenderer = new RecipeCard();
+        this.updateCallbacks = [];
         
-        // Form utilities (could be moved to separate FormManager)
+        // Form utilities
         this.initializeFormOptions();
     }
 
@@ -47,57 +48,155 @@ export class RecipeManager {
         ];
     }
 
-    // ================== DELEGATE TO BUSINESS LOGIC ==================
+    // ================== BUSINESS LOGIC ==================
 
     async loadRecipes() {
-        return await this.businessLogic.loadRecipes();
+        return await this.dataService.loadRecipes();
     }
 
     getRecipes(criteria = 'all', searchTerm = '') {
-        return this.businessLogic.getRecipes(criteria, searchTerm);
+        const allRecipes = this.dataService.getRecipes();
+        const userRecipes = this.dataService.getUserRecipes();
+        const favorites = this.dataService.getFavorites();
+        const saved = this.dataService.getSaved();
+        
+        let filteredRecipes = [];
+        
+        switch (criteria) {
+            case 'library':
+                filteredRecipes = allRecipes;
+                break;
+            case 'user':
+                filteredRecipes = userRecipes;
+                break;
+            case 'favorites':
+                filteredRecipes = allRecipes.filter(recipe => favorites.includes(recipe.id));
+                break;
+            case 'saved':
+                filteredRecipes = allRecipes.filter(recipe => saved.includes(recipe.id));
+                break;
+            case 'all':
+            default:
+                filteredRecipes = [...allRecipes, ...userRecipes];
+                break;
+        }
+        
+        if (searchTerm.trim()) {
+            const term = searchTerm.toLowerCase();
+            filteredRecipes = filteredRecipes.filter(recipe =>
+                recipe.name.toLowerCase().includes(term) ||
+                recipe.filters.some(filter => filter.toLowerCase().includes(term)) ||
+                recipe.ingredients.some(ing => ing.item.toLowerCase().includes(term))
+            );
+        }
+        
+        return filteredRecipes;
     }
 
     getRecipeById(id) {
-        return this.businessLogic.getRecipeById(id);
+        return this.dataService.getRecipeById(id);
     }
 
     getRecipeStates(recipeId) {
-        return this.businessLogic.getRecipeStates(recipeId);
+        const favorites = this.dataService.getFavorites();
+        const saved = this.dataService.getSaved();
+        
+        return {
+            isFavorite: favorites.includes(recipeId),
+            isSaved: saved.includes(recipeId)
+        };
     }
 
     toggleFavorite(recipeId) {
-        return this.businessLogic.toggleFavorite(recipeId);
+        const recipe = this.getRecipeById(recipeId);
+        if (!recipe) return null;
+        
+        const favorites = this.dataService.getFavorites();
+        const index = favorites.indexOf(recipeId);
+        
+        if (index > -1) {
+            favorites.splice(index, 1);
+            this.dataService.setFavorites(favorites);
+        } else {
+            favorites.push(recipeId);
+            this.dataService.setFavorites(favorites);
+        }
+        
+        this.notifyChange();
+        return recipe;
     }
 
     toggleSaved(recipeId) {
-        return this.businessLogic.toggleSaved(recipeId);
+        const recipe = this.getRecipeById(recipeId);
+        if (!recipe) return null;
+        
+        const saved = this.dataService.getSaved();
+        const index = saved.indexOf(recipeId);
+        
+        if (index > -1) {
+            saved.splice(index, 1);
+            this.dataService.setSaved(saved);
+        } else {
+            saved.push(recipeId);
+            this.dataService.setSaved(saved);
+        }
+        
+        this.notifyChange();
+        return recipe;
     }
 
     saveRecipe(recipeData) {
-        return this.businessLogic.saveRecipe(recipeData);
+        const recipe = this.dataService.saveUserRecipe(recipeData);
+        
+        if (recipeData.isFavorite) {
+            const favorites = this.dataService.getFavorites();
+            favorites.push(recipe.id);
+            this.dataService.setFavorites(favorites);
+        }
+        
+        this.notifyChange();
+        return recipe;
     }
 
     saveDraft(draftData) {
-        return this.businessLogic.saveDraft(draftData);
+        this.dataService.saveDraft(draftData);
     }
 
     getDraft() {
-        return this.businessLogic.getDraft();
+        return this.dataService.getDraft();
     }
 
     deleteDraft() {
-        return this.businessLogic.deleteDraft();
+        this.dataService.deleteDraft();
     }
+
+    // ================== OBSERVER PATTERN ==================
 
     onFavoritesChange(callback) {
-        return this.businessLogic.onFavoritesChange(callback);
+        this.updateCallbacks.push(callback);
     }
 
-    // ================== DELEGATE TO RENDERING ==================
+    notifyChange() {
+        this.updateCallbacks.forEach(callback => {
+            try {
+                callback();
+            } catch (error) {
+                console.error('Error in callback:', error);
+            }
+        });
+    }
+
+    // ================== RENDERING ==================
 
     renderRecipes(recipes, container, type = 'library') {
-        const getStatesCallback = (recipeId) => this.getRecipeStates(recipeId);
-        return this.renderingService.renderRecipes(recipes, container, type, getStatesCallback);
+        const configProvider = (recipe) => {
+            const states = this.getRecipeStates(recipe.id);
+            return this.createConfig(type, recipe, states);
+        };
+
+        const emptyState = this.cardRenderer.getEmptyState(type === 'user' ? 'user' : 'default');
+        this.cardRenderer.renderCards(recipes, container, configProvider, emptyState);
+        this.addEventListeners(container);
     }
 
     renderUserRecipes(container) {
@@ -110,11 +209,109 @@ export class RecipeManager {
         }
         allContent.push(...userRecipes);
 
-        const getStatesCallback = (recipeId) => this.getRecipeStates(recipeId);
-        this.renderingService.renderUserContent(allContent, container, getStatesCallback);
-        
-        // Add event listeners
+        const configProvider = (item) => {
+            if (item.isDraft) {
+                return this.createDraftConfig(item);
+            } else {
+                const states = this.getRecipeStates(item.id);
+                return this.createUserConfig(item, states);
+            }
+        };
+
+        const emptyState = this.cardRenderer.getEmptyState('user');
+        this.cardRenderer.renderCards(allContent, container, configProvider, emptyState);
         this.addEventListeners(container);
+    }
+
+    // ================== CARD CONFIGURATION ==================
+
+    createConfig(type, recipe, states = {}) {
+        switch (type) {
+            case 'library':
+                return this.createLibraryConfig(recipe, states);
+            case 'user':
+                return this.createUserConfig(recipe, states);
+            case 'draft':
+                return this.createDraftConfig(recipe);
+            default:
+                return this.createLibraryConfig(recipe, states);
+        }
+    }
+
+    createLibraryConfig(recipe, states = {}) {
+        const { isFavorite = false, isSaved = false } = states;
+        
+        return {
+            cardClass: 'library-card',
+            badge: '',
+            actions: this.createLibraryActions(recipe.id, isFavorite, isSaved),
+            metaContent: null,
+            imageClass: '',
+            showMeta: true
+        };
+    }
+
+    createUserConfig(recipe, states = {}) {
+        const { isFavorite = false, isSaved = false } = states;
+        
+        return {
+            cardClass: 'user-recipe-card',
+            badge: '',
+            actions: this.createLibraryActions(recipe.id, isFavorite, isSaved),
+            metaContent: null,
+            imageClass: '',
+            showMeta: true
+        };
+    }
+
+    createDraftConfig(recipe) {
+        return {
+            cardClass: 'draft-card',
+            badge: '<span class="draft-badge">Draft</span>',
+            actions: this.createDraftActions(),
+            metaContent: '<span class="draft-status">Draft in progress</span>',
+            imageClass: 'draft-image',
+            showMeta: false
+        };
+    }
+
+    createLibraryActions(recipeId, isFavorite, isSaved) {
+        const favoriteClass = isFavorite ? 'active' : '';
+        const savedClass = isSaved ? 'active' : '';
+        const saveIcon = isSaved ? 'check.svg' : 'plus.svg';
+        const saveAlt = isSaved ? 'Saved' : 'Save';
+
+        return `
+            <button class="action-btn save-btn ${savedClass}" 
+                    data-recipe-id="${recipeId}" 
+                    data-action="save" 
+                    aria-label="Toggle save"
+                    aria-pressed="${isSaved}">
+                <img src="./images/${saveIcon}" alt="${saveAlt}">
+            </button>
+            <button class="action-btn favorite-btn ${favoriteClass}" 
+                    data-recipe-id="${recipeId}" 
+                    data-action="favorite" 
+                    aria-label="Toggle favorite"
+                    aria-pressed="${isFavorite}">
+                <img src="./images/star.svg" alt="Favorite">
+            </button>
+        `;
+    }
+
+    createDraftActions() {
+        return `
+            <button class="action-btn edit-draft-btn" 
+                    data-action="edit-draft" 
+                    aria-label="Continue editing draft">
+                <img src="./images/edit.svg" alt="Edit">
+            </button>
+            <button class="action-btn delete-draft-btn" 
+                    data-action="delete-draft" 
+                    aria-label="Delete draft">
+                <img src="./images/trash.svg" alt="Delete">
+            </button>
+        `;
     }
 
     // ================== EVENT HANDLING ==================
@@ -301,10 +498,7 @@ export class RecipeManager {
         };
     }
 
-    // Expose dataService for direct access when needed
-    get dataService() {
-        return this.businessLogic.dataService;
-    }
+    // Note: dataService is directly accessible as this.dataService
 }
 
 // Global instance for backward compatibility
@@ -317,9 +511,9 @@ window.RecipeUtils = {
     toggleFavorite: (id) => window.recipeManager.toggleFavorite(id),
     toggleSaved: (id) => window.recipeManager.toggleSaved(id),
     onFavoritesChange: (callback) => window.recipeManager.onFavoritesChange(callback),
-    getRecipesData: () => window.recipeManager.businessLogic.dataService.getRecipes(),
-    getFavoritesFromStorage: () => window.recipeManager.businessLogic.dataService.getFavorites(),
-    getSavedFromStorage: () => window.recipeManager.businessLogic.dataService.getSaved(),
+    getRecipesData: () => window.recipeManager.dataService.getRecipes(),
+    getFavoritesFromStorage: () => window.recipeManager.dataService.getFavorites(),
+    getSavedFromStorage: () => window.recipeManager.dataService.getSaved(),
     getUserRecipes: () => window.recipeManager.getRecipes('user'),
     getDraft: () => window.recipeManager.getDraft()
 };
