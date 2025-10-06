@@ -1,108 +1,105 @@
 /**
- * SearchManager class handles search functionality across the application
- * Manages search input, search button interactions, and search state
+ * SearchManager - Handles search functionality with improved event system
+ * Single Responsibility: Only search logic
  */
 export class SearchManager {
     constructor() {
-        // Get DOM elements for search functionality
-        this.searchInput = document.querySelector('.search-input');
-        this.searchButton = document.querySelector('.search-button');
-        
-        // Track current search term
         this.currentSearch = '';
+        this.searchInput = null;
+        this.clearButton = null;
+        this.callbacks = [];
         
-        // Initialize the search manager
         this.init();
     }
 
-    /**
-     * Initialize the search manager by setting up event listeners
-     */
     init() {
-        this.setupEventListeners();
-    }
-
-    /**
-     * Set up event listeners for search input and button interactions
-     */
-    setupEventListeners() {
-        // Add click event listener to search button
-        if (this.searchButton) {
-            this.searchButton.addEventListener('click', () => this.performSearch());
-        }
-
-        if (this.searchInput) {
-            // Add Enter key event listener to search input
-            this.searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    this.performSearch();
-                }
-            });
-
-            // Add input event listener for visual feedback during typing
-            this.searchInput.addEventListener('input', (e) => {
-                this.handleSearchInput(e.target);
-            });
-        }
-    }
-
-    /**
-     * Perform search by redirecting to explore page with search parameters
-     * Only executes if search term is not empty after trimming whitespace
-     */
-    performSearch() {
-        // Get search term and remove leading/trailing whitespace
-        const searchTerm = this.searchInput?.value.trim();
+        this.searchInput = document.getElementById('search-input');
+        this.clearButton = document.getElementById('clear-search');
         
-        if (searchTerm) {
-            // Redirect to explore page with encoded search parameter
-            window.location.href = `./explore.html?search=${encodeURIComponent(searchTerm)}`;
+        if (this.searchInput) {
+            this.setupEventListeners();
         }
     }
 
-    /**
-     * Handle input changes in search field to provide visual feedback
-     * Changes background color based on whether input has content
-     * @param {HTMLInputElement} input - The search input element
-     */
-    handleSearchInput(input) {
-        if (input.value.trim()) {
-            // Set light green background when input has content
-            input.style.backgroundColor = '#e8f5e8';
-        } else {
-            // Reset background when input is empty
-            input.style.backgroundColor = '';
+    setupEventListeners() {
+        // Search input with debounce
+        let searchTimeout;
+        this.searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                this.performSearch(e.target.value);
+            }, 300);
+        });
+
+        // Clear button
+        if (this.clearButton) {
+            this.clearButton.addEventListener('click', () => {
+                this.clearSearch();
+            });
+        }
+
+        // Enter key
+        this.searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.performSearch(e.target.value);
+            }
+        });
+    }
+
+    performSearch(searchTerm) {
+        this.currentSearch = searchTerm.trim();
+        this.updateUI();
+        this.notifySearchChange(); // Observer pattern
+        this.dispatchSearchEvent(); // Custom event
+    }
+
+    clearSearch() {
+        this.currentSearch = '';
+        if (this.searchInput) {
+            this.searchInput.value = '';
+        }
+        this.updateUI();
+        this.notifySearchChange();
+        this.dispatchSearchEvent();
+    }
+
+    updateUI() {
+        if (this.clearButton) {
+            this.clearButton.style.display = this.currentSearch ? 'block' : 'none';
         }
     }
 
-    /**
-     * Get the current search term
-     * @returns {string} The current search term
-     */
+    // Observer pattern for backward compatibility
+    onSearchChange(callback) {
+        this.callbacks.push(callback);
+    }
+
+    notifySearchChange() {
+        this.callbacks.forEach(callback => {
+            try {
+                callback(this.currentSearch);
+            } catch (error) {
+                console.error('Error in search callback:', error);
+            }
+        });
+    }
+
+    // Modern approach with custom events
+    dispatchSearchEvent() {
+        const event = new CustomEvent('searchChanged', {
+            detail: { searchTerm: this.currentSearch }
+        });
+        document.dispatchEvent(event);
+    }
+
     getCurrentSearch() {
         return this.currentSearch;
     }
 
-    /**
-     * Set the current search term (used for tracking search state)
-     * @param {string} searchTerm - The search term to store
-     */
-    setCurrentSearch(searchTerm) {
-        this.currentSearch = searchTerm;
-    }
-
-    /**
-     * Clear the search input and reset search state
-     * Removes text from input field and resets visual styling
-     */
-    clearSearch() {
-        if (this.searchInput) {
-            // Clear input value
-            this.searchInput.value = '';
-            // Reset background color
-            this.searchInput.style.backgroundColor = '';
-        }
-        // Reset stored search term
-        this.currentSearch = '';
+    hasActiveSearch() {
+        return this.currentSearch.length > 0;
     }
 }
+
+// Global instance
+window.searchManager = new SearchManager();
