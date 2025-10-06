@@ -1,17 +1,14 @@
-import { UserRecipeManager } from './UserRecipeManager.mjs';
 import { SearchManager } from './SearchManager.mjs';
-import { RecipeCardRenderer } from './RecipeCard.mjs';
+import { RecipeManager } from './RecipeManager.mjs';
 
 /**
  * PageManager class handles the main functionality for the index page
- * Manages user recipes, favorites, saved recipes, and search functionality
+ * Now uses the unified RecipeManager instead of separate managers
  */
 export class PageManager {
     constructor() {
-        // Initialize manager instances for different functionalities
-        this.userRecipeManager = new UserRecipeManager();
         this.searchManager = new SearchManager();
-        this.cardRenderer = new RecipeCardRenderer();
+        this.recipeManager = new RecipeManager();
         
         // Get DOM elements for different recipe sections
         this.favoritesGrid = document.querySelector('.favorites .recipe-grid');
@@ -37,7 +34,7 @@ export class PageManager {
      */
     async loadInitialData() {
         // Load recipes data from localStorage or JSON file
-        await window.RecipeUtils.loadRecipes();
+        await this.recipeManager.loadRecipes();
     }
 
     /**
@@ -54,7 +51,7 @@ export class PageManager {
      */
     setupEventListeners() {
         // Register callback for when favorites/saved recipes change
-        window.RecipeUtils.onFavoritesChange(() => {
+        this.recipeManager.onFavoritesChange(() => {
             this.renderFavoritesSection();
             this.renderSavedSection();
         });
@@ -70,10 +67,8 @@ export class PageManager {
         // Listen for localStorage changes from other tabs
         window.addEventListener('storage', (e) => {
             if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
-                window.RecipeUtils.loadRecipes().then(() => {
-                    this.renderFavoritesSection();
-                    this.renderSavedSection();
-                    this.renderUserRecipesSection();
+                this.recipeManager.loadRecipes().then(() => {
+                    this.renderAllSections();
                 });
             }
         });
@@ -81,7 +76,7 @@ export class PageManager {
         // Update data when page becomes visible again (user switches back to tab)
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
-                window.RecipeUtils.loadRecipes().then(() => {
+                this.recipeManager.loadRecipes().then(() => {
                     this.renderAllSections();
                 });
             }
@@ -96,11 +91,16 @@ export class PageManager {
      */
     renderFavoritesSection() {
         const currentSearch = this.searchManager.getCurrentSearch();
-        const favoriteRecipes = window.RecipeUtils.filterRecipes('favorites', currentSearch);
+        const favoriteRecipes = this.recipeManager.getRecipes('favorites', currentSearch);
         
         if (this.favoritesGrid) {
             // Render favorite recipes using the unified rendering method
-            this.cardRenderer.renderRecipes(favoriteRecipes, this.favoritesGrid, 'library', 'favorites');
+            this.recipeManager.renderingService.renderFavoriteRecipes(
+                favoriteRecipes, 
+                this.favoritesGrid, 
+                (recipeId) => this.recipeManager.getRecipeStates(recipeId)
+            );
+            this.recipeManager.addEventListeners(this.favoritesGrid);
         }
     }
 
@@ -110,11 +110,16 @@ export class PageManager {
      */
     renderSavedSection() {
         const currentSearch = this.searchManager.getCurrentSearch();
-        const savedRecipes = window.RecipeUtils.filterRecipes('saved', currentSearch);
+        const savedRecipes = this.recipeManager.getRecipes('saved', currentSearch);
         
         if (this.savedGrid) {
             // Render saved recipes using the unified rendering method
-            this.cardRenderer.renderRecipes(savedRecipes, this.savedGrid, 'library', 'saved');
+            this.recipeManager.renderingService.renderSavedRecipes(
+                savedRecipes, 
+                this.savedGrid, 
+                (recipeId) => this.recipeManager.getRecipeStates(recipeId)
+            );
+            this.recipeManager.addEventListeners(this.savedGrid);
         }
     }
 
@@ -122,11 +127,9 @@ export class PageManager {
      * Render the user recipes section with user-created recipes and drafts
      */
     renderUserRecipesSection() {
-        const allUserContent = this.userRecipeManager.getAllUserContent();
-        
         if (this.userRecipesContainer) {
             // MUDAR para usar o método unificado
-            this.cardRenderer.renderUserRecipes(allUserContent, this.userRecipesContainer);
+            this.recipeManager.renderUserRecipes(this.userRecipesContainer);
         }
     }
 
@@ -172,23 +175,18 @@ export class PageManager {
         switch (action) {
             case 'edit-draft':
                 // Continue editing a draft recipe
-                this.userRecipeManager.editDraft();
+                window.location.href = './recipe.html';
                 break;
             case 'delete-draft':
                 // Delete a draft recipe with confirmation
-                if (this.userRecipeManager.confirmDeleteDraft()) {
+                if (confirm('Are you sure you want to delete this draft? This action cannot be undone.')) {
+                    this.recipeManager.deleteDraft();
                     this.renderUserRecipesSection();
                 }
                 break;
-            case 'edit':
-                // Edit an existing user recipe
-                this.userRecipeManager.editRecipe(recipeId);
-                break;
-            case 'delete':
-                // Delete an existing user recipe with confirmation
-                if (this.userRecipeManager.confirmDeleteRecipe(recipeId)) {
-                    this.renderUserRecipesSection();
-                }
+            case 'favorite':
+            case 'save':
+                // These are handled by RecipeManager's event listeners
                 break;
         }
     }
@@ -200,7 +198,7 @@ export class PageManager {
     handleCardClick(card) {
         if (card.classList.contains('draft-card')) {
             // If it's a draft card, redirect to recipe creation page for editing
-            this.userRecipeManager.editDraft();
+            window.location.href = './recipe.html';
         } else {
             // If it's a complete recipe, redirect to recipe detail page
             const recipeId = card.dataset.recipeId;
@@ -222,7 +220,7 @@ export class PageManager {
      * @returns {number} The number of user recipes
      */
     getUserRecipeCount() {
-        return this.userRecipeManager.getUserRecipeCount();
+        return this.recipeManager.getRecipes('user').length;
     }
 
     /**
@@ -230,6 +228,6 @@ export class PageManager {
      * @returns {boolean} True if user has a draft, false otherwise
      */
     hasDraft() {
-        return this.userRecipeManager.hasDraft();
+        return this.recipeManager.getDraft() !== null;
     }
 }
