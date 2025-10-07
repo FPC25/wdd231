@@ -1,8 +1,8 @@
 // Rendering logic for explore page
 
 import { getState } from './explore-state.mjs';
-import { loadRecipes } from './recipe-data.mjs';
-import { filterRecipes, filterRecipesByCategory } from './recipe-filters.mjs';
+import { loadRecipes, filterRecipes } from './recipe-data.mjs';
+import { filterRecipesByCategory } from './recipe-filters.mjs';
 import { renderRecipes } from './recipe-renderer.mjs';
 
 export async function renderCurrentView() {
