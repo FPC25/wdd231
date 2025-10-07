@@ -3,7 +3,7 @@ import { getDomElements } from './modules/calculator-dom.mjs';
 import { setupEventListeners } from './modules/calculator-events.mjs';
 import { populateRecipeSelect, loadSelectedRecipe, displayRecipe } from './modules/calculator-renderer.mjs';
 import { convertUnits, convertVolumeToWeight, calculateIngredientCost, updateProfitCalculations } from './modules/calculator-utils.mjs';
-import { loadCalculationHistory, saveCalculation, loadSavedCalculation } from './modules/calculator-history.mjs';
+import { loadCalculationHistory, saveCalculation, loadSavedCalculation, displayCalculationHistory } from './modules/calculator-history.mjs';
 import { preselectRecipeFromUrl } from './modules/calculator-navigation.mjs';
 import { setupCostInputs } from './modules/calculator-ingredients.mjs';
 import { checkAllCostsEntered, calculateCosts, displayResults } from './modules/calculator-calculations.mjs';
@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     const domElements = getDomElements();
     populateRecipeSelect();
     setupEventListeners(domElements);
+    
+    // Load and display calculation history
+    displayCalculationHistory();
 
     const urlParams = new URLSearchParams(window.location.search);
     const recipeId = urlParams.get('recipe');
