@@ -54,6 +54,57 @@ export function renderRecipes(recipes, container, emptyMessage = 'No recipes fou
     }
     
     container.innerHTML = recipes.map(recipe => createRecipeCard(recipe)).join('');
+    
+    // Adicionar event listeners após renderizar
+    setupRecipeCardEvents(container);
+}
+
+/**
+ * Configura event listeners para cards de receitas
+ * @param {HTMLElement} container - Container com os cards
+ */
+function setupRecipeCardEvents(container) {
+    const recipeCards = container.querySelectorAll('.recipe-card');
+    
+    recipeCards.forEach(card => {
+        // Event listener para clique no card (navegar para detalhes)
+        card.addEventListener('click', function(e) {
+            // Verificar se o clique não foi em um botão de ação
+            if (!e.target.closest('.action-btn')) {
+                const recipeId = this.dataset.recipeId;
+                window.location.href = `./recipe-detail.html?id=${recipeId}`;
+            }
+        });
+        
+        // Adicionar cursor pointer
+        card.style.cursor = 'pointer';
+    });
+    
+    // Event listeners para botões de ação
+    setupActionButtons(container);
+}
+
+/**
+ * Configura event listeners para botões de favoritar/salvar
+ * @param {HTMLElement} container - Container com os cards
+ */
+function setupActionButtons(container) {
+    const actionButtons = container.querySelectorAll('.action-btn');
+    
+    actionButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evitar trigger do clique no card
+            
+            const recipeId = this.dataset.recipeId;
+            const action = this.dataset.action;
+            
+            if (action === 'favorite') {
+                toggleFavorite(recipeId, this);
+            } else if (action === 'save') {
+                toggleSave(recipeId, this);
+            }
+        });
+    });
 }
 
 // Exibe os dados da receita na página - COM IMAGEM CONDICIONAL
@@ -117,6 +168,102 @@ export function displayRecipeImage(recipe) {
     } else {
         imageSection.style.display = 'none';
     }
+}
+
+/**
+ * Toggle favorite status of a recipe
+ * @param {string} recipeId - Recipe ID
+ * @param {HTMLElement} button - Button element
+ */
+function toggleFavorite(recipeId, button) {
+    // Import dynamic to avoid circular dependency
+    import('./recipe-data.mjs').then(({ getRecipesData, saveFavoritesToStorage, getFavoritesFromStorage, notifyFavoritesChange }) => {
+        const recipesData = getRecipesData();
+        const recipe = recipesData.find(r => r.id === recipeId);
+        
+        if (recipe) {
+            recipe.isFavorite = !recipe.isFavorite;
+            
+            // Update storage
+            const favorites = getFavoritesFromStorage();
+            if (recipe.isFavorite) {
+                if (!favorites.includes(recipeId)) {
+                    favorites.push(recipeId);
+                }
+            } else {
+                const index = favorites.indexOf(recipeId);
+                if (index > -1) {
+                    favorites.splice(index, 1);
+                }
+            }
+            saveFavoritesToStorage(favorites);
+            
+            // Update button visual state
+            const icon = button.querySelector('img');
+            if (recipe.isFavorite) {
+                button.classList.add('active');
+                icon.src = './images/favorite.svg';
+                icon.alt = 'Favorited';
+            } else {
+                button.classList.remove('active');
+                icon.src = './images/favorite.svg';
+                icon.alt = 'Add to favorites';
+            }
+            
+            // Notify changes to update other parts of the app
+            notifyFavoritesChange();
+            
+            console.log(`Recipe ${recipe.name} ${recipe.isFavorite ? 'added to' : 'removed from'} favorites`);
+        }
+    });
+}
+
+/**
+ * Toggle save status of a recipe
+ * @param {string} recipeId - Recipe ID
+ * @param {HTMLElement} button - Button element
+ */
+function toggleSave(recipeId, button) {
+    // Import dynamic to avoid circular dependency
+    import('./recipe-data.mjs').then(({ getRecipesData, saveSavedToStorage, getSavedFromStorage, notifyFavoritesChange }) => {
+        const recipesData = getRecipesData();
+        const recipe = recipesData.find(r => r.id === recipeId);
+        
+        if (recipe) {
+            recipe.isSaved = !recipe.isSaved;
+            
+            // Update storage
+            const saved = getSavedFromStorage();
+            if (recipe.isSaved) {
+                if (!saved.includes(recipeId)) {
+                    saved.push(recipeId);
+                }
+            } else {
+                const index = saved.indexOf(recipeId);
+                if (index > -1) {
+                    saved.splice(index, 1);
+                }
+            }
+            saveSavedToStorage(saved);
+            
+            // Update button visual state
+            const icon = button.querySelector('img');
+            if (recipe.isSaved) {
+                button.classList.add('active');
+                icon.src = './images/check.svg';
+                icon.alt = 'Saved';
+            } else {
+                button.classList.remove('active');
+                icon.src = './images/plus.svg';
+                icon.alt = 'Save';
+            }
+            
+            // Notify changes to update other parts of the app
+            notifyFavoritesChange();
+            
+            console.log(`Recipe ${recipe.name} ${recipe.isSaved ? 'saved' : 'removed from saved'}`);
+        }
+    });
 }
 
 // Exibe as categorias da receita
