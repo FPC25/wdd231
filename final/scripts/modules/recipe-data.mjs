@@ -34,7 +34,20 @@ export function onFavoritesChange(callback) {
 
 // Notifica todos os callbacks registrados
 export function notifyFavoritesChange() {
-    updateCallbacks.forEach(callback => callback());
+    // Garantir que os dados estejam atualizados antes de notificar
+    applyLocalStorageChanges();
+    
+    // Notificar todos os callbacks
+    updateCallbacks.forEach(callback => {
+        try {
+            callback();
+        } catch (error) {
+            console.error('Error in callback:', error);
+        }
+    });
+    
+    // Dispatch custom event for cross-page communication
+    window.dispatchEvent(new CustomEvent('flavorfy-data-changed'));
 }
 
 // Inicializa dados do usuário na primeira execução
@@ -56,12 +69,66 @@ export function applyLocalStorageChanges() {
     const saved = getSavedFromStorage();
     
     recipesData.forEach(recipe => {
-        const isFavorite = favorites.includes(recipe.id);
-        const isSaved = saved.includes(recipe.id);
+        // Use flexible comparison for ID matching
+        const isFavorite = favorites.some(id => id == recipe.id);
+        const isSaved = saved.some(id => id == recipe.id);
         
         recipe.isFavorite = isFavorite;
-        recipe.isSaved = isSaved || isFavorite;
+        recipe.isSaved = isSaved;
+        
+        // Business rule: Favorites must be saved (but saved doesn't mean favorite)
+        if (recipe.isFavorite && !recipe.isSaved) {
+            recipe.isSaved = true; // Ensure favorites are saved
+        }
     });
+    
+    // Ensure business rules consistency
+    enforceBusinessRules();
+}
+
+/**
+ * Enforce business rules for favorites and saved recipes
+ * Rule: Favorites must be saved, but saved doesn't have to be favorite
+ */
+function enforceBusinessRules() {
+    let favoritesChanged = false;
+    let savedChanged = false;
+    
+    const favorites = getFavoritesFromStorage();
+    const saved = getSavedFromStorage();
+    
+    recipesData.forEach(recipe => {
+        // Rule 1: Favorites must be saved
+        if (recipe.isFavorite && !recipe.isSaved) {
+            recipe.isSaved = true;
+            if (!saved.some(id => id == recipe.id)) {
+                saved.push(recipe.id);
+                savedChanged = true;
+            }
+        }
+        
+        // Rule 2: If unsaved, cannot be favorite
+        if (!recipe.isSaved && recipe.isFavorite) {
+            recipe.isFavorite = false;
+            const indexesToRemove = [];
+            favorites.forEach((id, index) => {
+                if (id == recipe.id) indexesToRemove.push(index);
+            });
+            indexesToRemove.reverse().forEach(index => favorites.splice(index, 1));
+            favoritesChanged = true;
+        }
+        
+        // NOTE: We do NOT enforce that saved must be favorite
+        // Users can save without favoriting
+    });
+    
+    // Update storage if changes were made
+    if (favoritesChanged) {
+        saveFavoritesToStorage(favorites);
+    }
+    if (savedChanged) {
+        saveSavedToStorage(saved);
+    }
 }
 
 // Obtém favoritos do localStorage
