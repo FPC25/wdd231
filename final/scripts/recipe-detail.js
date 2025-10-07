@@ -5,7 +5,13 @@ let currentRecipe;
 
 document.addEventListener('DOMContentLoaded', async function() {
     recipeManager = new RecipeManager();
-    await recipeManager.loadRecipes();
+    try {
+        await recipeManager.loadRecipes();
+    } catch (error) {
+        console.error('Failed to load recipes:', error);
+        showError('Failed to load recipe data. Please refresh the page.');
+        return;
+    }
     
     const urlParams = new URLSearchParams(window.location.search);
     const recipeId = parseInt(urlParams.get('id'));
@@ -192,7 +198,7 @@ function showContent() {
     if (recipeContent) recipeContent.style.display = 'block';
 }
 
-function showError() {
+function showError(message = null) {
     const loadingState = document.getElementById('loading-state');
     const errorState = document.getElementById('error-state');
     const recipeContent = document.getElementById('recipe-content');
@@ -201,5 +207,16 @@ function showError() {
     if (recipeContent) recipeContent.style.display = 'none';
     if (errorState) errorState.style.display = 'block';
     
-    document.getElementById('page-title').textContent = 'Recipe Not Found - Flavorfy';
+    const pageTitle = document.getElementById('page-title');
+    if (pageTitle) {
+        pageTitle.textContent = message ? 'Error - Flavorfy' : 'Recipe Not Found - Flavorfy';
+    }
+    
+    // Display custom message in error state if provided
+    if (message) {
+        const errorMessage = errorState?.querySelector('.error-message');
+        if (errorMessage) {
+            errorMessage.textContent = message;
+        }
+    }
 }

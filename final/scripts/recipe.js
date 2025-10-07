@@ -4,7 +4,13 @@ let recipeManager;
 
 document.addEventListener('DOMContentLoaded', async function() {
     recipeManager = new RecipeManager();
-    await recipeManager.loadRecipes();
+    try {
+        await recipeManager.loadRecipes();
+    } catch (error) {
+        console.error('Failed to load recipes:', error);
+        alert('Failed to load recipe data. Please refresh the page.');
+        return;
+    }
     
     initializeForm();
     addEventListeners();

@@ -1,13 +1,23 @@
 import { SearchManager } from './modules/SearchManager.mjs';
+import { RecipeManager } from './modules/RecipeManager.mjs';
+
+let recipeManager;
 
 document.addEventListener('DOMContentLoaded', async function() {
-    // Load recipes data
-    await window.recipeManager.loadRecipes();
-    
     // Get DOM elements
     const recipesGrid = document.querySelector('.recipe-grid');
     const bottomNav = document.querySelector('.bottom-nav');
     const categoryButtons = document.querySelectorAll('.category-btn');
+    
+    // Initialize managers
+    recipeManager = new RecipeManager();
+    try {
+        await recipeManager.loadRecipes();
+    } catch (error) {
+        console.error('Failed to load recipes:', error);
+        recipesGrid.innerHTML = '<p class="error-message">Failed to load recipes. Please refresh the page.</p>';
+        return;
+    }
     
     // Use SearchManager instead of duplicating search logic
     const searchManager = new SearchManager();
@@ -95,12 +105,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         // ✅ USAR RecipeManager em vez de RecipeUtils
         if (currentFilter === 'favorites') {
-            recipes = window.recipeManager.getRecipes('favorites', currentSearch);
+            recipes = recipeManager.getRecipes('favorites', currentSearch);
         } else if (currentFilter === 'all') {
-            recipes = window.recipeManager.getRecipes('all', currentSearch);
+            recipes = recipeManager.getRecipes('all', currentSearch);
         } else {
             // ✅ USAR getRecipes com filtro customizado em vez de filterRecipesByCategory
-            const allRecipes = window.recipeManager.getRecipes('all', currentSearch);
+            const allRecipes = recipeManager.getRecipes('all', currentSearch);
             recipes = allRecipes.filter(recipe => 
                 recipe.filters && recipe.filters.some(filter => 
                     filter.toLowerCase() === currentFilter.toLowerCase()
@@ -122,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
         
         // ✅ USAR RecipeManager para renderizar
-        window.recipeManager.renderRecipes(recipes, recipesGrid, 'library');
+        recipeManager.renderRecipes(recipes, recipesGrid, 'library');
         
         // Handle empty state
         if (recipes.length === 0) {
