@@ -37,11 +37,21 @@ export function setupSearchEvents(searchInput, searchButton) {
 export function setupStorageEvents() {
     window.addEventListener('storage', function(e) {
         if (['flavorfy_favorites', 'flavorfy_saved', 'recipesData'].includes(e.key)) {
+            console.log('Storage changed, updating page:', e.key);
             loadRecipes().then(() => {
                 renderFavoritesSection();
                 renderSavedSection();
             });
         }
+    });
+    
+    // Also listen for custom events for same-page updates
+    window.addEventListener('flavorfy-data-changed', function() {
+        console.log('Data changed event received');
+        loadRecipes().then(() => {
+            renderFavoritesSection();
+            renderSavedSection();
+        });
     });
 }
 
