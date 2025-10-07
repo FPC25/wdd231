@@ -45,7 +45,7 @@
     "filters": ["Snack", "Breakfast", "Dessert"],
     "ingredients": [
       {"item": "Egg", "quantity": 1, "unit": "unit"},
-      {"item": "Hydrated tapioca starch", "quantity": 1, "unit": "tbsp"},
+      {"item": "Hydrated tapioca starch", "quantity": 25, "unit": "g"},
       {"item": "Cheese", "quantity": "to taste", "unit": null},
       {"item": "Shredded Chicken", "quantity": "to taste", "unit": null},
       {"item": "Banana", "quantity": "to taste", "unit": null},
