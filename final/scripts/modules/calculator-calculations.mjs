@@ -26,7 +26,10 @@ export function checkAllCostsEntered() {
 
 export function calculateCosts() {
     const state = getState();
-    if (!state.currentRecipe || Object.keys(state.ingredientCosts).filter(key => state.ingredientCosts[key] !== null).length === 0) {
+    
+    const costsWithData = Object.keys(state.ingredientCosts).filter(key => state.ingredientCosts[key] !== null);
+    
+    if (!state.currentRecipe || costsWithData.length === 0) {
         alert('Please enter costs for at least one ingredient');
         return;
     }
@@ -36,7 +39,7 @@ export function calculateCosts() {
         .reduce((sum, item) => sum + item.costForRecipe, 0);
     
     const costPerPortion = totalCost / state.currentRecipe.serves;
-    const includedIngredients = Object.keys(state.ingredientCosts).filter(key => state.ingredientCosts[key] !== null).length;
+    const includedIngredients = costsWithData.length;
     
     const calculationResults = {
         recipeId: state.currentRecipe.id,
