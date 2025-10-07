@@ -46,10 +46,16 @@ export function displayRecipe(recipe) {
     const nameElement = document.getElementById('selected-recipe-name');
     const servesElement = document.getElementById('recipe-serves');
     const difficultyElement = document.getElementById('recipe-difficulty');
+    const recipeDisplaySection = document.getElementById('recipe-display');
 
     if (nameElement) nameElement.textContent = recipe.name;
     if (servesElement) servesElement.textContent = recipe.serves;
     if (difficultyElement) difficultyElement.textContent = recipe.difficulty;
+    
+    // Mostrar a seção da receita quando uma receita é carregada
+    if (recipeDisplaySection) {
+        recipeDisplaySection.style.display = 'block';
+    }
 }
 
 export async function loadSelectedRecipe() {
