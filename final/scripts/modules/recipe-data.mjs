@@ -1,6 +1,7 @@
 // Data management for recipes
 
 let recipesData = [];
+let updateCallbacks = [];
 
 // Carrega receitas do localStorage ou JSON inicial
 export async function loadRecipes() {
@@ -24,6 +25,16 @@ export async function loadRecipes() {
         console.error('Error loading recipes:', error);
         recipesData = [];
     }
+}
+
+// Registra callback para mudanças nos favoritos
+export function onFavoritesChange(callback) {
+    updateCallbacks.push(callback);
+}
+
+// Notifica todos os callbacks registrados
+export function notifyFavoritesChange() {
+    updateCallbacks.forEach(callback => callback());
 }
 
 // Inicializa dados do usuário na primeira execução
@@ -83,6 +94,40 @@ export function getRecipesData() {
         applyLocalStorageChanges();
     }
     return recipesData;
+}
+
+// Filtra receitas por critério
+export function filterRecipes(criteria, searchTerm = '') {
+    let filtered = [];
+    
+    switch (criteria) {
+        case 'favorites':
+            filtered = recipesData.filter(recipe => recipe.isFavorite === true);
+            break;
+        case 'saved':
+            filtered = recipesData.filter(recipe => recipe.isSaved === true);
+            break;
+        case 'all':
+        default:
+            filtered = recipesData;
+    }
+    
+    if (searchTerm) {
+        const searchLower = searchTerm.toLowerCase();
+        filtered = filtered.filter(recipe => {
+            const nameMatch = recipe.name.toLowerCase().includes(searchLower);
+            const ingredientMatch = recipe.ingredients && recipe.ingredients.some(ingredient => 
+                ingredient.item && ingredient.item.toLowerCase().includes(searchLower)
+            );
+            const filterMatch = recipe.filters && recipe.filters.some(filter =>
+                filter.toLowerCase().includes(searchLower)
+            );
+            
+            return nameMatch || ingredientMatch || filterMatch;
+        });
+    }
+    
+    return filtered;
 }
 
 // Obtém estatísticas do usuário
