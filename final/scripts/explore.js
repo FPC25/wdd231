@@ -1,62 +1,51 @@
-import { SearchManager } from './modules/SearchManager.mjs';
-import { RecipeManager } from './modules/RecipeManager.mjs';
-
-let recipeManager;
-
+// Auto-hide bottom navigation on scroll
 document.addEventListener('DOMContentLoaded', async function() {
+    // Load recipes data
+    await RecipeUtils.loadRecipes();
+    
     // Get DOM elements
     const recipesGrid = document.querySelector('.recipe-grid');
     const bottomNav = document.querySelector('.bottom-nav');
     const categoryButtons = document.querySelectorAll('.category-btn');
-    
-    // Initialize managers
-    recipeManager = new RecipeManager();
-    try {
-        await recipeManager.loadRecipes();
-    } catch (error) {
-        console.error('Failed to load recipes:', error);
-        recipesGrid.innerHTML = '<p class="error-message">Failed to load recipes. Please refresh the page.</p>';
-        return;
-    }
-    
-    // Use SearchManager instead of duplicating search logic
-    const searchManager = new SearchManager();
+    const searchInput = document.querySelector('.search-input');
+    const searchButton = document.querySelector('.search-button');
     
     // State management
     let lastScrollTop = 0;
     let scrollTimeout;
     let currentFilter = 'all';
+    let currentSearch = '';
 
     // Check URL parameters for search and filters
     const urlParams = new URLSearchParams(window.location.search);
     const searchParam = urlParams.get('search');
     const filterParam = urlParams.get('filter');
     
-    console.log('URL search param:', searchParam);
-    console.log('URL filter param:', filterParam);
+    console.log('URL search param:', searchParam); // Debug
+    console.log('URL filter param:', filterParam); // Debug
     
     // Set initial search and filter from URL
     if (searchParam) {
-        searchManager.performSearch(searchParam);
-        console.log('Search set from URL:', searchParam);
+        currentSearch = searchParam.toLowerCase().trim();
+        if (searchInput) {
+            searchInput.value = searchParam;
+            searchInput.style.backgroundColor = '#e8f5e8';
+        }
+        console.log('Search set from URL:', currentSearch); // Debug
     }
     
     if (filterParam === 'favorites') {
         currentFilter = 'favorites';
         categoryButtons.forEach(btn => btn.classList.remove('active'));
+        // Encontrar e ativar o botão de favoritos se existir
         const favButton = document.querySelector('[data-category="favorites"]');
         if (favButton) favButton.classList.add('active');
     }
 
-    // Listen to search changes
-    searchManager.onSearchChange((searchTerm) => {
-        renderCurrentView();
-    });
-
     // Initial render with URL parameters
     renderCurrentView();
 
-    // Auto-hide bottom navigation on scroll (MANTER - funciona bem)
+    // Auto-hide bottom navigation on scroll
     function throttle(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -96,30 +85,22 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     window.addEventListener('scroll', throttle(handleScroll, 100));
 
-    // Unified render function (CORRIGIR apenas as chamadas)
+    // Unified render function
     function renderCurrentView() {
-        const currentSearch = searchManager.getCurrentSearch();
         let recipes;
         
-        console.log('Rendering with search:', currentSearch, 'and filter:', currentFilter);
+        console.log('Rendering with search:', currentSearch, 'and filter:', currentFilter); // Debug
         
-        // ✅ USAR RecipeManager em vez de RecipeUtils
         if (currentFilter === 'favorites') {
-            recipes = recipeManager.getRecipes('favorites', currentSearch);
+            recipes = RecipeUtils.filterRecipes('favorites', currentSearch);
         } else if (currentFilter === 'all') {
-            recipes = recipeManager.getRecipes('all', currentSearch);
+            recipes = RecipeUtils.filterRecipes('all', currentSearch);
         } else {
-            // ✅ USAR getRecipes com filtro customizado em vez de filterRecipesByCategory
-            const allRecipes = recipeManager.getRecipes('all', currentSearch);
-            recipes = allRecipes.filter(recipe => 
-                recipe.filters && recipe.filters.some(filter => 
-                    filter.toLowerCase() === currentFilter.toLowerCase()
-                )
-            );
+            recipes = RecipeUtils.filterRecipesByCategory(currentFilter, currentSearch);
         }
         
-        console.log('Found recipes:', recipes.length);
-        console.log('Recipes data:', recipes);
+        console.log('Found recipes:', recipes.length); // Debug
+        console.log('Recipes data:', recipes); // Debug
         
         // Custom message based on search/filter state
         let emptyMessage = 'No recipes found.';
@@ -131,13 +112,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             emptyMessage = 'No favorite recipes yet. Start exploring and add some favorites!';
         }
         
-        // ✅ USAR RecipeManager para renderizar
-        recipeManager.renderRecipes(recipes, recipesGrid, 'library');
-        
-        // Handle empty state
-        if (recipes.length === 0) {
-            recipesGrid.innerHTML = `<p class="empty-message">${emptyMessage}</p>`;
-        }
+        RecipeUtils.renderRecipes(recipes, recipesGrid, emptyMessage);
         
         // Se há busca ativa, remover seleção de categoria
         if (currentSearch) {
@@ -145,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // Category button functionality (MANTER - funciona bem)
+    // Category button functionality
     categoryButtons.forEach(button => {
         button.addEventListener('click', function() {
             categoryButtons.forEach(btn => btn.classList.remove('active'));
@@ -154,13 +129,17 @@ document.addEventListener('DOMContentLoaded', async function() {
             currentFilter = this.dataset.category;
             
             // Limpar busca quando selecionar categoria
-            searchManager.clearSearch();
+            currentSearch = '';
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.style.backgroundColor = '';
+            }
             
             renderCurrentView();
         });
     });
 
-    // Bottom navigation - favorites filter (MANTER - funciona bem)
+    // Bottom navigation - favorites filter
     const favoritesNavItem = document.querySelector('.bottom-nav .nav-item[href="#"]');
     if (favoritesNavItem) {
         favoritesNavItem.addEventListener('click', function(e) {
@@ -169,10 +148,75 @@ document.addEventListener('DOMContentLoaded', async function() {
             currentFilter = 'favorites';
             
             // Limpar busca quando clicar em favoritos
-            searchManager.clearSearch();
+            currentSearch = '';
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.style.backgroundColor = '';
+            }
             
             renderCurrentView();
         });
+    }
+
+    // Search functionality
+    function performSearch() {
+        const searchValue = searchInput ? searchInput.value.trim() : '';
+        currentSearch = searchValue.toLowerCase();
+        
+        console.log('Performing search for:', currentSearch); // Debug
+        
+        // Visual feedback
+        if (currentSearch) {
+            searchInput.style.backgroundColor = '#e8f5e8';
+        } else {
+            searchInput.style.backgroundColor = '';
+        }
+        
+        // Reset filter to 'all' when searching
+        currentFilter = 'all';
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        const allButton = document.querySelector('[data-category="all"]');
+        if (allButton) allButton.classList.add('active');
+        
+        renderCurrentView();
+    }
+    
+    if (searchButton) {
+        searchButton.addEventListener('click', performSearch);
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Add visual feedback when typing
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.style.backgroundColor = '#e8f5e8';
+            } else {
+                this.style.backgroundColor = '';
+            }
+        });
+    }
+
+    // Clear search function
+    function clearSearch() {
+        if (searchInput) {
+            searchInput.value = '';
+            searchInput.style.backgroundColor = '';
+        }
+        currentSearch = '';
+        currentFilter = 'all';
+        
+        // Reset to show all recipes
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        const allButton = document.querySelector('[data-category="all"]');
+        if (allButton) allButton.classList.add('active');
+        
+        renderCurrentView();
     }
 });
 

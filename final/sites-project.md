@@ -1,7 +1,5 @@
 # Recipe Collection Manager with Cost Calculator
-
 ## Website Project Subject
-
 A place to manage and save your business or family recipe, with integrated cost analysis for home-based food businesses.
 
 ## Brief Description
@@ -34,7 +32,6 @@ The website will consist of four interconnected pages:
    - Cost history tracking
 
 ## Why This Subject?
-
 I chose this project because it combines practical family needs with business potential:
 
 1. **Personal Value:** Families need a central place to store and share recipes across generations
@@ -55,13 +52,5 @@ I chose this project because it combines practical family needs with business po
     - Responsive design
     - Image optimization
     - Accessibility considerations
-    - JS modularization
-    - Use of API to request and display values (I am still deciding which I will use):
-      -**FatSecret API Integration:** [FatSecret API Documentation](https://platform.fatsecret.com/docs/guides/libraries)
-      -**Food API:** [Free Food API](https://rapidapi.com/spoonacular/api/recipe-food-nutrition/playground/57d3f037e4b0bf08d74df7f5)
-    - Modal Dialogs
-    - Event handling
 
 This project serves both home cooks preserving family traditions and entrepreneurs starting food businesses, making it practical and purposeful.
-
-Ps I started this project on my own while, but it still in its early days and I still have to much to do and it will be a great opportunity to work on it.

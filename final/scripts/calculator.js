@@ -1,10 +1,5 @@
-import { RecipeManager } from './modules/RecipeManager.mjs';
-
-let recipeManager;
-
 document.addEventListener('DOMContentLoaded', async function() {
-    recipeManager = new RecipeManager();
-    await recipeManager.loadRecipes();
+    await RecipeUtils.loadRecipes();
     initializeCalculator();
     setupEventListeners();
     loadCalculationHistory();
@@ -153,7 +148,7 @@ function preselectRecipeFromUrl(recipeId) {
 }
 
 function populateRecipeSelect() {
-    const recipes = recipeManager.dataService.getRecipes();
+    const recipes = RecipeUtils.getRecipesData();
     const select = document.getElementById('recipe-select');
     
     if (!select) {
@@ -221,7 +216,7 @@ function loadSelectedRecipe() {
     }
     
     const recipeId = parseInt(recipeSelect.value);
-    const recipes = recipeManager.dataService.getRecipes();
+    const recipes = RecipeUtils.getRecipesData();
     const recipe = recipes.find(r => r.id === recipeId);
     
     if (!recipe) {
@@ -943,7 +938,7 @@ function loadSavedCalculation(calcId, savedCalculations) {
     const calculation = savedCalculations.find(calc => calc.id === calcId);
     if (!calculation) return;
     
-    const recipes = recipeManager.dataService.getRecipes();
+    const recipes = RecipeUtils.getRecipesData();
     const recipe = recipes.find(r => r.id === calculation.recipeId);
     
     if (!recipe || !recipe.isSaved) {
