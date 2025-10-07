@@ -1,7 +1,7 @@
 // Ingredient management for calculator page
 
-import { calculateIngredientCost } from './calculator-utils.mjs';
-import { createUnitOptions, addSectionHeader } from './calculator-template.mjs';
+import { calculateIngredientCost, getUnitType } from './calculator-utils.mjs';
+import { createUnitOptions, createCompatibleUnitOptions, addSectionHeader, getUnitTypeForTemplate } from './calculator-template.mjs';
 import { getState, setState } from './calculator-state.mjs';
 
 export async function setupCostInputs(recipe) {
@@ -67,24 +67,21 @@ export function createIngredientTemplate(ingredient, index, recipeQuantity, isOp
     const removeButton = isOptional ? 
         `<button type="button" class="remove-btn" data-index="${index}">×</button>` : '';
     
+    // Para ingredientes "to taste", começamos com todas as unidades disponíveis
+    // Para ingredientes normais, usamos as unidades compatíveis da receita
+    const purchaseUnitOptions = ingredient.quantity === 'to taste' 
+        ? createUnitOptions() // Começar com todas as opções
+        : createCompatibleUnitOptions(getUnitTypeForTemplate(ingredient.unit || 'piece'));
+    
     const actualUsageSection = ingredient.quantity === 'to taste' ? `
         <div class="actual-usage">
             <h5>Amount you'll actually use:</h5>
             <div class="usage-inputs">
                 <input type="number" class="actual-quantity" data-ingredient-index="${index}"
                        placeholder="Amount" step="0.01" min="0">
-                <select class="actual-unit" data-ingredient-index="${index}">
-                    <option value="">Unit</option>
-                    <option value="g">g</option>
-                    <option value="kg">kg</option>
-                    <option value="lb">pounds</option>
-                    <option value="oz">ounces</option>
-                    <option value="ml">ml</option>
-                    <option value="l">liters</option>
-                    <option value="cup">cups</option>
-                    <option value="tbsp">tbsp</option>
-                    <option value="tsp">tsp</option>
-                    <option value="piece">pieces</option>
+                <select class="actual-unit" data-ingredient-index="${index}" id="actual-unit-${index}">
+                    <option value="">Select unit</option>
+                    ${createUnitOptions()}
                 </select>
             </div>
         </div>
@@ -108,9 +105,9 @@ export function createIngredientTemplate(ingredient, index, recipeQuantity, isOp
             
             <div class="input-group">
                 <label>Unit:</label>
-                <select class="purchase-unit" data-ingredient-index="${index}">
+                <select class="purchase-unit" data-ingredient-index="${index}" id="purchase-unit-${index}">
                     <option value="">Select unit</option>
-                    ${createUnitOptions()}
+                    ${purchaseUnitOptions}
                 </select>
             </div>
             
@@ -150,6 +147,30 @@ export function setupIngredientEventListeners(itemDiv, ingredient, index) {
             input.addEventListener('change', updateCalculation);
         }
     });
+    
+    // Add dynamic unit selection for "to taste" ingredients
+    const actualUnitSelect = itemDiv.querySelector(`#actual-unit-${index}`);
+    const purchaseUnitSelect = itemDiv.querySelector(`#purchase-unit-${index}`);
+    
+    if (actualUnitSelect && purchaseUnitSelect) {
+        actualUnitSelect.addEventListener('change', () => {
+            const selectedUnit = actualUnitSelect.value;
+            if (selectedUnit) {
+                try {
+                    const unitType = getUnitTypeForTemplate(selectedUnit);
+                    
+                    // Update purchase unit options to only show compatible units
+                    purchaseUnitSelect.innerHTML = '<option value="">Select unit</option>' + 
+                                                  createCompatibleUnitOptions(unitType, selectedUnit);
+                    
+                    // Trigger recalculation
+                    updateCalculation();
+                } catch (error) {
+                    console.error('Error updating unit options:', error);
+                }
+            }
+        });
+    }
     
     const removeBtn = itemDiv.querySelector('.remove-btn');
     if (removeBtn) {
