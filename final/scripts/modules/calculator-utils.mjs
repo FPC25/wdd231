@@ -14,7 +14,7 @@ const unitConversions = {
     },
     unit: {
         baseUnit: 'piece',
-        conversions: { 'piece': 1 }
+        conversions: { 'piece': 1, 'pieces': 1, 'unit': 1, 'units': 1, 'item': 1, 'items': 1 }
     }
 };
 
@@ -31,21 +31,43 @@ const ingredientConversions = {
     'maple syrup': { 'cup': 340 }, 'mel': { 'cup': 340 }
 };
 
+function getUnitType(unit) {
+    const lowerUnit = unit.toLowerCase();
+    
+    if (unitConversions.weight.conversions[lowerUnit]) return 'weight';
+    if (unitConversions.volume.conversions[lowerUnit]) return 'volume';
+    if (unitConversions.unit.conversions[lowerUnit]) return 'unit';
+    
+    throw new Error(`Unknown unit type for: ${unit}`);
+}
+
 export function convertUnits(fromQuantity, fromUnit, toUnit) {
+    if (!fromQuantity || isNaN(fromQuantity)) return 0;
     if (!fromUnit || !toUnit || fromUnit === toUnit) return fromQuantity;
 
-    const fromType = getUnitType(fromUnit);
-    const toType = getUnitType(toUnit);
+    try {
+        const fromType = getUnitType(fromUnit);
+        const toType = getUnitType(toUnit);
 
-    if (fromType !== toType) throw new Error('Incompatible unit types');
+        if (fromType !== toType) {
+            console.warn(`Incompatible unit types: ${fromUnit} (${fromType}) to ${toUnit} (${toType})`);
+            return fromQuantity; // Retorna quantidade original se não conseguir converter
+        }
 
-    const conversionTable = unitConversions[fromType];
-    const fromFactor = conversionTable.conversions[fromUnit.toLowerCase()];
-    const toFactor = conversionTable.conversions[toUnit.toLowerCase()];
+        const conversionTable = unitConversions[fromType];
+        const fromFactor = conversionTable.conversions[fromUnit.toLowerCase()];
+        const toFactor = conversionTable.conversions[toUnit.toLowerCase()];
 
-    if (!fromFactor || !toFactor) throw new Error('Invalid units');
+        if (!fromFactor || !toFactor) {
+            console.warn(`Invalid units for conversion: ${fromUnit} or ${toUnit}`);
+            return fromQuantity; // Retorna quantidade original
+        }
 
-    return (fromQuantity * fromFactor) / toFactor;
+        return (fromQuantity * fromFactor) / toFactor;
+    } catch (error) {
+        console.warn('Unit conversion error:', error.message);
+        return fromQuantity; // Retorna quantidade original em caso de erro
+    }
 }
 
 export function convertVolumeToWeight(quantity, volumeUnit, ingredientName) {
@@ -69,56 +91,130 @@ export function calculateIngredientCost(index, ingredient, itemDiv) {
     const actualUnitSelect = itemDiv.querySelector('.actual-unit');
 
     if (!purchaseQuantityInput || !purchaseUnitSelect || !purchasePriceInput) {
-        throw new Error('Missing input fields for ingredient cost calculation');
+        console.error('Missing input fields for ingredient cost calculation');
+        return;
     }
 
     const purchaseQuantity = parseFloat(purchaseQuantityInput.value);
     const purchaseUnit = purchaseUnitSelect.value;
     const purchasePrice = parseFloat(purchasePriceInput.value);
 
+    // Limpar displays se campos estão vazios
+    const unitCostDisplay = itemDiv.querySelector('.unit-cost-value');
+    const recipeCostDisplay = itemDiv.querySelector('.recipe-cost-value');
+    
     if (isNaN(purchaseQuantity) || isNaN(purchasePrice) || !purchaseUnit) {
+        if (unitCostDisplay) unitCostDisplay.textContent = '$0.00';
+        if (recipeCostDisplay) recipeCostDisplay.textContent = '$0.00';
+        
+        // Remover do estado se campos estão vazios
+        updateIngredientCostState(index, null);
         return;
     }
 
     const unitCost = purchasePrice / purchaseQuantity;
-    const unitCostDisplay = itemDiv.querySelector('.unit-cost-value');
     if (unitCostDisplay) {
         unitCostDisplay.textContent = `$${unitCost.toFixed(2)}`;
     }
 
-    const recipeCostDisplay = itemDiv.querySelector('.recipe-cost-value');
-    if (actualQuantityInput && actualUnitSelect && recipeCostDisplay) {
+    let recipeCost = 0;
+    
+    // Para ingredientes "to taste" que precisam de quantidade atual
+    if (ingredient.quantity === 'to taste' && actualQuantityInput && actualUnitSelect) {
         const actualQuantity = parseFloat(actualQuantityInput.value);
         const actualUnit = actualUnitSelect.value;
 
         if (!isNaN(actualQuantity) && actualUnit) {
-            const convertedQuantity = convertUnits(actualQuantity, actualUnit, purchaseUnit);
-            const recipeCost = convertedQuantity * unitCost;
-            recipeCostDisplay.textContent = `$${recipeCost.toFixed(2)}`;
-        } else {
-            recipeCostDisplay.textContent = '$0.00';
+            try {
+                const convertedQuantity = convertUnits(actualQuantity, actualUnit, purchaseUnit);
+                recipeCost = convertedQuantity * unitCost;
+            } catch (error) {
+                console.warn('Unit conversion error:', error.message);
+                recipeCost = 0;
+            }
+        }
+    } else {
+        // Para ingredientes essenciais, usar a quantidade da receita
+        try {
+            const recipeQuantity = parseFloat(ingredient.quantity);
+            const recipeUnit = ingredient.unit || 'piece'; // Use 'piece' para ingredientes sem unidade
+            
+            if (!isNaN(recipeQuantity)) {
+                const convertedQuantity = convertUnits(recipeQuantity, recipeUnit, purchaseUnit);
+                recipeCost = convertedQuantity * unitCost;
+            }
+        } catch (error) {
+            console.warn('Unit conversion error for recipe quantity:', error.message);
+            // Se falhar a conversão, tenta calcular diretamente sem conversão
+            const recipeQuantity = parseFloat(ingredient.quantity);
+            if (!isNaN(recipeQuantity)) {
+                recipeCost = recipeQuantity * unitCost;
+            } else {
+                recipeCost = 0;
+            }
         }
     }
+    
+    if (recipeCostDisplay) {
+        recipeCostDisplay.textContent = `$${recipeCost.toFixed(2)}`;
+    }
+
+    // Salvar no estado apenas se há custo válido
+    const costData = recipeCost > 0 ? {
+        costPerUnit: unitCost,
+        costForRecipe: recipeCost
+    } : null;
+    
+    updateIngredientCostState(index, costData);
+}
+
+// Função helper para atualizar o estado sem circular imports
+function updateIngredientCostState(index, costData) {
+    // Use setTimeout para evitar problemas de timing
+    setTimeout(() => {
+        // Import usando dynamic import para evitar circular dependency
+        import('./calculator-state.mjs').then(({ getState, setState }) => {
+            const state = getState();
+            const newIngredientCosts = { ...state.ingredientCosts };
+            
+            if (costData) {
+                newIngredientCosts[index] = costData;
+            } else {
+                delete newIngredientCosts[index];
+            }
+            
+            setState({ ingredientCosts: newIngredientCosts });
+            
+            // Atualizar botão de calcular
+            import('./calculator-calculations.mjs').then(({ checkAllCostsEntered }) => {
+                checkAllCostsEntered();
+            });
+        });
+    }, 0);
 }
 
 // Function to update profit calculations dynamically
 export function updateProfitCalculations() {
     const profitMarginInput = document.getElementById('profit-margin');
-    const totalCostElement = document.getElementById('total-cost');
-    const profitDisplay = document.getElementById('profit-display');
+    const costPerPortionElement = document.getElementById('cost-per-portion');
+    const suggestedPriceElement = document.getElementById('suggested-price');
 
-    if (!profitMarginInput || !totalCostElement || !profitDisplay) {
-        throw new Error('Missing elements for profit calculation');
-    }
-
-    const profitMargin = parseFloat(profitMarginInput.value);
-    const totalCost = parseFloat(totalCostElement.textContent.replace('$', ''));
-
-    if (isNaN(profitMargin) || isNaN(totalCost)) {
-        profitDisplay.textContent = '$0.00';
+    // Se algum elemento não existir, usar valores padrão
+    if (!profitMarginInput || !costPerPortionElement || !suggestedPriceElement) {
+        console.warn('Missing elements for profit calculation, using defaults');
         return;
     }
 
-    const profit = totalCost * (profitMargin / 100);
-    profitDisplay.textContent = `$${profit.toFixed(2)}`;
+    const profitMargin = parseFloat(profitMarginInput.value) || 20; // Default 20%
+    const costPerPortionText = costPerPortionElement.textContent || '0';
+    const costPerPortion = parseFloat(costPerPortionText.replace('$', '')) || 0;
+
+    if (costPerPortion <= 0) {
+        suggestedPriceElement.textContent = '0.00';
+        return;
+    }
+
+    // Calcular preço sugerido POR PORÇÃO com base no custo + margem de lucro
+    const suggestedPricePerPortion = costPerPortion * (1 + profitMargin / 100);
+    suggestedPriceElement.textContent = suggestedPricePerPortion.toFixed(2);
 }
