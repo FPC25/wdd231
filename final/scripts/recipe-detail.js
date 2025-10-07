@@ -4,8 +4,7 @@ import {
     displayRecipeImage, 
     displayCategories, 
     displayIngredients, 
-    displayInstructions,
-    showError 
+    displayInstructions
 } from './modules/recipe-renderer.mjs';
 import { 
     setupActionButtons, 
