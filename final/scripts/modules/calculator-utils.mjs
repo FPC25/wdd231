@@ -198,6 +198,9 @@ export function updateProfitCalculations() {
     const profitMarginInput = document.getElementById('profit-margin');
     const costPerPortionElement = document.getElementById('cost-per-portion');
     const suggestedPriceElement = document.getElementById('suggested-price');
+    const totalSalePriceElement = document.getElementById('total-sale-price');
+    const profitAmountElement = document.getElementById('profit-amount');
+    const totalCostElement = document.getElementById('total-cost');
 
     // Se algum elemento não existir, usar valores padrão
     if (!profitMarginInput || !costPerPortionElement || !suggestedPriceElement) {
@@ -211,10 +214,32 @@ export function updateProfitCalculations() {
 
     if (costPerPortion <= 0) {
         suggestedPriceElement.textContent = '0.00';
+        if (totalSalePriceElement) totalSalePriceElement.textContent = '0.00';
+        if (profitAmountElement) profitAmountElement.textContent = '0.00';
         return;
     }
 
     // Calcular preço sugerido POR PORÇÃO com base no custo + margem de lucro
     const suggestedPricePerPortion = costPerPortion * (1 + profitMargin / 100);
     suggestedPriceElement.textContent = suggestedPricePerPortion.toFixed(2);
+
+    // Obter número de porções da receita atual
+    import('./calculator-state.mjs').then(({ getState }) => {
+        const state = getState();
+        const servings = state.currentRecipe ? state.currentRecipe.serves : 1;
+        
+        // Calcular preço total de venda da receita: preço por porção × número de porções
+        const totalSalePrice = suggestedPricePerPortion * servings;
+        if (totalSalePriceElement) {
+            totalSalePriceElement.textContent = totalSalePrice.toFixed(2);
+        }
+
+        // Calcular lucro esperado: preço de venda total - custo total
+        if (profitAmountElement && totalCostElement) {
+            const totalCostText = totalCostElement.textContent || '0';
+            const totalCost = parseFloat(totalCostText.replace('$', '')) || 0;
+            const expectedProfit = totalSalePrice - totalCost;
+            profitAmountElement.textContent = expectedProfit.toFixed(2);
+        }
+    });
 }
