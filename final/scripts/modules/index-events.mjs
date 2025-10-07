@@ -1,8 +1,18 @@
-// Event handling for index page
+/**
+ * index-events.mjs
+ * Event handling for the index page
+ * Following SOLID principle: Single responsibility for event management
+ */
 
+import { loadRecipes } from './recipe-data.mjs';
 import { renderFavoritesSection, renderSavedSection } from './index-renderer.mjs';
 import { performSearch } from './index-navigation.mjs';
 
+/**
+ * Set up search-related event listeners
+ * @param {HTMLElement} searchInput - Search input element
+ * @param {HTMLElement} searchButton - Search button element
+ */
 export function setupSearchEvents(searchInput, searchButton) {
     if (searchButton) {
         searchButton.addEventListener('click', () => performSearch(searchInput.value.trim()));
@@ -21,20 +31,30 @@ export function setupSearchEvents(searchInput, searchButton) {
     }
 }
 
+/**
+ * Set up localStorage event listeners for cross-tab synchronization
+ */
 export function setupStorageEvents() {
     window.addEventListener('storage', function(e) {
         if (['flavorfy_favorites', 'flavorfy_saved', 'recipesData'].includes(e.key)) {
-            renderFavoritesSection();
-            renderSavedSection();
+            loadRecipes().then(() => {
+                renderFavoritesSection();
+                renderSavedSection();
+            });
         }
     });
 }
 
+/**
+ * Set up visibility change event listeners for page focus
+ */
 export function setupVisibilityEvents() {
     document.addEventListener('visibilitychange', function() {
         if (!document.hidden) {
-            renderFavoritesSection();
-            renderSavedSection();
+            loadRecipes().then(() => {
+                renderFavoritesSection();
+                renderSavedSection();
+            });
         }
     });
 }
