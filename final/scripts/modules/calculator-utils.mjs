@@ -8,7 +8,7 @@ const unitConversions = {
     volume: {
         baseUnit: 'ml',
         conversions: {
-            'ml': 1, 'l': 1000, 'cup': 240, 'tbsp': 15, 'tsp': 5,
+            'ml': 1, 'l': 1000, 'cup': 236.59, 'tbsp': 15, 'tsp': 5,
             'fl oz': 29.5735, 'pint': 473.176, 'quart': 946.353, 'gallon': 3785.41
         }
     },
@@ -43,7 +43,14 @@ export function getUnitType(unit) {
 
 export function convertUnits(fromQuantity, fromUnit, toUnit) {
     if (!fromQuantity || isNaN(fromQuantity)) return 0;
-    if (!fromUnit || !toUnit || fromUnit === toUnit) return fromQuantity;
+    if (!fromUnit || !toUnit) {
+        return fromQuantity;
+    }
+    
+    // Se as unidades são iguais, retorna a quantidade original
+    if (fromUnit === toUnit) {
+        return fromQuantity;
+    }
 
     try {
         const fromType = getUnitType(fromUnit);
@@ -63,7 +70,8 @@ export function convertUnits(fromQuantity, fromUnit, toUnit) {
             return fromQuantity; // Retorna quantidade original
         }
 
-        return (fromQuantity * fromFactor) / toFactor;
+        const result = (fromQuantity * fromFactor) / toFactor;
+        return result;
     } catch (error) {
         console.warn('Unit conversion error:', error.message);
         return fromQuantity; // Retorna quantidade original em caso de erro
@@ -112,7 +120,54 @@ export function calculateIngredientCost(index, ingredient, itemDiv) {
         return;
     }
 
-    const unitCost = purchasePrice / purchaseQuantity;
+    // CORREÇÃO: Calcular custo por unidade da receita, não por unidade de compra
+    let unitCost = 0;
+    let recipeUnit = ingredient.unit;
+    
+    // Normalizar unidade da receita
+    if (recipeUnit === 'unit') {
+        recipeUnit = 'piece';
+    }
+    if (!recipeUnit) {
+        recipeUnit = 'piece';
+    }
+
+    try {
+        // Para ingredientes "to taste", usar a unidade atual se disponível
+        let targetUnit = recipeUnit;
+        if (ingredient.quantity === 'to taste' && actualUnitSelect && actualUnitSelect.value) {
+            targetUnit = actualUnitSelect.value;
+        }
+
+        // Converter 1 unidade da receita para a unidade base (ml para volume, g para peso, piece para unidade)
+        const recipeUnitType = getUnitType(targetUnit);
+        const purchaseUnitType = getUnitType(purchaseUnit);
+        
+        if (recipeUnitType === purchaseUnitType) {
+            // Converter para unidade base comum para fazer o cálculo
+            const baseUnit = unitConversions[recipeUnitType].baseUnit;
+            
+            // 1 unidade da receita em unidade base
+            const oneRecipeUnitInBase = convertUnits(1, targetUnit, baseUnit);
+            
+            // Total comprado em unidade base
+            const totalPurchaseInBase = convertUnits(purchaseQuantity, purchaseUnit, baseUnit);
+            
+            // Custo por unidade base
+            const costPerBaseUnit = purchasePrice / totalPurchaseInBase;
+            
+            // Custo por unidade da receita
+            unitCost = oneRecipeUnitInBase * costPerBaseUnit;
+        } else {
+            // Unidades incompatíveis, usar cálculo direto
+            unitCost = purchasePrice / purchaseQuantity;
+        }
+    } catch (error) {
+        console.warn('Error calculating unit cost:', error.message);
+        // Fallback para cálculo simples
+        unitCost = purchasePrice / purchaseQuantity;
+    }
+
     if (unitCostDisplay) {
         unitCostDisplay.textContent = `$${unitCost.toFixed(2)}`;
     }
@@ -125,33 +180,27 @@ export function calculateIngredientCost(index, ingredient, itemDiv) {
         const actualUnit = actualUnitSelect.value;
 
         if (!isNaN(actualQuantity) && actualUnit) {
-            try {
-                const convertedQuantity = convertUnits(actualQuantity, actualUnit, purchaseUnit);
-                recipeCost = convertedQuantity * unitCost;
-            } catch (error) {
-                console.warn('Unit conversion error:', error.message);
-                recipeCost = 0;
+            // Se a unidade atual é a mesma usada para calcular unitCost, multiplicação direta
+            if (actualUnit === (ingredient.unit === 'unit' ? 'piece' : (ingredient.unit || 'piece'))) {
+                recipeCost = actualQuantity * unitCost;
+            } else {
+                // Caso contrário, converter para a unidade base e calcular
+                try {
+                    const targetUnit = ingredient.unit === 'unit' ? 'piece' : (ingredient.unit || 'piece');
+                    const convertedQuantity = convertUnits(actualQuantity, actualUnit, targetUnit);
+                    recipeCost = convertedQuantity * unitCost;
+                } catch (error) {
+                    console.warn('Unit conversion error:', error.message);
+                    recipeCost = 0;
+                }
             }
         }
     } else {
         // Para ingredientes essenciais, usar a quantidade da receita
-        try {
-            const recipeQuantity = parseFloat(ingredient.quantity);
-            const recipeUnit = ingredient.unit || 'piece'; // Use 'piece' para ingredientes sem unidade
-            
-            if (!isNaN(recipeQuantity)) {
-                const convertedQuantity = convertUnits(recipeQuantity, recipeUnit, purchaseUnit);
-                recipeCost = convertedQuantity * unitCost;
-            }
-        } catch (error) {
-            console.warn('Unit conversion error for recipe quantity:', error.message);
-            // Se falhar a conversão, tenta calcular diretamente sem conversão
-            const recipeQuantity = parseFloat(ingredient.quantity);
-            if (!isNaN(recipeQuantity)) {
-                recipeCost = recipeQuantity * unitCost;
-            } else {
-                recipeCost = 0;
-            }
+        const recipeQuantity = parseFloat(ingredient.quantity);
+        if (!isNaN(recipeQuantity)) {
+            // Multiplicação direta já que unitCost está na unidade correta da receita
+            recipeCost = recipeQuantity * unitCost;
         }
     }
     
