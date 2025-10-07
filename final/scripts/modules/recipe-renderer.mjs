@@ -172,98 +172,172 @@ export function displayRecipeImage(recipe) {
 
 /**
  * Toggle favorite status of a recipe
+ * Logic: Favoriting always saves. Unfavoriting only removes favorite but keeps saved.
  * @param {string} recipeId - Recipe ID
  * @param {HTMLElement} button - Button element
  */
 function toggleFavorite(recipeId, button) {
     // Import dynamic to avoid circular dependency
-    import('./recipe-data.mjs').then(({ getRecipesData, saveFavoritesToStorage, getFavoritesFromStorage, notifyFavoritesChange }) => {
+    import('./recipe-data.mjs').then(({ getRecipesData, saveFavoritesToStorage, getFavoritesFromStorage, saveSavedToStorage, getSavedFromStorage, notifyFavoritesChange }) => {
         const recipesData = getRecipesData();
-        const recipe = recipesData.find(r => r.id === recipeId);
         
-        if (recipe) {
-            recipe.isFavorite = !recipe.isFavorite;
-            
-            // Update storage
-            const favorites = getFavoritesFromStorage();
-            if (recipe.isFavorite) {
-                if (!favorites.includes(recipeId)) {
-                    favorites.push(recipeId);
-                }
-            } else {
-                const index = favorites.indexOf(recipeId);
-                if (index > -1) {
-                    favorites.splice(index, 1);
-                }
-            }
-            saveFavoritesToStorage(favorites);
-            
-            // Update button visual state
-            const icon = button.querySelector('img');
-            if (recipe.isFavorite) {
-                button.classList.add('active');
-                icon.src = './images/favorite.svg';
-                icon.alt = 'Favorited';
-            } else {
-                button.classList.remove('active');
-                icon.src = './images/favorite.svg';
-                icon.alt = 'Add to favorites';
-            }
-            
-            // Notify changes to update other parts of the app
-            notifyFavoritesChange();
-            
-            console.log(`Recipe ${recipe.name} ${recipe.isFavorite ? 'added to' : 'removed from'} favorites`);
+        // Use flexible comparison for ID matching
+        const recipe = recipesData.find(r => r.id == recipeId);
+        
+        if (!recipe) {
+            console.log('Recipe not found with ID:', recipeId);
+            return;
         }
+        
+        // Toggle favorite status
+        recipe.isFavorite = !recipe.isFavorite;
+        
+        // RULE: If favoriting, also save. If unfavoriting, keep saved.
+        if (recipe.isFavorite) {
+            recipe.isSaved = true; // Favoriting implies saving
+        }
+        
+        // Update favorites storage
+        const favorites = getFavoritesFromStorage();
+        if (recipe.isFavorite) {
+            // Add to favorites if not present
+            if (!favorites.some(id => id == recipeId)) {
+                favorites.push(recipeId);
+            }
+        } else {
+            // Remove from favorites
+            const indexesToRemove = [];
+            favorites.forEach((id, index) => {
+                if (id == recipeId) indexesToRemove.push(index);
+            });
+            indexesToRemove.reverse().forEach(index => favorites.splice(index, 1));
+        }
+        saveFavoritesToStorage(favorites);
+        
+        // Update saved storage (if favoriting, ensure it's saved)
+        if (recipe.isFavorite) {
+            const saved = getSavedFromStorage();
+            if (!saved.some(id => id == recipeId)) {
+                saved.push(recipeId);
+                saveSavedToStorage(saved);
+            }
+        }
+        
+        // Update button visual states
+        updateButtonStates(button.closest('.recipe-card'), recipe);
+        
+        // Notify changes to update other parts of the app
+        notifyFavoritesChange();
+        
+        console.log(`Recipe ${recipe.name} ${recipe.isFavorite ? 'favorited and saved' : 'unfavorited (but still saved)'}`);
+    }).catch(error => {
+        console.error('Error in toggleFavorite:', error);
     });
 }
 
 /**
  * Toggle save status of a recipe
+ * Logic: Saving only saves. Unsaving a favorite also removes favorite.
  * @param {string} recipeId - Recipe ID
  * @param {HTMLElement} button - Button element
  */
 function toggleSave(recipeId, button) {
     // Import dynamic to avoid circular dependency
-    import('./recipe-data.mjs').then(({ getRecipesData, saveSavedToStorage, getSavedFromStorage, notifyFavoritesChange }) => {
+    import('./recipe-data.mjs').then(({ getRecipesData, saveSavedToStorage, getSavedFromStorage, saveFavoritesToStorage, getFavoritesFromStorage, notifyFavoritesChange }) => {
         const recipesData = getRecipesData();
-        const recipe = recipesData.find(r => r.id === recipeId);
         
-        if (recipe) {
-            recipe.isSaved = !recipe.isSaved;
-            
-            // Update storage
-            const saved = getSavedFromStorage();
-            if (recipe.isSaved) {
-                if (!saved.includes(recipeId)) {
-                    saved.push(recipeId);
-                }
-            } else {
-                const index = saved.indexOf(recipeId);
-                if (index > -1) {
-                    saved.splice(index, 1);
-                }
-            }
-            saveSavedToStorage(saved);
-            
-            // Update button visual state
-            const icon = button.querySelector('img');
-            if (recipe.isSaved) {
-                button.classList.add('active');
-                icon.src = './images/check.svg';
-                icon.alt = 'Saved';
-            } else {
-                button.classList.remove('active');
-                icon.src = './images/plus.svg';
-                icon.alt = 'Save';
-            }
-            
-            // Notify changes to update other parts of the app
-            notifyFavoritesChange();
-            
-            console.log(`Recipe ${recipe.name} ${recipe.isSaved ? 'saved' : 'removed from saved'}`);
+        // Use flexible comparison for ID matching
+        const recipe = recipesData.find(r => r.id == recipeId);
+        
+        if (!recipe) {
+            console.log('Recipe not found with ID:', recipeId);
+            return;
         }
+        
+        // Toggle save status
+        recipe.isSaved = !recipe.isSaved;
+        
+        // RULE: If unsaving a favorite, also remove from favorites
+        if (!recipe.isSaved && recipe.isFavorite) {
+            recipe.isFavorite = false;
+        }
+        
+        // Update saved storage
+        const saved = getSavedFromStorage();
+        if (recipe.isSaved) {
+            // Add to saved if not present
+            if (!saved.some(id => id == recipeId)) {
+                saved.push(recipeId);
+            }
+        } else {
+            // Remove from saved
+            const indexesToRemove = [];
+            saved.forEach((id, index) => {
+                if (id == recipeId) indexesToRemove.push(index);
+            });
+            indexesToRemove.reverse().forEach(index => saved.splice(index, 1));
+        }
+        saveSavedToStorage(saved);
+        
+        // Update favorites storage (if unsaving, also remove from favorites)
+        if (!recipe.isSaved) {
+            const favorites = getFavoritesFromStorage();
+            const indexesToRemove = [];
+            favorites.forEach((id, index) => {
+                if (id == recipeId) indexesToRemove.push(index);
+            });
+            indexesToRemove.reverse().forEach(index => favorites.splice(index, 1));
+            saveFavoritesToStorage(favorites);
+        }
+        
+        // Update button visual states
+        updateButtonStates(button.closest('.recipe-card'), recipe);
+        
+        // Notify changes to update other parts of the app
+        notifyFavoritesChange();
+        
+        const action = recipe.isSaved ? 'saved' : 'removed from saved';
+        const favoriteNote = !recipe.isSaved && !recipe.isFavorite ? ' (and unfavorited)' : '';
+        console.log(`Recipe ${recipe.name} ${action}${favoriteNote}`);
+    }).catch(error => {
+        console.error('Error in toggleSave:', error);
     });
+}
+
+/**
+ * Update visual states of both buttons in a recipe card
+ * @param {HTMLElement} card - Recipe card element
+ * @param {Object} recipe - Recipe object with current states
+ */
+function updateButtonStates(card, recipe) {
+    const favoriteBtn = card.querySelector('.favorite-btn');
+    const saveBtn = card.querySelector('.save-btn');
+    
+    if (favoriteBtn) {
+        const favoriteIcon = favoriteBtn.querySelector('img');
+        if (recipe.isFavorite) {
+            favoriteBtn.classList.add('active');
+            favoriteIcon.src = './images/favorite.svg';
+            favoriteIcon.alt = 'Favorited';
+        } else {
+            favoriteBtn.classList.remove('active');
+            favoriteIcon.src = './images/favorite.svg';
+            favoriteIcon.alt = 'Add to favorites';
+        }
+    }
+    
+    if (saveBtn) {
+        const saveIcon = saveBtn.querySelector('img');
+        if (recipe.isSaved) {
+            saveBtn.classList.add('active');
+            saveIcon.src = './images/check.svg';
+            saveIcon.alt = 'Saved';
+        } else {
+            saveBtn.classList.remove('active');
+            saveIcon.src = './images/plus.svg';
+            saveIcon.alt = 'Save';
+        }
+    }
 }
 
 // Exibe as categorias da receita
