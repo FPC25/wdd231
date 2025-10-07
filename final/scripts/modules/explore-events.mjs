@@ -4,6 +4,8 @@ import { setupCategoryButtons } from './explore-categories.mjs';
 import { performSearch, clearSearch } from './explore-search.mjs';
 import { setupBottomNavigation } from './explore-navigation.mjs';
 import { initializeScrollBehavior } from './explore-scroll.mjs';
+import { renderCurrentView } from './explore-renderer.mjs';
+import { loadRecipes } from './recipe-data.mjs';
 
 export function initializeAllEvents(domElements) {
     const { categoryButtons, searchInput, searchButton, bottomNav, recipesGrid } = domElements;
@@ -38,4 +40,29 @@ export function initializeAllEvents(domElements) {
 
     // Initialize scroll behavior
     initializeScrollBehavior(bottomNav);
+    
+    // Setup storage events for cross-page synchronization
+    setupStorageEvents();
+}
+
+/**
+ * Set up localStorage event listeners for cross-tab/page synchronization
+ */
+function setupStorageEvents() {
+    window.addEventListener('storage', function(e) {
+        if (['flavorfy_favorites', 'flavorfy_saved', 'recipesData'].includes(e.key)) {
+            console.log('Storage changed in explore, updating page:', e.key);
+            loadRecipes().then(() => {
+                renderCurrentView();
+            });
+        }
+    });
+    
+    // Also listen for custom events for same-page updates
+    window.addEventListener('flavorfy-data-changed', function() {
+        console.log('Data changed event received in explore');
+        loadRecipes().then(() => {
+            renderCurrentView();
+        });
+    });
 }
