@@ -10,7 +10,28 @@ export function setupEventListeners(domElements) {
     const { recipeSelect, loadBtn, calculateBtn, profitMarginInput, toggleBreakdownBtn, saveBtn, resetBtn } = domElements;
 
     if (recipeSelect && loadBtn) {
-        loadBtn.addEventListener('click', loadSelectedRecipe);
+        // Event listener para mudança no select
+        recipeSelect.addEventListener('change', function() {
+            // Habilitar/desabilitar o botão Load baseado na seleção
+            if (this.value) {
+                loadBtn.disabled = false;
+                loadBtn.classList.remove('disabled');
+            } else {
+                loadBtn.disabled = true;
+                loadBtn.classList.add('disabled');
+            }
+        });
+        
+        // Event listener para clique no Load
+        loadBtn.addEventListener('click', function() {
+            if (!this.disabled) {
+                loadSelectedRecipe();
+            }
+        });
+        
+        // Estado inicial - botão desabilitado
+        loadBtn.disabled = true;
+        loadBtn.classList.add('disabled');
     }
 
     if (calculateBtn) {
