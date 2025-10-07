@@ -24,5 +24,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     onFavoritesChange(() => {
         renderFavoritesSection();
         renderSavedSection();
+        displayUserRecipes();
     });
 });
