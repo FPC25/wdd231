@@ -14,7 +14,7 @@ const unitConversions = {
     },
     unit: {
         baseUnit: 'piece',
-        conversions: { 'piece': 1, 'pieces': 1, 'unit': 1, 'units': 1, 'item': 1, 'items': 1 }
+        conversions: { 'piece': 1 }
     }
 };
 
@@ -31,7 +31,7 @@ const ingredientConversions = {
     'maple syrup': { 'cup': 340 }, 'mel': { 'cup': 340 }
 };
 
-function getUnitType(unit) {
+export function getUnitType(unit) {
     const lowerUnit = unit.toLowerCase();
     
     if (unitConversions.weight.conversions[lowerUnit]) return 'weight';
