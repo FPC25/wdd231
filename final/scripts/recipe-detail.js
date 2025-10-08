@@ -79,17 +79,3 @@ function loadRecipeDetail(recipeId) {
         recipeContent.classList.add('show');
     }
 }
-
-// Função auxiliar para debug
-function debugRecipeData(recipe) {
-    console.log('Recipe data:', {
-        id: recipe.id,
-        name: recipe.name,
-        hasIngredients: recipe.ingredients && recipe.ingredients.length > 0,
-        hasInstructions: recipe.instructions && recipe.instructions.length > 0,
-        hasFilters: recipe.filters && recipe.filters.length > 0,
-        isSaved: recipe.isSaved,
-        isFavorite: recipe.isFavorite,
-        hasValidImage: recipe.cover && recipe.cover !== "image" && !recipe.cover.includes('placeholder.svg')
-    });
-}
