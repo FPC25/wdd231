@@ -4,16 +4,11 @@ import { getState } from './calculator-state.mjs';
 
 export function loadCalculationHistory() {
     const savedCalculations = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
-    console.log('Loaded calculation history:', savedCalculations);
     return savedCalculations;
 }
 
 export function saveCalculation() {
     const state = getState();
-    
-    console.log('State when trying to save:', state);
-    console.log('calculationResults:', state.calculationResults);
-    console.log('currentRecipe:', state.currentRecipe);
     
     if (!state.calculationResults || Object.keys(state.calculationResults).length === 0 || !state.currentRecipe) {
         alert('No calculation to save. Please calculate costs first.');
@@ -30,7 +25,6 @@ export function saveCalculation() {
     savedCalculations.push(calculation);
     localStorage.setItem('calculationHistory', JSON.stringify(savedCalculations));
     
-    console.log('Calculation saved:', calculation);
     alert('Calculation saved successfully!');
     
     // Update the history display
@@ -40,7 +34,6 @@ export function saveCalculation() {
 export function loadSavedCalculation(calcId, savedCalculations) {
     const calculation = savedCalculations.find(calc => calc.id === calcId);
     if (!calculation) throw new Error('Calculation not found');
-    console.log('Loaded saved calculation:', calculation);
     return calculation;
 }
 
@@ -98,9 +91,6 @@ function loadCalculationById(calcId) {
         const savedCalculations = loadCalculationHistory();
         const calculation = loadSavedCalculation(calcId, savedCalculations);
         
-        // Here you would restore the calculation state
-        // This would involve setting the recipe, ingredient costs, etc.
-        console.log('Loading calculation:', calculation);
         alert('Calculation loaded! (Feature in development)');
         
     } catch (error) {
@@ -115,6 +105,5 @@ function deleteCalculation(calcId) {
         const filteredCalculations = savedCalculations.filter(calc => calc.id !== calcId);
         localStorage.setItem('calculationHistory', JSON.stringify(filteredCalculations));
         displayCalculationHistory(); // Refresh the display
-        console.log('Calculation deleted:', calcId);
     }
 }
