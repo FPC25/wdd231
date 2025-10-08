@@ -107,20 +107,8 @@ export function setupActionButtons(recipe) {
     const saveBtn = document.getElementById('save-btn');
     const calculateBtn = document.getElementById('calculate-btn');
     
-    // DEBUG: Verificar se os botões foram encontrados
-    console.log('Action buttons found:', {
-        favorite: !!favoriteBtn,
-        save: !!saveBtn,
-        calculate: !!calculateBtn
-    });
-    
     if (!favoriteBtn || !saveBtn || !calculateBtn) {
         console.error('Action buttons not found in DOM');
-        console.log('Available elements:', {
-            favoriteBtn: favoriteBtn,
-            saveBtn: saveBtn,
-            calculateBtn: calculateBtn
-        });
         return;
     }
     
@@ -197,11 +185,4 @@ export function manageLocalStorageDirectly(recipeData) {
     }
     localStorage.setItem('flavorfy_saved', JSON.stringify(saved));
     
-    console.log('Recipe saved directly to localStorage:', {
-        recipeId: recipeData.id,
-        isSaved: true,
-        isFavorite: recipeData.isFavorite,
-        savedArray: saved,
-        favoritesArray: favorites
-    });
 }
