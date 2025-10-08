@@ -234,5 +234,5 @@ export function resetUserData() {
 
 // Sincroniza dados do usuário com servidor (implementação futura)
 export function syncUserDataToServer() {
-    console.log('Syncing user data to server...');
+    return 
 }
