@@ -269,8 +269,6 @@ export function populateForm(recipeData) {
         `;
         preview.classList.add('has-image');
     }
-    
-    console.log('Form populated with recipe data');
 }
 
 // Mostra estado de erro - FIX: melhor gerenciamento de estados
