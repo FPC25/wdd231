@@ -81,6 +81,5 @@ export function clearUserData(confirm = true) {
     const keysToRemove = ['userRecipes', 'recipeDraft', 'flavorfy_favorites', 'flavorfy_saved'];
     keysToRemove.forEach(key => localStorage.removeItem(key));
     
-    console.log('User data cleared successfully');
     return true;
 }
