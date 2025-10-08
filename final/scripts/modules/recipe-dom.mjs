@@ -92,23 +92,19 @@ export function setupImagePreviewClick() {
 export function addIngredientRow() {
     const container = document.getElementById('ingredients-container');
     
-    const quantityOptionsHTML = quantityOptions.map(option => 
-        `<option value="${option}">${option}</option>`
-    ).join('');
-    
     const unitOptionsHTML = unitOptions.map(option => 
         `<option value="${option.value}">${option.text}</option>`
     ).join('');
-    
+
     const ingredientRow = document.createElement('div');
     ingredientRow.className = 'ingredient-row';
     ingredientRow.innerHTML = `
-        <div>
+        <div class="quantity-container">
             <label>Quantity</label>
-            <input type="text" class="quantity-input" list="quantity-suggestions" placeholder="Enter amount or select">
-            <datalist id="quantity-suggestions">
-                ${quantityOptionsHTML}
-            </datalist>
+            <div class="quantity-input-group">
+                <input type="number" class="quantity-input" placeholder="Amount" step="0.25" min="0">
+                <button type="button" class="to-taste-btn" data-active="false">To Taste</button>
+            </div>
         </div>
         <div>
             <label>Unit</label>
@@ -122,20 +118,64 @@ export function addIngredientRow() {
         </div>
         <button type="button" class="remove-ingredient" onclick="removeIngredientRow(this)">×</button>
     `;
-    
+
     container.appendChild(ingredientRow);
-    
-    const quantitySelect = ingredientRow.querySelector('.quantity-input');
+
+    // Setup quantity input behavior
+    setupQuantityInputBehavior(ingredientRow);
+}
+
+// Setup quantity input behavior for numeric/to taste toggle
+function setupQuantityInputBehavior(ingredientRow) {
+    const quantityInput = ingredientRow.querySelector('.quantity-input');
+    const toTasteBtn = ingredientRow.querySelector('.to-taste-btn');
     const unitSelect = ingredientRow.querySelector('.unit-input');
     
-    quantitySelect.addEventListener('change', function() {
-        if (this.value === 'to taste') {
+    // Handle "To Taste" button click
+    toTasteBtn.addEventListener('click', function() {
+        const isActive = this.dataset.active === 'true';
+        
+        if (!isActive) {
+            // Activate "to taste" mode
+            this.dataset.active = 'true';
+            this.classList.add('active');
+            this.textContent = '✓ To Taste';
+            quantityInput.value = '';
+            quantityInput.disabled = true;
+            quantityInput.placeholder = 'To taste selected';
             unitSelect.value = '';
             unitSelect.disabled = true;
             unitSelect.classList.add('disabled-gray');
         } else {
+            // Deactivate "to taste" mode
+            this.dataset.active = 'false';
+            this.classList.remove('active');
+            this.textContent = 'To Taste';
+            quantityInput.disabled = false;
+            quantityInput.placeholder = 'Amount';
             unitSelect.disabled = false;
             unitSelect.classList.remove('disabled-gray');
+            quantityInput.focus();
+        }
+    });
+    
+    // Handle numeric input changes
+    quantityInput.addEventListener('input', function() {
+        if (this.value && toTasteBtn.dataset.active === 'true') {
+            // If user types in input while "to taste" is active, deactivate it
+            toTasteBtn.dataset.active = 'false';
+            toTasteBtn.classList.remove('active');
+            toTasteBtn.textContent = 'To Taste';
+            unitSelect.disabled = false;
+            unitSelect.classList.remove('disabled-gray');
+        }
+    });
+    
+    // Validate numeric input
+    quantityInput.addEventListener('blur', function() {
+        if (this.value && isNaN(this.value) && this.value !== 'to taste') {
+            alert('Please enter a valid number or use "To Taste" button');
+            this.focus();
         }
     });
 }
@@ -253,9 +293,30 @@ export function populateForm(recipeData) {
     recipeData.ingredients.forEach(ingredient => {
         addIngredientRow();
         const lastRow = document.querySelector('.ingredient-row:last-child');
-        lastRow.querySelector('.quantity-input').value = ingredient.quantity;
+        const quantityInput = lastRow.querySelector('.quantity-input');
+        const toTasteBtn = lastRow.querySelector('.to-taste-btn');
+        const unitSelect = lastRow.querySelector('.unit-input');
+        
+        // Set ingredient name
         lastRow.querySelector('.ingredient-input').value = ingredient.item;
-        lastRow.querySelector('.unit-input').value = ingredient.unit || '';
+        
+        // Handle quantity - check if it's "to taste"
+        if (ingredient.quantity === 'to taste') {
+            // Activate "to taste" mode
+            toTasteBtn.dataset.active = 'true';
+            toTasteBtn.classList.add('active');
+            toTasteBtn.textContent = '✓ To Taste';
+            quantityInput.value = '';
+            quantityInput.disabled = true;
+            quantityInput.placeholder = 'To taste selected';
+            unitSelect.value = '';
+            unitSelect.disabled = true;
+            unitSelect.classList.add('disabled-gray');
+        } else {
+            // Set numeric quantity
+            quantityInput.value = ingredient.quantity;
+            unitSelect.value = ingredient.unit || '';
+        }
     });
     
     // UPDATED: Remove inline styles from image preview
