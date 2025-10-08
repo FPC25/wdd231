@@ -53,15 +53,20 @@ function collectFormData() {
     const ingredients = [];
     
     ingredientRows.forEach(row => {
-        const quantity = row.querySelector('.quantity-input').value.trim();
+        const quantityInput = row.querySelector('.quantity-input');
+        const toTasteBtn = row.querySelector('.to-taste-btn');
         const item = row.querySelector('.ingredient-input').value.trim();
         const unit = row.querySelector('.unit-input').value.trim();
         
-        if (quantity && item) {
+        // Check if "to taste" is active
+        const isToTaste = toTasteBtn && toTasteBtn.dataset.active === 'true';
+        const quantityValue = quantityInput.value.trim();
+        
+        if ((quantityValue || isToTaste) && item) {
             ingredients.push({
                 item: item,
-                quantity: quantity === 'to taste' ? 'to taste' : parseFloat(quantity) || quantity,
-                unit: quantity === 'to taste' ? null : (unit || null)
+                quantity: isToTaste ? 'to taste' : (parseFloat(quantityValue) || quantityValue),
+                unit: isToTaste ? null : (unit || null)
             });
         }
     });
