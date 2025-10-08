@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     await renderCurrentView();
-    initializeAllEvents(domElements);
+    await initializeAllEvents(domElements);
     
     // Registrar callback para mudanças nos dados
     onFavoritesChange(() => {
