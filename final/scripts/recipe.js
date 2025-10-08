@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     await loadRecipes();
     initializeForm();
     addEventListeners();
-    loadDraftIfExists();
+    checkForEditMode(); // Changed from loadDraftIfExists to handle edit/fork modes
 });
 
 let ingredientCount = 0;
@@ -84,7 +84,7 @@ function collectFormData() {
         id: nextId,
         name: name,
         cover: cover,
-        source: source,
+        source: source || "user", // Mark as user-created if no source specified
         difficulty: difficulty,
         cookTime: cookTime,
         filters: filters,
@@ -93,6 +93,9 @@ function collectFormData() {
         isSaved: true,
         isFavorite: isFavorite,
         serves: serves,
+        isUserCreated: true, // Always true for newly created recipes
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
     };
 }
 
@@ -144,49 +147,105 @@ function validateForm() {
 }
 
 // Manipula submissão do formulário
-function handleFormSubmit(event) {
+async function handleFormSubmit(event) {
     event.preventDefault();
     
     if (!validateForm()) return;
     
-    const recipeData = collectFormData();
-    
     try {
-        // 1. Salvar nas receitas principais (recipesData)
-        let existingRecipes = [];
-        try {
-            existingRecipes = getRecipesData() || [];
-        } catch (error) {
-            const storedRecipes = localStorage.getItem('recipesData');
-            existingRecipes = storedRecipes ? JSON.parse(storedRecipes) : [];
+        // Check if we're in edit or fork mode
+        if (window.editMode?.isEditing) {
+            await handleRecipeUpdate();
+        } else if (window.editMode?.isForking) {
+            await handleRecipeFork();
+        } else {
+            await handleNewRecipe();
         }
-        
-        existingRecipes.push(recipeData);
-        localStorage.setItem('recipesData', JSON.stringify(existingRecipes));
-        
-        // 2. CORREÇÃO: Também salvar nas receitas do usuário (userRecipes)
-        let userRecipes = [];
-        try {
-            const storedUserRecipes = localStorage.getItem('userRecipes');
-            userRecipes = storedUserRecipes ? JSON.parse(storedUserRecipes) : [];
-        } catch (error) {
-            userRecipes = [];
-        }
-        
-        userRecipes.push(recipeData);
-        localStorage.setItem('userRecipes', JSON.stringify(userRecipes));
-        
-        manageLocalStorageDirectly(recipeData);
-        
-        localStorage.removeItem('recipeDraft');
-        
-        alert('Recipe saved successfully!');
-        window.location.href = './index.html';
-        
     } catch (error) {
-        console.error('Error saving recipe:', error);
+        console.error('Error handling form submission:', error);
         alert('Error saving recipe. Please try again.');
     }
+}
+
+// Handle updating existing user recipe
+async function handleRecipeUpdate() {
+    const { updateUserRecipe } = await import('./modules/recipe-management.mjs');
+    const recipeData = collectFormData();
+    
+    // Keep the original ID
+    recipeData.id = window.editMode.recipeId;
+    
+    const success = updateUserRecipe(window.editMode.recipeId, recipeData);
+    
+    if (success) {
+        localStorage.removeItem('recipeDraft');
+        alert('Recipe updated successfully!');
+        window.location.href = './index.html';
+    } else {
+        alert('Error updating recipe. Please try again.');
+    }
+}
+
+// Handle creating fork of API recipe
+async function handleRecipeFork() {
+    const { forkApiRecipe, saveForkRecipe } = await import('./modules/recipe-management.mjs');
+    const recipeData = collectFormData();
+    
+    // Create fork
+    const forkedRecipe = forkApiRecipe(window.editMode.originalRecipe, recipeData);
+    
+    if (!forkedRecipe) {
+        // No real changes detected
+        alert('No changes detected. Personal copy not created.');
+        window.location.href = './index.html';
+        return;
+    }
+    
+    const success = saveForkRecipe(forkedRecipe);
+    
+    if (success) {
+        localStorage.removeItem('recipeDraft');
+        alert('Personal copy created successfully!');
+        window.location.href = './index.html';
+    } else {
+        alert('Error creating personal copy. Please try again.');
+    }
+}
+
+// Handle creating new recipe
+async function handleNewRecipe() {
+    const recipeData = collectFormData();
+    
+    // 1. Salvar nas receitas principais (recipesData)
+    let existingRecipes = [];
+    try {
+        existingRecipes = getRecipesData() || [];
+    } catch (error) {
+        const storedRecipes = localStorage.getItem('recipesData');
+        existingRecipes = storedRecipes ? JSON.parse(storedRecipes) : [];
+    }
+    
+    existingRecipes.push(recipeData);
+    localStorage.setItem('recipesData', JSON.stringify(existingRecipes));
+    
+    // 2. CORREÇÃO: Também salvar nas receitas do usuário (userRecipes)
+    let userRecipes = [];
+    try {
+        const storedUserRecipes = localStorage.getItem('userRecipes');
+        userRecipes = storedUserRecipes ? JSON.parse(storedUserRecipes) : [];
+    } catch (error) {
+        userRecipes = [];
+    }
+    
+    userRecipes.push(recipeData);
+    localStorage.setItem('userRecipes', JSON.stringify(userRecipes));
+    
+    manageLocalStorageDirectly(recipeData);
+    
+    localStorage.removeItem('recipeDraft');
+    
+    alert('Recipe saved successfully!');
+    window.location.href = './index.html';
 }
 
 // Salva rascunho da receita
@@ -221,6 +280,107 @@ function loadDraftIfExists() {
 // Expor funções globais necessárias
 window.removeIngredientRow = removeIngredientRow;
 window.removeImageSimple = removeImageSimple;
+
+// **NEW FUNCTIONALITY: Recipe Editing**
+
+// Check if we're editing an existing recipe
+function checkForEditMode() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const editId = urlParams.get('edit');
+    const forkId = urlParams.get('fork');
+    
+    if (editId) {
+        loadRecipeForEdit(editId);
+    } else if (forkId) {
+        loadRecipeForFork(forkId);
+    } else {
+        loadDraftIfExists();
+    }
+}
+
+// Load recipe for editing
+async function loadRecipeForEdit(recipeId) {
+    try {
+        const { getRecipeById, isUserRecipe } = await import('./modules/recipe-management.mjs');
+        const recipe = getRecipeById(recipeId);
+        
+        if (!recipe) {
+            alert('Recipe not found!');
+            window.location.href = './index.html';
+            return;
+        }
+        
+        if (recipe.isApiRecipe) {
+            alert('API recipes cannot be edited directly. You can create a personal copy instead.');
+            window.location.href = `./recipe.html?fork=${recipeId}`;
+            return;
+        }
+        
+        // Update page title and form for editing
+        document.title = 'Edit Recipe - Flavorfy';
+        const pageTitle = document.querySelector('h1');
+        if (pageTitle) pageTitle.textContent = 'Edit Recipe';
+        
+        const submitBtn = document.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.textContent = 'Update Recipe';
+        
+        // Store edit mode data
+        window.editMode = {
+            isEditing: true,
+            recipeId: recipeId,
+            originalRecipe: recipe
+        };
+        
+        // Populate form with recipe data
+        populateForm(recipe);
+        
+    } catch (error) {
+        console.error('Error loading recipe for edit:', error);
+        alert('Error loading recipe for editing');
+        window.location.href = './index.html';
+    }
+}
+
+// Load recipe for forking (creating personal copy)
+async function loadRecipeForFork(recipeId) {
+    try {
+        const { getRecipeById } = await import('./modules/recipe-management.mjs');
+        const recipe = getRecipeById(recipeId);
+        
+        if (!recipe) {
+            alert('Recipe not found!');
+            window.location.href = './index.html';
+            return;
+        }
+        
+        // Update page title and form for forking
+        document.title = 'Create Personal Copy - Flavorfy';
+        const pageTitle = document.querySelector('h1');
+        if (pageTitle) pageTitle.textContent = `Create Personal Copy: ${recipe.name}`;
+        
+        const submitBtn = document.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.textContent = 'Create Personal Copy';
+        
+        // Store fork mode data
+        window.editMode = {
+            isForking: true,
+            originalRecipeId: recipeId,
+            originalRecipe: recipe
+        };
+        
+        // Populate form with recipe data but clear the source
+        const recipeForFork = { ...recipe };
+        recipeForFork.source = ''; // Clear source so user can add their own
+        recipeForFork.name = `My ${recipe.name}`; // Prefix to indicate it's a copy
+        
+        populateForm(recipeForFork);
+        
+    } catch (error) {
+        console.error('Error loading recipe for fork:', error);
+        alert('Error loading recipe for forking');
+        window.location.href = './index.html';
+    }
+}
 window.addIngredientRow = addIngredientRow;
 window.handleFormSubmit = handleFormSubmit;
 window.saveDraft = saveDraft;
