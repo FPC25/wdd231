@@ -152,6 +152,7 @@ function handleFormSubmit(event) {
     const recipeData = collectFormData();
     
     try {
+        // 1. Salvar nas receitas principais (recipesData)
         let existingRecipes = [];
         try {
             existingRecipes = getRecipesData() || [];
@@ -162,6 +163,18 @@ function handleFormSubmit(event) {
         
         existingRecipes.push(recipeData);
         localStorage.setItem('recipesData', JSON.stringify(existingRecipes));
+        
+        // 2. CORREÇÃO: Também salvar nas receitas do usuário (userRecipes)
+        let userRecipes = [];
+        try {
+            const storedUserRecipes = localStorage.getItem('userRecipes');
+            userRecipes = storedUserRecipes ? JSON.parse(storedUserRecipes) : [];
+        } catch (error) {
+            userRecipes = [];
+        }
+        
+        userRecipes.push(recipeData);
+        localStorage.setItem('userRecipes', JSON.stringify(userRecipes));
         
         manageLocalStorageDirectly(recipeData);
         
