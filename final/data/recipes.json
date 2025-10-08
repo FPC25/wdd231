@@ -8,13 +8,13 @@
     "cookTime": {"time": 30, "unit": "minutes"},
     "filters": ["Lunch", "Dinner"],
     "ingredients": [
-      {"item": "zucchini", "quantity": 2, "unit": "unit"},
-      {"item": "eggplants", "quantity": 2, "unit": "unit"},
-      {"item": "onions", "quantity": 2, "unit": "unit"},
-      {"item": "tomatoes", "quantity": 3, "unit": "unit"},
-      {"item": "green pepper", "quantity": 1, "unit": "unit"},
-      {"item": "yellow pepper", "quantity": 1, "unit": "unit"},
-      {"item": "red pepper", "quantity": 1, "unit": "unit"},
+      {"item": "zucchini", "quantity": 2, "unit": "piece"},
+      {"item": "eggplants", "quantity": 2, "unit": "piece"},
+      {"item": "onions", "quantity": 2, "unit": "piece"},
+      {"item": "tomatoes", "quantity": 3, "unit": "piece"},
+      {"item": "green pepper", "quantity": 1, "unit": "piece"},
+      {"item": "yellow pepper", "quantity": 1, "unit": "piece"},
+      {"item": "red pepper", "quantity": 1, "unit": "piece"},
       {"item": "olive oil", "quantity": "to taste", "unit": null},
       {"item": "rosemary", "quantity": "to taste", "unit": null},
       {"item": "basil", "quantity": "to taste", "unit": null},
@@ -44,7 +44,7 @@
     "cookTime": {"time": 5, "unit": "minutes"},
     "filters": ["Snack", "Breakfast", "Dessert"],
     "ingredients": [
-      {"item": "Egg", "quantity": 1, "unit": "unit"},
+      {"item": "Egg", "quantity": 1, "unit": "piece"},
       {"item": "Hydrated tapioca starch", "quantity": 25, "unit": "g"},
       {"item": "Cheese", "quantity": "to taste", "unit": null},
       {"item": "Shredded Chicken", "quantity": "to taste", "unit": null},
@@ -115,16 +115,16 @@
     "filters": ["Lunch", "Dinner"],
     "ingredients": [
       {"item": "chicken breast fillets", "quantity": 2, "unit": "kg"},
-      {"item": "medium carrots", "quantity": 3, "unit": "unit"},
-      {"item": "medium potatoes", "quantity": 4, "unit": "unit"},
-      {"item": "medium green beans", "quantity": 18, "unit": "unit"},
+      {"item": "medium carrots", "quantity": 3, "unit": "piece"},
+      {"item": "medium potatoes", "quantity": 4, "unit": "piece"},
+      {"item": "medium green beans", "quantity": 18, "unit": "piece"},
       {"item": "Arisco complete seasoning", "quantity": 2, "unit": "tsp"},
       {"item": "Sazón for meats", "quantity": 2, "unit": "sachets"},
       {"item": "black pepper", "quantity": 1, "unit": "tsp"},
       {"item": "cilantro", "quantity": "to taste", "unit": null},
       {"item": "margarine", "quantity": 1, "unit": "tbsp"},
       {"item": "olive oil", "quantity": "to taste", "unit": null},
-      {"item": "lime", "quantity": 1, "unit": "unit"}
+      {"item": "lime", "quantity": 1, "unit": "piece"}
     ],
     "instructions": [
       "Cut chicken fillets into thin slices and wash with lime juice",
@@ -213,9 +213,9 @@
       {"item": "salt", "quantity": "to taste", "unit": null},
       {"item": "black pepper", "quantity": "to taste", "unit": null},
       {"item": "milk", "quantity": 2, "unit": "cups"},
-      {"item": "vegetable bouillon cube", "quantity": 1, "unit": "unit"},
+      {"item": "vegetable bouillon cube", "quantity": 1, "unit": "piece"},
       {"item": "butter", "quantity": 2, "unit": "tbsp"},
-      {"item": "chopped onion", "quantity": 1, "unit": "unit"},
+      {"item": "chopped onion", "quantity": 1, "unit": "piece"},
       {"item": "dried beef, desalted and shredded", "quantity": 500, "unit": "g"},
       {"item": "table cream", "quantity": 400, "unit": "g"},
       {"item": "grated Parmesan cheese", "quantity": "to taste", "unit": null},
@@ -246,7 +246,7 @@
     "ingredients": [
       {"item": "condensed milk", "quantity": 1, "unit": "can"},
       {"item": "milk", "quantity": 1, "unit": "can"},
-      {"item": "whole eggs", "quantity": 3, "unit": "unit"},
+      {"item": "whole eggs", "quantity": 3, "unit": "piece"},
       {"item": "sugar for caramel", "quantity": 1, "unit": "cup"},
       {"item": "water for caramel", "quantity": 0.5, "unit": "cup"}
     ],
@@ -277,7 +277,7 @@
       {"item": "sour cassava starch", "quantity": 200, "unit": "g"},
       {"item": "sunflower oil", "quantity": 40, "unit": "ml"},
       {"item": "water", "quantity": 100, "unit": "ml"},
-      {"item": "egg", "quantity": 1, "unit": "unit"},
+      {"item": "egg", "quantity": 1, "unit": "piece"},
       {"item": "salt", "quantity": "to taste", "unit": null}
     ],
     "instructions": [
@@ -308,7 +308,7 @@
       {"item": "sour cassava starch", "quantity": 200, "unit": "g"},
       {"item": "milk", "quantity": 100, "unit": "ml"},
       {"item": "butter", "quantity": 40, "unit": "g"},
-      {"item": "Egg", "quantity": 1, "unit": "unit"},
+      {"item": "Egg", "quantity": 1, "unit": "piece"},
       {"item": "Salt", "quantity": "to taste", "unit": null}
     ],
     "instructions": [
