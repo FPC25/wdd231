@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Ratatouille",
-    "cover": "image",
+    "cover": "./images/recipes/Ratatouille.webp",
     "source": "Mother",
     "difficulty": "hard",
     "cookTime": {"time": 30, "unit": "minutes"},
@@ -38,7 +38,7 @@
   {
     "id": 2,
     "name": "Simple Crepioca",
-    "cover": "image",
+    "cover": "./images/recipes/crepioca.webp",
     "source": "Papinhas da Xica",
     "difficulty": "easy",
     "cookTime": {"time": 5, "unit": "minutes"},
@@ -68,7 +68,7 @@
   {
     "id": 3,
     "name": "Traditional Chicken Coxinha",
-    "cover": "image",
+    "cover": "./images/recipes/Coxinha.webp",
     "source": "Estadão Paladar",
     "difficulty": "medium",
     "cookTime": {"time": 120, "unit": "minutes"},
@@ -108,7 +108,7 @@
   {
     "id": 4,
     "name": "Grilled Chicken with Vegetables",
-    "cover": "image",
+    "cover": "./images/recipes/Grilled_Chicken_with_Vegetables.webp",
     "source": "TudoGostoso",
     "difficulty": "easy",
     "cookTime": {"time": 120, "unit": "minutes"},
@@ -142,7 +142,7 @@
   {
     "id": 5,
     "name": "Dried Beef Escondidinho (Traditional Version)",
-    "cover": "image",
+    "cover": "./images/recipes/escondidinho-com-carne-seca.webp",
     "source": "Panelinha",
     "difficulty": "hard",
     "cookTime": {"time": 120, "unit": "minutes"},
@@ -174,7 +174,7 @@
   {
     "id": 6,
     "name": "Dried Beef Escondidinho (Creamy Version)",
-    "cover": "image",
+    "cover": "./images/recipes/escondidinho-de-frigideira.webp",
     "source": "Estadão Paladar",
     "difficulty": "easy",
     "cookTime": {"time": 90, "unit": "minutes"},
@@ -203,7 +203,7 @@
   {
     "id": 7,
     "name": "Arracacha Soup with Dried Beef",
-    "cover": "image",
+    "cover": "./images/recipes/arracacha-soup-recipe.webp",
     "source": "Terra",
     "difficulty": "easy",
     "cookTime": {"time": 60, "unit": "minutes"},
@@ -238,7 +238,7 @@
   {
     "id": 8,
     "name": "Condensed Milk Pudding",
-    "cover": "image",
+    "cover": "./images/recipes/pudin.webp",
     "source": "TudoGostoso",
     "difficulty": "medium",
     "cookTime": {"time": 50, "unit": "minutes"},
@@ -267,7 +267,7 @@
   {
     "id": 9,
     "name": "Cheese Bread with Parmesan",
-    "cover": "image",
+    "cover": "./images/recipes/paodequeijo.webp",
     "source": "Estadão Paladar",
     "difficulty": "easy",
     "cookTime": {"time": 40, "unit": "minutes"},
@@ -298,7 +298,7 @@
   {
     "id": 10,
     "name": "Traditional Cheese Bread",
-    "cover": "image",
+    "cover": "./images/recipes/pao-de-queijo-tradicional.webp",
     "source": "Estadão Paladar",
     "difficulty": "easy",
     "cookTime": {"time": 40, "unit": "minutes"},
