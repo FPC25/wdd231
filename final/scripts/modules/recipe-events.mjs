@@ -45,6 +45,18 @@ export function addEventListeners() {
         window.history.back();
     });
     
+    // CORREÇÃO: Adicionar event listener para submissão do formulário
+    const form = document.getElementById('recipe-form');
+    if (form) {
+        form.addEventListener('submit', window.handleFormSubmit);
+    }
+    
+    // Event listener para botão de rascunho
+    const saveDraftBtn = document.getElementById('save-draft-btn');
+    if (saveDraftBtn) {
+        saveDraftBtn.addEventListener('click', window.saveDraft);
+    }
+    
     document.getElementById('add-ingredient-btn').addEventListener('click', addIngredientRow);
     
     const imageInput = document.getElementById('cover-image');

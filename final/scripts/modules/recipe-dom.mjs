@@ -9,29 +9,27 @@ export const quantityOptions = [
     '3', '4', '5', '6', '7', '8', '9', '10'
 ];
 
-// Opções de unidades para ingredientes
+// Opções de unidades para ingredientes (SINCRONIZADAS com calculator)
 export const unitOptions = [
-    { value: '', text: 'Select' },
-    { value: 'ml', text: 'ml' },
-    { value: 'l', text: 'liter(s)' },
+    // Peso
     { value: 'g', text: 'gram(s)' },
     { value: 'kg', text: 'kg' },
+    { value: 'lb', text: 'pound(s)' },
+    { value: 'oz', text: 'ounce(s)' },
+    
+    // Volume
+    { value: 'ml', text: 'ml' },
+    { value: 'l', text: 'liter(s)' },
     { value: 'cup', text: 'cup(s)' },
     { value: 'tbsp', text: 'tablespoon(s)' },
     { value: 'tsp', text: 'teaspoon(s)' },
-    { value: 'oz', text: 'ounce(s)' },
-    { value: 'lb', text: 'pound(s)' },
-    { value: 'piece', text: 'piece(s)' },
-    { value: 'can', text: 'can(s)' },
-    { value: 'package', text: 'package(s)' },
-    { value: 'sachet', text: 'sachet(s)' },
-    { value: 'pinch', text: 'pinch' },
-    { value: 'dash', text: 'dash' },
-    { value: 'handful', text: 'handful' },
-    { value: 'slice', text: 'slice(s)' },
-    { value: 'clove', text: 'clove(s)' },
-    { value: 'sprig', text: 'sprig(s)' },
-    { value: 'bunch', text: 'bunch(es)' }
+    { value: 'fl oz', text: 'fl oz' },
+    { value: 'pint', text: 'pint(s)' },
+    { value: 'quart', text: 'quart(s)' },
+    { value: 'gallon', text: 'gallon(s)' },
+    
+    // Unidade
+    { value: 'piece', text: 'piece(s)' }
 ];
 
 // Atualiza todos os botões de uma receita específica
@@ -107,10 +105,10 @@ export function addIngredientRow() {
     ingredientRow.innerHTML = `
         <div>
             <label>Quantity</label>
-            <select class="quantity-input">
-                <option value="">Select</option>
+            <input type="text" class="quantity-input" list="quantity-suggestions" placeholder="Enter amount or select">
+            <datalist id="quantity-suggestions">
                 ${quantityOptionsHTML}
-            </select>
+            </datalist>
         </div>
         <div>
             <label>Unit</label>

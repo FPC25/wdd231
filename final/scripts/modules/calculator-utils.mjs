@@ -8,7 +8,7 @@ const unitConversions = {
     volume: {
         baseUnit: 'ml',
         conversions: {
-            'ml': 1, 'l': 1000, 'cup': 236.59, 'tbsp': 15, 'tsp': 5,
+            'ml': 1, 'l': 1000, 'cup': 240, 'tbsp': 15, 'tsp': 5,
             'fl oz': 29.5735, 'pint': 473.176, 'quart': 946.353, 'gallon': 3785.41
         }
     },
