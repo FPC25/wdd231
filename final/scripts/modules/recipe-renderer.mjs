@@ -102,6 +102,11 @@ function setupActionButtons(container) {
                 toggleFavorite(recipeId, this);
             } else if (action === 'save') {
                 toggleSave(recipeId, this);
+            } else if (action === 'create-copy') {
+                // Handle create copy action
+                if (confirm('Create a personal copy of this recipe that you can edit?')) {
+                    window.location.href = `./recipe.html?fork=${recipeId}`;
+                }
             }
         });
     });
@@ -134,7 +139,18 @@ export function displayRecipe(recipe) {
         servesElement.textContent = recipe.serves;
     }
     if (sourceElement) {
-        sourceElement.textContent = recipe.source || 'Not specified';
+        // Determine recipe origin and display appropriate message
+        const isUserRecipe = recipe.isUserCreated || recipe.source === "user";
+        const isForkedRecipe = recipe.forkedFrom && recipe.forkedFromName;
+        
+        if (isForkedRecipe) {
+            sourceElement.textContent = `Based on "${recipe.forkedFromName}"`;
+        } else if (isUserRecipe) {
+            sourceElement.innerHTML = `<span class="source-badge user">Your Recipe</span>`;
+        } else {
+            // Just show the source without badge for external recipes
+            sourceElement.textContent = recipe.source || 'External source';
+        }
     }
     
     // Categorias
@@ -382,4 +398,93 @@ export function displayInstructions(recipe) {
     } else {
         instructionsList.innerHTML = '<li class="instruction-item">No instructions provided</li>';
     }
+}
+
+/**
+ * Create enhanced recipe card with management buttons for API recipes
+ * @param {Object} recipe - Recipe object
+ * @returns {string} HTML string for enhanced recipe card
+ */
+export function createEnhancedRecipeCard(recipe) {
+    const favoriteClass = recipe.isFavorite ? 'active' : '';
+    const savedClass = recipe.isSaved ? 'active' : '';
+    const cookTime = `${recipe.cookTime.time} ${recipe.cookTime.unit}`;
+    const difficulty = recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1);
+    const saveIcon = recipe.isSaved ? 'check.svg' : 'plus.svg';
+    const saveAlt = recipe.isSaved ? 'Saved' : 'Save';
+    
+    const hasImage = recipe.cover && recipe.cover !== "image" && !recipe.cover.includes('placeholder.svg');
+    const imageSrc = hasImage ? recipe.cover : './images/placeholder.svg';
+    const imageClass = hasImage ? 'has-photo' : 'no-photo';
+    
+    // Check if recipe is from API (not user-created)
+    const isApiRecipe = !recipe.isUserCreated && recipe.source !== "user";
+    const isForkedRecipe = recipe.forkedFrom && recipe.forkedFromName;
+    
+    // Add personal copy button for API recipes
+    const personalCopyBtn = isApiRecipe ? `
+        <button class="action-btn copy-btn" 
+                data-recipe-id="${recipe.id}" 
+                data-action="create-copy" 
+                aria-label="Create personal copy"
+                title="Create a personal copy you can edit">
+            <img src="./images/copy.svg" alt="Copy">
+        </button>
+    ` : '';
+    
+    // Recipe type for CSS class - but no visual badges on cards
+    const recipeTypeClass = isApiRecipe ? 'api-recipe' : 'user-recipe';
+    
+    return `
+        <div class="recipe-card ${recipeTypeClass}" data-recipe-id="${recipe.id}">
+            <div class="recipe-image ${imageClass}">
+                <img src="${imageSrc}" alt="${recipe.name}" loading="lazy">
+                <div class="recipe-actions">
+                    <button class="action-btn save-btn ${savedClass}" 
+                            data-recipe-id="${recipe.id}" 
+                            data-action="save" 
+                            aria-label="Toggle save">
+                        <img src="./images/${saveIcon}" alt="${saveAlt}">
+                    </button>
+                    <button class="action-btn favorite-btn ${favoriteClass}" 
+                            data-recipe-id="${recipe.id}" 
+                            data-action="favorite" 
+                            aria-label="Toggle favorite">
+                        <img src="./images/star.svg" alt="Favorite">
+                    </button>
+                    ${personalCopyBtn}
+                </div>
+            </div>
+            <div class="recipe-info">
+                <h3 class="recipe-name">${recipe.name}</h3>
+                <div class="recipe-meta">
+                    <span class="cook-time">${cookTime}</span>
+                    <span class="difficulty">${difficulty}</span>
+                    <span class="serves">Serves ${recipe.serves}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Enhanced render function that supports personal copy buttons
+ * @param {Array} recipes - Array of recipe objects
+ * @param {HTMLElement} container - Container element
+ * @param {string} emptyMessage - Message when no recipes
+ * @param {boolean} enhanced - Whether to use enhanced cards with copy buttons
+ */
+export function renderEnhancedRecipes(recipes, container, emptyMessage = 'No recipes found.', enhanced = false) {
+    if (!container) return;
+    
+    if (recipes.length === 0) {
+        container.innerHTML = `<p class="empty-message">${emptyMessage}</p>`;
+        return;
+    }
+    
+    const cardFunction = enhanced ? createEnhancedRecipeCard : createRecipeCard;
+    container.innerHTML = recipes.map(recipe => cardFunction(recipe)).join('');
+    
+    // Adicionar event listeners após renderizar
+    setupRecipeCardEvents(container);
 }
