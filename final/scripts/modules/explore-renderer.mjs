@@ -3,7 +3,7 @@
 import { getState } from './explore-state.mjs';
 import { loadRecipes, filterRecipes } from './recipe-data.mjs';
 import { filterRecipesByCategory } from './recipe-filters.mjs';
-import { renderRecipes } from './recipe-renderer.mjs';
+import { renderEnhancedRecipes } from './recipe-renderer.mjs';
 
 export async function renderCurrentView() {
     const { currentFilter, currentSearch } = getState();
@@ -30,7 +30,8 @@ export async function renderCurrentView() {
         emptyMessage = 'No favorite recipes yet. Start exploring and add some favorites!';
     }
 
-    renderRecipes(recipes, recipesGrid, emptyMessage);
+    // Use enhanced renderer with copy buttons for API recipes
+    renderEnhancedRecipes(recipes, recipesGrid, emptyMessage, true);
 
     if (currentSearch) {
         categoryButtons.forEach(btn => btn.classList.remove('active'));
