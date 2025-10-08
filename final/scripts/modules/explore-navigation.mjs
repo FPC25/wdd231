@@ -1,21 +1,11 @@
 // Navigation handling for explore page
 
-import { setState } from './explore-state.mjs';
-import { renderCurrentView } from './explore-renderer.mjs';
+import { setupExploreNavigation } from './shared-navigation.mjs';
 
-export function setupBottomNavigation(favoritesNavItem, categoryButtons, searchInput) {
-    if (favoritesNavItem) {
-        favoritesNavItem.addEventListener('click', function(e) {
-            e.preventDefault();
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            setState({ currentFilter: 'favorites', currentSearch: '' });
-
-            if (searchInput) {
-                searchInput.value = '';
-                searchInput.style.backgroundColor = '';
-            }
-
-            renderCurrentView();
-        });
-    }
+export async function setupBottomNavigation(favoritesNavItem, categoryButtons, searchInput) {
+    // Import required functions for explore page
+    const { setState } = await import('./explore-state.mjs');
+    const { renderCurrentView } = await import('./explore-renderer.mjs');
+    
+    setupExploreNavigation(categoryButtons, searchInput, setState, renderCurrentView);
 }
