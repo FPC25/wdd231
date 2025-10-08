@@ -10,9 +10,6 @@ export function populateRecipeSelect() {
     const select = document.getElementById('recipe-select');
     if (!select) return;
 
-    console.log('All recipes:', recipes.length);
-    console.log('Saved recipe IDs:', savedRecipeIds);
-
     select.innerHTML = '<option value="">Choose a saved recipe to calculate costs...</option>';
     
     // Filtrar apenas receitas salvas pelo usuário
@@ -20,8 +17,6 @@ export function populateRecipeSelect() {
         // Use flexible comparison
         return savedRecipeIds.some(savedId => savedId == recipe.id);
     });
-    
-    console.log('Filtered saved recipes:', savedRecipes.length);
     
     if (savedRecipes.length === 0) {
         const option = document.createElement('option');
@@ -38,8 +33,6 @@ export function populateRecipeSelect() {
         option.textContent = recipe.name;
         select.appendChild(option);
     });
-    
-    console.log('Recipe select populated with', savedRecipes.length, 'recipes');
 }
 
 export function displayRecipe(recipe) {
@@ -61,7 +54,6 @@ export function displayRecipe(recipe) {
 export async function loadSelectedRecipe() {
     const { recipeSelect } = getDomElements();
     if (!recipeSelect || !recipeSelect.value) {
-        console.log('No recipe selected');
         return;
     }
 
@@ -70,17 +62,13 @@ export async function loadSelectedRecipe() {
     const recipe = recipes.find(r => r.id == recipeId); // Use == para comparação flexível
 
     if (!recipe) {
-        console.log('Recipe not found with ID:', recipeId);
         return;
     }
 
-    console.log('Loading recipe:', recipe.name);
     setState({ currentRecipe: recipe });
     displayRecipe(recipe);
     
     // Import setupCostInputs dynamically to avoid circular dependency
     const { setupCostInputs } = await import('./calculator-ingredients.mjs');
     await setupCostInputs(recipe);
-    
-    console.log('Recipe loaded successfully');
 }
