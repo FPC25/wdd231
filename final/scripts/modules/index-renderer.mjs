@@ -208,23 +208,65 @@ function deleteDraft() {
  * Edit existing recipe function
  * @param {string} recipeId - Recipe ID to edit
  */
-function editRecipe(recipeId) {
-    console.log('Edit recipe:', recipeId);
-    // TODO: Implement recipe editing if needed
+async function editRecipe(recipeId) {
+    try {
+        const { getRecipeById } = await import('./recipe-management.mjs');
+        const recipe = getRecipeById(recipeId);
+        
+        if (!recipe) {
+            alert('Recipe not found!');
+            return;
+        }
+        
+        if (recipe.isApiRecipe) {
+            // API recipe - offer to create personal copy
+            if (confirm(`"${recipe.name}" is from an external source. Would you like to create a personal copy that you can edit?`)) {
+                window.location.href = `./recipe.html?fork=${recipeId}`;
+            }
+        } else {
+            // User recipe - direct edit
+            window.location.href = `./recipe.html?edit=${recipeId}`;
+        }
+        
+    } catch (error) {
+        console.error('Error editing recipe:', error);
+        alert('Error loading recipe for editing.');
+    }
 }
 
 /**
  * Delete recipe function
  * @param {string} recipeId - Recipe ID to delete
  */
-function deleteRecipe(recipeId) {
-    if (confirm('Are you sure you want to delete this recipe? This action cannot be undone.')) {
-        // Remove from user recipes
-        let userRecipes = getUserRecipes();
-        userRecipes = userRecipes.filter(recipe => recipe.id !== recipeId);
-        saveUserRecipes(userRecipes);
+async function deleteRecipe(recipeId) {
+    try {
+        const { getRecipeById, deleteUserRecipe } = await import('./recipe-management.mjs');
+        const recipe = getRecipeById(recipeId);
         
-        displayUserRecipes(); // Reload the list
-        console.log('Recipe deleted successfully');
+        if (!recipe) {
+            alert('Recipe not found!');
+            return;
+        }
+        
+        if (recipe.isApiRecipe) {
+            alert('External recipes cannot be deleted. You can only remove them from your saved list.');
+            return;
+        }
+        
+        const recipeName = recipe.name || 'this recipe';
+        if (confirm(`Are you sure you want to delete "${recipeName}"? This action cannot be undone.`)) {
+            const success = deleteUserRecipe(recipeId);
+            
+            if (success) {
+                displayUserRecipes(); // Reload the list
+                alert('Recipe deleted successfully!');
+            } else {
+                alert('Error deleting recipe. Please try again.');
+            }
+        }
+        
+    } catch (error) {
+        console.error('Error deleting recipe:', error);
+        alert('Error deleting recipe.');
     }
 }
