@@ -7,7 +7,7 @@ import { initializeScrollBehavior } from './explore-scroll.mjs';
 import { renderCurrentView } from './explore-renderer.mjs';
 import { loadRecipes } from './recipe-data.mjs';
 
-export function initializeAllEvents(domElements) {
+export async function initializeAllEvents(domElements) {
     const { categoryButtons, searchInput, searchButton, bottomNav, recipesGrid } = domElements;
 
     // Setup category buttons
@@ -36,7 +36,7 @@ export function initializeAllEvents(domElements) {
 
     // Setup bottom navigation
     const favoritesNavItem = document.querySelector('.bottom-nav .nav-item[href="#"]');
-    setupBottomNavigation(favoritesNavItem, categoryButtons, searchInput);
+    await setupBottomNavigation(favoritesNavItem, categoryButtons, searchInput);
 
     // Initialize scroll behavior
     initializeScrollBehavior(bottomNav);
