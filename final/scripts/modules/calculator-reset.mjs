@@ -2,6 +2,7 @@
 
 import { setState } from './calculator-state.mjs';
 import { populateRecipeSelect } from './calculator-renderer.mjs';
+import { setupCalculatorNavigation } from './shared-navigation.mjs';
 
 export function resetCalculator() {
     const recipeSelect = document.getElementById('recipe-select');
@@ -36,12 +37,5 @@ export function resetCalculator() {
 }
 
 export function setupBottomNavigation() {
-    const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-    navItems.forEach(item => {
-        if (item.getAttribute('href') === './calculator.html') {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
-        }
-    });
+    setupCalculatorNavigation();
 }
