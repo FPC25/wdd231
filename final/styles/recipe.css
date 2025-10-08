@@ -272,7 +272,76 @@
 }
 
 /* Estilos específicos para os campos de ingredientes */
-.ingredient-row .quantity-input,
+
+/* Container de quantidade com input e botão */
+.quantity-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.quantity-input-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.ingredient-row .quantity-input {
+    flex: 1;
+    min-height: 44px;
+    height: 44px;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+    background-color: var(--secondary-color);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.ingredient-row .quantity-input:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
+.to-taste-btn {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.to-taste-btn:hover {
+    background-color: var(--light-gray);
+    border-color: var(--primary-color);
+}
+
+.to-taste-btn.active {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.to-taste-btn.active:hover {
+    background-color: #8B4513;
+}
+
 .ingredient-row .unit-input,
 .ingredient-row .ingredient-input {
     min-height: 44px;
