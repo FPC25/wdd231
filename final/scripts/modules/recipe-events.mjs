@@ -3,6 +3,7 @@
 import { addIngredientRow, handleImageUpload, setupDifficultySelect } from './recipe-dom.mjs';
 import { toggleFavorite, toggleSaved, onFavoritesChange } from './recipe-favorites.mjs';
 import { getRecipesData } from './recipe-data.mjs';
+import { setupRecipeDetailNavigation } from './shared-navigation.mjs';
 
 // Adiciona event listeners aos botões de ação
 export function addButtonListeners(container) {
@@ -172,22 +173,7 @@ async function setupRecipeManagementButtons(recipeId) {
 
 // Configura bottom navigation
 export function setupBottomNavigation() {
-    // Favoritos no bottom nav
-    const favoritesNavItem = document.getElementById('favorites-nav');
-    if (favoritesNavItem) {
-        favoritesNavItem.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Navegar para explore com filtro de favoritos
-            window.location.href = './explore.html?filter=favorites';
-        });
-    }
-    
-    // Marcar item ativo se necessário
-    const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-    navItems.forEach(item => {
-        // Nenhum item específico ativo na página de detalhes
-        item.classList.remove('active');
-    });
+    setupRecipeDetailNavigation();
 }
 
 // Configura comportamento de scroll para o bottom nav
