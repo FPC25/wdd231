@@ -11,7 +11,7 @@ export async function loadRecipes() {
         if (localStorageRecipes) {
             recipesData = JSON.parse(localStorageRecipes);
         } else {
-            const response = await fetch('./scripts/recipes.json');
+            const response = await fetch('./data/recipes.json');
             if (!response.ok) throw new Error('Failed to load recipes');
             recipesData = await response.json();
             localStorage.setItem('recipesData', JSON.stringify(recipesData));
