@@ -686,3 +686,68 @@
         padding: 0.75rem;
     }
 }
+
+/* Management Buttons Specific Styles for Recipe Detail Page */
+.recipe-actions .edit-btn,
+.recipe-actions .copy-btn,
+.recipe-actions .delete-btn {
+    display: none; /* Hidden by default, shown via JavaScript */
+}
+
+.recipe-actions .edit-btn {
+    background: rgba(0, 123, 255, 0.9);
+}
+
+.recipe-actions .edit-btn:hover {
+    background: rgba(0, 123, 255, 1);
+}
+
+.recipe-actions .copy-btn {
+    background: rgba(40, 167, 69, 0.9);
+}
+
+.recipe-actions .copy-btn:hover {
+    background: rgba(40, 167, 69, 1);
+}
+
+.recipe-actions .delete-btn {
+    background: rgba(220, 53, 69, 0.9);
+}
+
+.recipe-actions .delete-btn:hover {
+    background: rgba(220, 53, 69, 1);
+}
+
+/* Ensure icons are visible */
+.recipe-actions .edit-btn img,
+.recipe-actions .copy-btn img,
+.recipe-actions .delete-btn img {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+}
+
+/* Source badges for recipe detail page */
+.source-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 8px;
+}
+
+.source-badge.external {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.source-badge.user {
+    background: #d4edda;
+    color: #155724;
+}
+
+.source-badge.forked {
+    background: #d1ecf1;
+    color: #0c5460;
+}
