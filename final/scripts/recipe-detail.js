@@ -59,7 +59,10 @@ function loadRecipeDetail(recipeId) {
     // Exibir conteúdo da receita
     displayRecipe(recipe);
     
-    // Configurar botões de ação
+    // Configurar botões de gestão ANTES dos botões de ação
+    // Isso é feito na função setupEventListeners que já foi chamada
+    
+    // Configurar botões de ação (favorite/save)
     setupActionButtons(recipe);
     
     // Esconder loading e mostrar conteúdo
