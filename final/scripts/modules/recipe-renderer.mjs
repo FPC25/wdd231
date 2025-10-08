@@ -185,7 +185,6 @@ function toggleFavorite(recipeId, button) {
         const recipe = recipesData.find(r => r.id == recipeId);
         
         if (!recipe) {
-            console.log('Recipe not found with ID:', recipeId);
             return;
         }
         
@@ -229,7 +228,6 @@ function toggleFavorite(recipeId, button) {
         // Notify changes to update other parts of the app
         notifyFavoritesChange();
         
-        console.log(`Recipe ${recipe.name} ${recipe.isFavorite ? 'favorited and saved' : 'unfavorited (but still saved)'}`);
     }).catch(error => {
         console.error('Error in toggleFavorite:', error);
     });
@@ -250,7 +248,6 @@ function toggleSave(recipeId, button) {
         const recipe = recipesData.find(r => r.id == recipeId);
         
         if (!recipe) {
-            console.log('Recipe not found with ID:', recipeId);
             return;
         }
         
@@ -295,10 +292,6 @@ function toggleSave(recipeId, button) {
         
         // Notify changes to update other parts of the app
         notifyFavoritesChange();
-        
-        const action = recipe.isSaved ? 'saved' : 'removed from saved';
-        const favoriteNote = !recipe.isSaved && !recipe.isFavorite ? ' (and unfavorited)' : '';
-        console.log(`Recipe ${recipe.name} ${action}${favoriteNote}`);
     }).catch(error => {
         console.error('Error in toggleSave:', error);
     });
