@@ -342,6 +342,25 @@
     background-color: #8B4513;
 }
 
+
+.ingredient-row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+}
+
+.ingredient-row label {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+    display: block;
+    order: 0;
+}
+
+.ingredient-row .quantity-input,
 .ingredient-row .unit-input,
 .ingredient-row .ingredient-input {
     min-height: 44px;
@@ -355,28 +374,20 @@
     transition: all 0.3s ease;
     width: 100%;
     box-sizing: border-box;
-    order: 2;
+    order: 1;
 }
 
-.ingredient-row .quantity-input:focus,
-.ingredient-row .unit-input:focus,
-.ingredient-row .ingredient-input:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
+.quantity-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.ingredient-row .quantity-input:hover,
-.ingredient-row .unit-input:hover,
-.ingredient-row .ingredient-input:hover {
-    border-color: var(--primary-color);
-}
-
-/* Estilos específicos para o select de quantidade */
-.ingredient-row .quantity-input {
-    color: var(--text-color);
-    font-weight: 500;
-    cursor: pointer;
+.quantity-input-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+    order: 1;
 }
 
 .ingredient-row .quantity-input:invalid {
