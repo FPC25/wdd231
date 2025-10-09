@@ -15,13 +15,15 @@ export async function initializeAllEvents(domElements) {
 
     // Setup search functionality
     if (searchButton) {
-        searchButton.addEventListener('click', () => performSearch(searchInput, categoryButtons));
+        searchButton.addEventListener('click', async () => {
+            await performSearch(searchInput, categoryButtons);
+        });
     }
 
     if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
+        searchInput.addEventListener('keypress', async function(e) {
             if (e.key === 'Enter') {
-                performSearch(searchInput, categoryButtons);
+                await performSearch(searchInput, categoryButtons);
             }
         });
 
@@ -30,6 +32,10 @@ export async function initializeAllEvents(domElements) {
                 this.style.backgroundColor = '#e8f5e8';
             } else {
                 this.style.backgroundColor = '';
+                // If search is cleared, show default view
+                if (!this.value.trim()) {
+                    clearSearch(searchInput, categoryButtons);
+                }
             }
         });
     }
