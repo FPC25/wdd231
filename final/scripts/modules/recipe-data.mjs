@@ -1,6 +1,9 @@
 // Data management for recipes
 
+import { getDailyRecipes, searchRecipes } from './api-client.mjs';
+
 let recipesData = [];
+let apiRecipes = [];
 let updateCallbacks = [];
 
 // Carrega receitas do localStorage ou JSON inicial
@@ -17,6 +20,9 @@ export async function loadRecipes() {
             localStorage.setItem('recipesData', JSON.stringify(recipesData));
         }
         
+        // Load daily API recipes
+        apiRecipes = await getDailyRecipes();
+        
         initializeUserDataFromServer();
         applyLocalStorageChanges();
         localStorage.setItem('recipesData', JSON.stringify(recipesData));
@@ -24,6 +30,7 @@ export async function loadRecipes() {
     } catch (error) {
         console.error('Error loading recipes:', error);
         recipesData = [];
+        apiRecipes = [];
     }
 }
 
@@ -68,17 +75,29 @@ export function applyLocalStorageChanges() {
     const favorites = getFavoritesFromStorage();
     const saved = getSavedFromStorage();
     
+    // Apply to local recipes
     recipesData.forEach(recipe => {
-        // Use flexible comparison for ID matching
         const isFavorite = favorites.some(id => id == recipe.id);
         const isSaved = saved.some(id => id == recipe.id);
         
         recipe.isFavorite = isFavorite;
         recipe.isSaved = isSaved;
         
-        // Business rule: Favorites must be saved (but saved doesn't mean favorite)
         if (recipe.isFavorite && !recipe.isSaved) {
-            recipe.isSaved = true; // Ensure favorites are saved
+            recipe.isSaved = true;
+        }
+    });
+    
+    // Apply to API recipes
+    apiRecipes.forEach(recipe => {
+        const isFavorite = favorites.some(id => id == recipe.id);
+        const isSaved = saved.some(id => id == recipe.id);
+        
+        recipe.isFavorite = isFavorite;
+        recipe.isSaved = isSaved;
+        
+        if (recipe.isFavorite && !recipe.isSaved) {
+            recipe.isSaved = true;
         }
     });
     
@@ -97,8 +116,8 @@ function enforceBusinessRules() {
     const favorites = getFavoritesFromStorage();
     const saved = getSavedFromStorage();
     
+    // Check local recipes
     recipesData.forEach(recipe => {
-        // Rule 1: Favorites must be saved
         if (recipe.isFavorite && !recipe.isSaved) {
             recipe.isSaved = true;
             if (!saved.some(id => id == recipe.id)) {
@@ -107,7 +126,6 @@ function enforceBusinessRules() {
             }
         }
         
-        // Rule 2: If unsaved, cannot be favorite
         if (!recipe.isSaved && recipe.isFavorite) {
             recipe.isFavorite = false;
             const indexesToRemove = [];
@@ -117,9 +135,27 @@ function enforceBusinessRules() {
             indexesToRemove.reverse().forEach(index => favorites.splice(index, 1));
             favoritesChanged = true;
         }
+    });
+    
+    // Check API recipes
+    apiRecipes.forEach(recipe => {
+        if (recipe.isFavorite && !recipe.isSaved) {
+            recipe.isSaved = true;
+            if (!saved.some(id => id == recipe.id)) {
+                saved.push(recipe.id);
+                savedChanged = true;
+            }
+        }
         
-        // NOTE: We do NOT enforce that saved must be favorite
-        // Users can save without favoriting
+        if (!recipe.isSaved && recipe.isFavorite) {
+            recipe.isFavorite = false;
+            const indexesToRemove = [];
+            favorites.forEach((id, index) => {
+                if (id == recipe.id) indexesToRemove.push(index);
+            });
+            indexesToRemove.reverse().forEach(index => favorites.splice(index, 1));
+            favoritesChanged = true;
+        }
     });
     
     // Update storage if changes were made
@@ -160,23 +196,25 @@ export function getRecipesData() {
         recipesData = JSON.parse(localStorageRecipes);
         applyLocalStorageChanges();
     }
-    return recipesData;
+    // Combine local and API recipes
+    return [...recipesData, ...apiRecipes];
 }
 
 // Filtra receitas por critério
 export function filterRecipes(criteria, searchTerm = '') {
+    let allRecipes = [...recipesData, ...apiRecipes];
     let filtered = [];
     
     switch (criteria) {
         case 'favorites':
-            filtered = recipesData.filter(recipe => recipe.isFavorite === true);
+            filtered = allRecipes.filter(recipe => recipe.isFavorite === true);
             break;
         case 'saved':
-            filtered = recipesData.filter(recipe => recipe.isSaved === true);
+            filtered = allRecipes.filter(recipe => recipe.isSaved === true);
             break;
         case 'all':
         default:
-            filtered = recipesData;
+            filtered = allRecipes;
     }
     
     if (searchTerm) {
@@ -203,7 +241,7 @@ export function getUserStats() {
     const saved = getSavedFromStorage();
     
     return {
-        totalRecipes: recipesData.length,
+        totalRecipes: recipesData.length + apiRecipes.length,
         favoriteCount: favorites.length,
         savedCount: saved.length,
         deviceId: getDeviceId()
@@ -230,6 +268,22 @@ export function resetUserData() {
         recipe.isFavorite = false;
         recipe.isSaved = false;
     });
+    
+    apiRecipes.forEach(recipe => {
+        recipe.isFavorite = false;
+        recipe.isSaved = false;
+    });
+}
+
+// Busca receitas na API
+export async function searchApiRecipes(searchTerm) {
+    try {
+        const results = await searchRecipes(searchTerm);
+        return results;
+    } catch (error) {
+        console.error('Error searching API recipes:', error);
+        return [];
+    }
 }
 
 // Sincroniza dados do usuário com servidor (implementação futura)
