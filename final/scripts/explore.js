@@ -31,5 +31,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     onFavoritesChange(() => {
         renderCurrentView();
     });
+    
+    // Listen for daily recipes updates
+    window.addEventListener('daily-recipes-updated', () => {
+        console.log('Daily recipes updated, refreshing view...');
+        renderCurrentView();
+    });
 });
 
