@@ -408,8 +408,18 @@ export function displayInstructions(recipe) {
 export function createEnhancedRecipeCard(recipe) {
     const favoriteClass = recipe.isFavorite ? 'active' : '';
     const savedClass = recipe.isSaved ? 'active' : '';
-    const cookTime = `${recipe.cookTime.time} ${recipe.cookTime.unit}`;
-    const difficulty = recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1);
+    
+    // Handle cook time safely - API recipes have different structure
+    let cookTime = '30 min'; // default
+    if (recipe.cookTime && recipe.cookTime.time) {
+        cookTime = `${recipe.cookTime.time} ${recipe.cookTime.unit}`;
+    } else if (recipe.cookTime && typeof recipe.cookTime === 'string') {
+        cookTime = recipe.cookTime;
+    } else if (recipe.prepTime) {
+        cookTime = `${recipe.prepTime} min`;
+    }
+    
+    const difficulty = recipe.difficulty ? recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1) : 'Medium';
     const saveIcon = recipe.isSaved ? 'check.svg' : 'plus.svg';
     const saveAlt = recipe.isSaved ? 'Saved' : 'Save';
     
