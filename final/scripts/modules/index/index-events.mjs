@@ -4,9 +4,9 @@
  * Following SOLID principle: Single responsibility for event management
  */
 
-import { loadRecipes } from '../explore/recipe-data.mjs';
-import { renderFavoritesSection, renderSavedSection } from '../index-renderer.mjs';
-import { performSearch } from '../index-navigation.mjs';
+import { loadRecipes } from '../recipe/recipe-data.mjs';
+import { renderFavoritesSection, renderSavedSection } from './index-renderer.mjs';
+import { performSearch } from './index-navigation.mjs';
 
 /**
  * Set up search-related event listeners

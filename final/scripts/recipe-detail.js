@@ -1,5 +1,4 @@
-import { loadRecipes, getRecipesData } from './modules/explore/recipe-data.mjs';
-import { getRecipeDetails } from './modules/api-client.mjs';
+import { loadRecipes, getRecipesData } from './modules/recipe/recipe-data.mjs';
 import { 
     displayRecipe, 
     displayRecipeImage, 

@@ -1,8 +1,8 @@
 // Rendering logic for calculator page
 
 import { getState, setState } from '../calculator-state.mjs';
-import { getDomElements } from '../calculator-dom.mjs';
-import { getRecipesData, getSavedFromStorage } from '../explore/recipe-data.mjs';
+import { getDomElements } from './calculator-dom.mjs';
+import { getRecipesData, getSavedFromStorage } from '../recipe/recipe-data.mjs';
 
 export function populateRecipeSelect() {
     const recipes = getRecipesData(); // Isso já aplica localStorage changes

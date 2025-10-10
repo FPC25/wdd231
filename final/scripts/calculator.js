@@ -8,7 +8,7 @@ import { preselectRecipeFromUrl } from './modules/calculator/calculator-navigati
 import { setupCostInputs } from './modules/calculator/calculator-ingredients.mjs';
 import { checkAllCostsEntered, calculateCosts, displayResults } from './modules/calculator/calculator-calculations.mjs';
 import { resetCalculator, setupBottomNavigation } from './modules/calculator/calculator-reset.mjs';
-import { loadRecipes } from './modules/explore/recipe-data.mjs';
+import { loadRecipes } from './modules/recipe/recipe-data.mjs';
 
 document.addEventListener('DOMContentLoaded', async function() {
     await loadRecipes();

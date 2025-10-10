@@ -1,6 +1,6 @@
 // Rendering logic for explore page
 
-import { getState } from '../explore-state.mjs';
+import { getState } from './explore-state.mjs';
 import { loadRecipes, filterRecipes } from '../recipe/recipe-data.mjs';
 import { filterRecipesByCategory } from '../recipe/recipe-filters.mjs';
 import { renderEnhancedRecipes } from '../recipe/recipe-renderer.mjs';

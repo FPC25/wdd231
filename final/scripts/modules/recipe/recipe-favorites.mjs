@@ -1,7 +1,7 @@
 // Favorites and saved recipes management
 
-import { getRecipesData, getFavoritesFromStorage, getSavedFromStorage, saveFavoritesToStorage, saveSavedToStorage } from '../explore/recipe-data.mjs';
-import { updateAllButtons } from '../recipe-dom.mjs';
+import { getRecipesData, getFavoritesFromStorage, getSavedFromStorage, saveFavoritesToStorage, saveSavedToStorage } from './recipe-data.mjs';
+import { updateAllButtons } from './recipe-dom.mjs';
 
 let updateCallbacks = [];
 

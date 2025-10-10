@@ -4,10 +4,10 @@
  * Following SOLID principle: Single responsibility for rendering
  */
 
-import { filterRecipes } from '../explore/recipe-data.mjs';
+import { filterRecipes } from '../recipe/recipe-data.mjs';
 import { renderRecipes } from '../recipe/recipe-renderer.mjs';
-import { getDraft, getUserRecipes, saveUserRecipes } from '../index-utils.mjs';
-import { getDomElements } from '../index-dom.mjs';
+import { getDraft, getUserRecipes, saveUserRecipes } from './index-utils.mjs';
+import { getDomElements } from './index-dom.mjs';
 
 /**
  * Render the favorites section

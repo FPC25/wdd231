@@ -1,8 +1,8 @@
 // Event handling functions for recipes
 
-import { addIngredientRow, handleImageUpload, setupDifficultySelect } from '../recipe-dom.mjs';
-import { toggleFavorite, toggleSaved, onFavoritesChange } from '../recipe-favorites.mjs';
-import { getRecipesData } from '../explore/recipe-data.mjs';
+import { addIngredientRow, handleImageUpload, setupDifficultySelect } from './recipe-dom.mjs';
+import { toggleFavorite, toggleSaved, onFavoritesChange } from './recipe-favorites.mjs';
+import { getRecipesData } from './recipe-data.mjs';
 import { setupRecipeDetailNavigation } from '../shared-navigation.mjs';
 
 // Adiciona event listeners aos botões de ação
@@ -96,7 +96,7 @@ export function setupEventListeners(recipeId) {
     // Listener para mudanças no localStorage de outras páginas
     window.addEventListener('storage', function(e) {
         if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
-            import('../explore/recipe-data.mjs').then(module => {
+            import('./recipe-data.mjs').then(module => {
                 module.loadRecipes().then(() => {
                     const recipes = getRecipesData();
                     const recipe = recipes.find(r => r.id === recipeId);

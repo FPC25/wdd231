@@ -1,6 +1,6 @@
 // Filtering functions for recipes
 
-import { getRecipesData } from '../explore/recipe-data.mjs';
+import { getRecipesData } from './recipe-data.mjs';
 
 // Filtra receitas por categoria específica
 export function filterRecipesByCategory(category, searchTerm = '') {

@@ -1,7 +1,5 @@
 // Data management for recipes
 
-import { getDailyRecipes, searchRecipes } from './api-client.mjs';
-
 let recipesData = [];
 let apiRecipes = [];
 let updateCallbacks = [];

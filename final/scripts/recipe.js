@@ -1,4 +1,4 @@
-import { loadRecipes, getRecipesData } from './modules/explore/recipe-data.mjs';
+import { loadRecipes, getRecipesData } from './modules/recipe/recipe-data.mjs';
 import { 
     quantityOptions, 
     unitOptions, 
@@ -10,7 +10,7 @@ import {
     handleImageUpload, 
     removeImageSimple, 
     populateForm 
-} from './modules/recipe-dom.mjs';
+} from './modules/recipe/recipe-dom.mjs';
 import { addEventListeners } from './modules/recipe/recipe-events.mjs';
 import { manageLocalStorageDirectly } from './modules/recipe/recipe-favorites.mjs';
 
