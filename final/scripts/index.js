@@ -1,7 +1,7 @@
-import { loadRecipes, onFavoritesChange } from './modules/recipe-data.mjs';
+import { loadRecipes, onFavoritesChange } from './modules/explore/recipe-data.mjs';
 import { getDomElements } from './modules/index-dom.mjs';
-import { setupSearchEvents, setupStorageEvents, setupVisibilityEvents } from './modules/index-events.mjs';
-import { renderFavoritesSection, renderSavedSection, displayUserRecipes } from './modules/index-renderer.mjs';
+import { setupSearchEvents, setupStorageEvents, setupVisibilityEvents } from './modules/index/index-events.mjs';
+import { renderFavoritesSection, renderSavedSection, displayUserRecipes } from './modules/index/index-renderer.mjs';
 
 document.addEventListener('DOMContentLoaded', async function() {
     // Carregar dados das receitas

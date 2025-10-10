@@ -1,14 +1,14 @@
-import { getState, setState } from './modules/calculator-state.mjs';
-import { getDomElements } from './modules/calculator-dom.mjs';
-import { setupEventListeners } from './modules/calculator-events.mjs';
-import { populateRecipeSelect, loadSelectedRecipe, displayRecipe } from './modules/calculator-renderer.mjs';
-import { convertUnits, convertVolumeToWeight, calculateIngredientCost, updateProfitCalculations } from './modules/calculator-utils.mjs';
-import { loadCalculationHistory, saveCalculation, loadSavedCalculation, displayCalculationHistory } from './modules/calculator-history.mjs';
-import { preselectRecipeFromUrl } from './modules/calculator-navigation.mjs';
-import { setupCostInputs } from './modules/calculator-ingredients.mjs';
-import { checkAllCostsEntered, calculateCosts, displayResults } from './modules/calculator-calculations.mjs';
-import { resetCalculator, setupBottomNavigation } from './modules/calculator-reset.mjs';
-import { loadRecipes } from './modules/recipe-data.mjs';
+import { getState, setState } from './modules/calculator/calculator-state.mjs';
+import { getDomElements } from './modules/calculator/calculator-dom.mjs';
+import { setupEventListeners } from './modules/calculator/calculator-events.mjs';
+import { populateRecipeSelect, loadSelectedRecipe, displayRecipe } from './modules/calculator/calculator-renderer.mjs';
+import { convertUnits, convertVolumeToWeight, calculateIngredientCost, updateProfitCalculations } from './modules/calculator/calculator-utils.mjs';
+import { loadCalculationHistory, saveCalculation, loadSavedCalculation, displayCalculationHistory } from './modules/calculator/calculator-history.mjs';
+import { preselectRecipeFromUrl } from './modules/calculator/calculator-navigation.mjs';
+import { setupCostInputs } from './modules/calculator/calculator-ingredients.mjs';
+import { checkAllCostsEntered, calculateCosts, displayResults } from './modules/calculator/calculator-calculations.mjs';
+import { resetCalculator, setupBottomNavigation } from './modules/calculator/calculator-reset.mjs';
+import { loadRecipes } from './modules/explore/recipe-data.mjs';
 
 document.addEventListener('DOMContentLoaded', async function() {
     await loadRecipes();

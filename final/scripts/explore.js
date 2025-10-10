@@ -1,9 +1,9 @@
 import { getDomElements } from './modules/explore-dom.mjs';
-import { initializeAllEvents } from './modules/explore-events.mjs';
+import { initializeAllEvents } from './modules/explore/explore-events.mjs';
 import { parseUrlParameters } from './modules/explore-url.mjs';
-import { renderCurrentView } from './modules/explore-renderer.mjs';
+import { renderCurrentView } from './modules/explore/explore-renderer.mjs';
 import { setState } from './modules/explore-state.mjs';
-import { onFavoritesChange } from './modules/recipe-data.mjs';
+import { onFavoritesChange } from './modules/explore/recipe-data.mjs';
 
 document.addEventListener('DOMContentLoaded', async function() {
     const domElements = getDomElements();

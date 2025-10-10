@@ -1,4 +1,4 @@
-import { loadRecipes, getRecipesData } from './modules/recipe-data.mjs';
+import { loadRecipes, getRecipesData } from './modules/explore/recipe-data.mjs';
 import { getRecipeDetails } from './modules/api-client.mjs';
 import { 
     displayRecipe, 
@@ -6,17 +6,17 @@ import {
     displayCategories, 
     displayIngredients, 
     displayInstructions
-} from './modules/recipe-renderer.mjs';
+} from './modules/recipe/recipe-renderer.mjs';
 import { 
     setupActionButtons, 
     updateButtonStates, 
     onFavoritesChange 
-} from './modules/recipe-favorites.mjs';
+} from './modules/recipe/recipe-favorites.mjs';
 import { 
     setupEventListeners, 
     setupBottomNavigation, 
     setupScrollBehavior 
-} from './modules/recipe-events.mjs';
+} from './modules/recipe/recipe-events.mjs';
 
 document.addEventListener('DOMContentLoaded', async function() {
     // Carregar receitas primeiro

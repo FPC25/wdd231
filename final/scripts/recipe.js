@@ -1,4 +1,4 @@
-import { loadRecipes, getRecipesData } from './modules/recipe-data.mjs';
+import { loadRecipes, getRecipesData } from './modules/explore/recipe-data.mjs';
 import { 
     quantityOptions, 
     unitOptions, 
@@ -11,8 +11,8 @@ import {
     removeImageSimple, 
     populateForm 
 } from './modules/recipe-dom.mjs';
-import { addEventListeners } from './modules/recipe-events.mjs';
-import { manageLocalStorageDirectly } from './modules/recipe-favorites.mjs';
+import { addEventListeners } from './modules/recipe/recipe-events.mjs';
+import { manageLocalStorageDirectly } from './modules/recipe/recipe-favorites.mjs';
 
 document.addEventListener('DOMContentLoaded', async function() {
     await loadRecipes();
@@ -174,7 +174,7 @@ async function handleFormSubmit(event) {
 
 // Handle updating existing user recipe
 async function handleRecipeUpdate() {
-    const { updateUserRecipe } = await import('./modules/recipe-management.mjs');
+    const { updateUserRecipe } = await import('./modules/recipe/recipe-management.mjs');
     const recipeData = collectFormData();
     
     // Keep the original ID
@@ -193,7 +193,7 @@ async function handleRecipeUpdate() {
 
 // Handle creating fork of API recipe
 async function handleRecipeFork() {
-    const { forkApiRecipe, saveForkRecipe } = await import('./modules/recipe-management.mjs');
+    const { forkApiRecipe, saveForkRecipe } = await import('./modules/recipe/recipe-management.mjs');
     const recipeData = collectFormData();
     
     // Create fork
@@ -306,7 +306,7 @@ function checkForEditMode() {
 // Load recipe for editing
 async function loadRecipeForEdit(recipeId) {
     try {
-        const { getRecipeById, isUserRecipe } = await import('./modules/recipe-management.mjs');
+        const { getRecipeById, isUserRecipe } = await import('./modules/recipe/recipe-management.mjs');
         const recipe = getRecipeById(recipeId);
         
         if (!recipe) {
@@ -349,7 +349,7 @@ async function loadRecipeForEdit(recipeId) {
 // Load recipe for forking (creating personal copy)
 async function loadRecipeForFork(recipeId) {
     try {
-        const { getRecipeById } = await import('./modules/recipe-management.mjs');
+        const { getRecipeById } = await import('./modules/recipe/recipe-management.mjs');
         const recipe = getRecipeById(recipeId);
         
         if (!recipe) {
