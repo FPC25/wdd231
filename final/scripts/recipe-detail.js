@@ -1,4 +1,5 @@
 import { loadRecipes, getRecipesData } from './modules/recipe-data.mjs';
+import { getRecipeDetails } from './modules/api-client.mjs';
 import { 
     displayRecipe, 
     displayRecipeImage, 
@@ -23,15 +24,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Obter ID da receita da URL
     const urlParams = new URLSearchParams(window.location.search);
-    const recipeId = parseInt(urlParams.get('id'));
+    const recipeIdParam = urlParams.get('id');
     
-    if (!recipeId) {
-        showError();
-        return;
-    }
+    // Manter como string para IDs da API (ex: "api_1001") ou converter para número se for numérico
+    const recipeId = isNaN(parseInt(recipeIdParam)) ? recipeIdParam : parseInt(recipeIdParam);
     
     // Carregar e exibir receita
-    loadRecipeDetail(recipeId);
+    await loadRecipeDetail(recipeId);
     
     // Configurar event listeners
     setupEventListeners(recipeId);
@@ -44,13 +43,43 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 // Carrega e exibe os detalhes da receita
-function loadRecipeDetail(recipeId) {
+async function loadRecipeDetail(recipeId) {
     const recipes = getRecipesData();
-    const recipe = recipes.find(r => r.id === recipeId);
+    let recipe = recipes.find(r => r.id === recipeId);
     
+    // Verificar se a receita foi encontrada
     if (!recipe) {
-        showError();
+        console.error('Recipe not found with ID:', recipeId);
+        showRecipeNotFound();
         return;
+    }
+    
+    console.log('🔍 [RECIPE DETAIL] Loading recipe:', recipe.name, 'isApiRecipe:', recipe.isApiRecipe);
+    
+    // Se for uma receita da API, tentar buscar detalhes completos
+    if (recipe.isApiRecipe && recipeId.toString().startsWith('api_')) {
+        console.log('🌐 [RECIPE DETAIL] Fetching detailed API recipe...');
+        
+        try {
+            const detailedRecipe = await getRecipeDetails(recipeId);
+            
+            if (detailedRecipe) {
+                console.log('✅ [RECIPE DETAIL] Got detailed recipe:', detailedRecipe);
+                // Preserve user interactions from original recipe
+                recipe = {
+                    ...detailedRecipe,
+                    isFavorite: recipe.isFavorite,
+                    isSaved: recipe.isSaved
+                };
+                console.log('📋 [RECIPE DETAIL] Using enhanced detailed recipe data');
+            } else {
+                console.log('ℹ️ [RECIPE DETAIL] Detailed fetch returned null, using existing search data');
+            }
+        } catch (error) {
+            console.log('⚠️ [RECIPE DETAIL] Detailed fetch failed (expected with CORS), using existing data:', error.message);
+        }
+    } else {
+        console.log('📋 [RECIPE DETAIL] Using local recipe data');
     }
     
     // Atualizar título da página
@@ -80,5 +109,42 @@ function loadRecipeDetail(recipeId) {
     if (recipeContent) {
         recipeContent.style.display = 'block';
         recipeContent.classList.add('show');
+    }
+}
+
+// Mostra mensagem de receita não encontrada
+function showRecipeNotFound() {
+    const loadingState = document.getElementById('loading-state');
+    const errorState = document.getElementById('error-state');
+    const recipeContent = document.getElementById('recipe-content');
+    
+    // Esconder loading e receita
+    if (loadingState) {
+        loadingState.style.display = 'none';
+    }
+    if (recipeContent) {
+        recipeContent.style.display = 'none';
+    }
+    
+    // Mostrar erro
+    if (errorState) {
+        errorState.style.display = 'block';
+        errorState.classList.add('show');
+        errorState.innerHTML = `
+            <div class="error-content">
+                <h2>Recipe Not Found</h2>
+                <p>The recipe you're looking for could not be found.</p>
+                <button onclick="window.history.back()" class="error-button">Go Back</button>
+            </div>
+        `;
+    } else {
+        // Fallback se não houver elemento de erro
+        document.body.innerHTML = `
+            <div style="text-align: center; padding: 50px;">
+                <h2>Recipe Not Found</h2>
+                <p>The recipe you're looking for could not be found.</p>
+                <button onclick="window.history.back()">Go Back</button>
+            </div>
+        `;
     }
 }
