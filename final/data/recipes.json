@@ -2,26 +2,32 @@
   {
     "id": 1,
     "name": "Ratatouille",
+    "description": "A classic French vegetable dish that's both healthy and delicious. Perfect combination of fresh vegetables slowly cooked to perfection.",
     "cover": "./images/recipes/Ratatouille.webp",
-    "source": "Mother",
+    "source": {
+      "name": "Mother's Recipe",
+      "url": null
+    },
     "difficulty": "hard",
-    "cookTime": {"time": 30, "unit": "minutes"},
+    "cookTime": {"time": 30, "unitShort": "min"},
+    "serves": 10,
+    "categories": ["Lunch", "Dinner"],
     "filters": ["Lunch", "Dinner"],
     "ingredients": [
-      {"item": "zucchini", "quantity": 2, "unit": "piece"},
-      {"item": "eggplants", "quantity": 2, "unit": "piece"},
-      {"item": "onions", "quantity": 2, "unit": "piece"},
-      {"item": "tomatoes", "quantity": 3, "unit": "piece"},
-      {"item": "green pepper", "quantity": 1, "unit": "piece"},
-      {"item": "yellow pepper", "quantity": 1, "unit": "piece"},
-      {"item": "red pepper", "quantity": 1, "unit": "piece"},
-      {"item": "olive oil", "quantity": "to taste", "unit": null},
-      {"item": "rosemary", "quantity": "to taste", "unit": null},
-      {"item": "basil", "quantity": "to taste", "unit": null},
-      {"item": "garlic", "quantity": "to taste", "unit": null},
-      {"item": "salt", "quantity": "to taste", "unit": null},
-      {"item": "blonde", "quantity": "to taste", "unit": null},
-      {"item": "tomate sauce", "quantity": "to taste", "unit": null}
+      {"name": "zucchini", "amount": 2, "unitShort": "piece", "unitLong": "pieces", "original": "2 zucchini"},
+      {"name": "eggplants", "amount": 2, "unitShort": "piece", "unitLong": "pieces", "original": "2 eggplants"},
+      {"name": "onions", "amount": 2, "unitShort": "piece", "unitLong": "pieces", "original": "2 onions"},
+      {"name": "tomatoes", "amount": 3, "unitShort": "piece", "unitLong": "pieces", "original": "3 tomatoes"},
+      {"name": "green pepper", "amount": 1, "unitShort": "piece", "unitLong": "piece", "original": "1 green pepper"},
+      {"name": "yellow pepper", "amount": 1, "unitShort": "piece", "unitLong": "piece", "original": "1 yellow pepper"},
+      {"name": "red pepper", "amount": 1, "unitShort": "piece", "unitLong": "piece", "original": "1 red pepper"},
+      {"name": "olive oil", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "olive oil to taste"},
+      {"name": "rosemary", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "rosemary to taste"},
+      {"name": "basil", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "basil to taste"},
+      {"name": "garlic", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "garlic to taste"},
+      {"name": "salt", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "salt to taste"},
+      {"name": "blonde", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "blonde to taste"},
+      {"name": "tomate sauce", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "tomato sauce to taste"}
     ],
     "instructions": [
       "Cut the vegetables into thin slices without the seeds", 
@@ -31,26 +37,32 @@
       "Drizzle with a little olive oil and cover with parchment paper or aluminum foil",
       "Bake in the oven for 40 minutes at a temperature of 180° C to 200° C (350° F to 400° F)"
     ], 
+    "isApiRecipe": false,
     "isSaved": true,
-    "isFavorite": true,
-    "serves": 10
+    "isFavorite": true
   }, 
   {
     "id": 2,
     "name": "Simple Crepioca",
+    "description": "A delicious Brazilian fusion of crepe and tapioca. Quick, easy, and incredibly versatile with sweet or savory fillings.",
     "cover": "./images/recipes/crepioca.webp",
-    "source": "Papinhas da Xica",
+    "source": {
+      "name": "Papinhas da Xica",
+      "url": null
+    },
     "difficulty": "easy",
-    "cookTime": {"time": 5, "unit": "minutes"},
+    "cookTime": {"time": 5, "unitShort": "min"},
+    "serves": 1,
+    "categories": ["Snack", "Breakfast", "Dessert"],
     "filters": ["Snack", "Breakfast", "Dessert"],
     "ingredients": [
-      {"item": "Egg", "quantity": 1, "unit": "piece"},
-      {"item": "Hydrated tapioca starch", "quantity": 25, "unit": "g"},
-      {"item": "Cheese", "quantity": "to taste", "unit": null},
-      {"item": "Shredded Chicken", "quantity": "to taste", "unit": null},
-      {"item": "Banana", "quantity": "to taste", "unit": null},
-      {"item": "Cinnamon", "quantity": "to taste", "unit": null},
-      {"item": "Nutella", "quantity":"to taste", "unit": null}
+      {"name": "Egg", "amount": 1, "unitShort": "piece", "unitLong": "piece", "original": "1 egg"},
+      {"name": "Hydrated tapioca starch", "amount": 25, "unitShort": "g", "unitLong": "grams", "original": "25g hydrated tapioca starch"},
+      {"name": "Cheese", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "cheese to taste"},
+      {"name": "Shredded Chicken", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "shredded chicken to taste"},
+      {"name": "Banana", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "banana to taste"},
+      {"name": "Cinnamon", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "cinnamon to taste"},
+      {"name": "Nutella", "amount":"to taste", "unitShort": "", "unitLong": "", "original": "nutella to taste"}
     ],
     "instructions": [
       "In a bowl, place the tapioca starch and the egg.",
@@ -61,35 +73,41 @@
       "Transfer to a plate and serve.",
       "Be creative with fillings: cheese, shredded chicken, banana with cinnamon"
     ],
+    "isApiRecipe": false,
     "isSaved": false,
-    "isFavorite": false,
-    "serves": 1
+    "isFavorite": false
   },
   {
     "id": 3,
     "name": "Traditional Chicken Coxinha",
+    "description": "The most beloved Brazilian snack! Crispy golden coxinhas filled with seasoned shredded chicken. Perfect for parties or afternoon treats.",
     "cover": "./images/recipes/Coxinha.webp",
-    "source": "Estadão Paladar",
+    "source": {
+      "name": "Estadão Paladar",
+      "url": null
+    },
     "difficulty": "medium",
-    "cookTime": {"time": 120, "unit": "minutes"},
+    "cookTime": {"time": 120, "unitShort": "min"},
+    "serves": 20,
+    "categories": ["Snack"],
     "filters": ["Snack"],
     "ingredients": [
-      {"item": "Water", "quantity": 1.5, "unit": "L"},
-      {"item": "chicken bouillon powder", "quantity": 30, "unit": "g"},
-      {"item": "poultry seasoning", "quantity": 20, "unit": "g"},
-      {"item": "salt", "quantity": 25, "unit": "g"},
-      {"item": "oil", "quantity": 250, "unit": "ml"},
-      {"item": "all-purpose flour", "quantity": 1, "unit": "kg"},
-      {"item": "chicken breast", "quantity": 2, "unit": "kg"},
-      {"item": "minced garlic", "quantity": 30, "unit": "g"},
-      {"item": "chopped onion", "quantity": 40, "unit": "g"},
-      {"item": "annatto powder", "quantity": 20, "unit": "g"},
-      {"item": "oregano", "quantity": "1 pinch", "unit": null},
-      {"item": "tomato sauce", "quantity": "1/2 sachet", "unit": null},
-      {"item": "breadcrumbs", "quantity": 1, "unit": "kg"},
-      {"item": "water for breading", "quantity": 1, "unit": "L"},
-      {"item": "flour for breading", "quantity": 2, "unit": "tbsp"},
-      {"item": "salt for breading", "quantity": 1, "unit": "tbsp"}
+      {"name": "Water", "amount": 1.5, "unitShort": "l", "unitLong": "liters", "original": "1.5L water"},
+      {"name": "chicken bouillon powder", "amount": 30, "unitShort": "g", "unitLong": "grams", "original": "30g chicken bouillon powder"},
+      {"name": "poultry seasoning", "amount": 20, "unitShort": "g", "unitLong": "grams", "original": "20g poultry seasoning"},
+      {"name": "salt", "amount": 25, "unitShort": "g", "unitLong": "grams", "original": "25g salt"},
+      {"name": "oil", "amount": 250, "unitShort": "ml", "unitLong": "milliliters", "original": "250ml oil"},
+      {"name": "all-purpose flour", "amount": 1, "unitShort": "kg", "unitLong": "kilogram", "original": "1kg all-purpose flour"},
+      {"name": "chicken breast", "amount": 2, "unitShort": "kg", "unitLong": "kilograms", "original": "2kg chicken breast"},
+      {"name": "minced garlic", "amount": 30, "unitShort": "g", "unitLong": "grams", "original": "30g minced garlic"},
+      {"name": "chopped onion", "amount": 40, "unitShort": "g", "unitLong": "grams", "original": "40g chopped onion"},
+      {"name": "annatto powder", "amount": 20, "unitShort": "g", "unitLong": "grams", "original": "20g annatto powder"},
+      {"name": "oregano", "amount": "1 pinch", "unitShort": "", "unitLong": "", "original": "1 pinch oregano"},
+      {"name": "tomato sauce", "amount": "1/2 sachet", "unitShort": "", "unitLong": "", "original": "1/2 sachet tomato sauce"},
+      {"name": "breadcrumbs", "amount": 1, "unitShort": "kg", "unitLong": "kilogram", "original": "1kg breadcrumbs"},
+      {"name": "water for breading", "amount": 1, "unitShort": "l", "unitLong": "liter", "original": "1L water for breading"},
+      {"name": "flour for breading", "amount": 2, "unitShort": "tbsp", "unitLong": "tablespoons", "original": "2 tbsp flour for breading"},
+      {"name": "salt for breading", "amount": 1, "unitShort": "tbsp", "unitLong": "tablespoon", "original": "1 tbsp salt for breading"}
     ],
     "instructions": [
       "Cook the chicken breast in water with salt, reserve the water and shred the chicken",
@@ -101,9 +119,9 @@
       "Dip in water-salt-flour mixture, then coat with breadcrumbs",
       "Fry in hot oil until golden brown"
     ],
+    "isApiRecipe": false,
     "isSaved": false,
-    "isFavorite": false,
-    "serves": 10
+    "isFavorite": false
   },
   {
     "id": 4,
@@ -111,20 +129,20 @@
     "cover": "./images/recipes/Grilled_Chicken_with_Vegetables.webp",
     "source": "TudoGostoso",
     "difficulty": "easy",
-    "cookTime": {"time": 120, "unit": "minutes"},
+    "cookTime": {"time": 120, "unit": "min"},
     "filters": ["Lunch", "Dinner"],
     "ingredients": [
-      {"item": "chicken breast fillets", "quantity": 2, "unit": "kg"},
-      {"item": "medium carrots", "quantity": 3, "unit": "piece"},
-      {"item": "medium potatoes", "quantity": 4, "unit": "piece"},
-      {"item": "medium green beans", "quantity": 18, "unit": "piece"},
-      {"item": "Arisco complete seasoning", "quantity": 2, "unit": "tsp"},
-      {"item": "Sazón for meats", "quantity": 2, "unit": "sachets"},
-      {"item": "black pepper", "quantity": 1, "unit": "tsp"},
-      {"item": "cilantro", "quantity": "to taste", "unit": null},
-      {"item": "margarine", "quantity": 1, "unit": "tbsp"},
-      {"item": "olive oil", "quantity": "to taste", "unit": null},
-      {"item": "lime", "quantity": 1, "unit": "piece"}
+      {"name": "chicken breast fillets", "amount": 2, "unitShort": "kg"},
+      {"name": "medium carrots", "amount": 3, "unitShort": "piece"},
+      {"name": "medium potatoes", "amount": 4, "unitShort": "piece"},
+      {"name": "medium green beans", "amount": 18, "unitShort": "piece"},
+      {"name": "Arisco complete seasoning", "amount": 2, "unitShort": "tsp"},
+      {"name": "Sazón for meats", "amount": 2, "unitShort": "sachets"},
+      {"name": "black pepper", "amount": 1, "unitShort": "tsp"},
+      {"name": "cilantro", "amount": "to taste", "unitShort": null},
+      {"name": "margarine", "amount": 1, "unitShort": "tbsp"},
+      {"name": "olive oil", "amount": "to taste", "unitShort": null},
+      {"name": "lime", "amount": 1, "unitShort": "piece"}
     ],
     "instructions": [
       "Cut chicken fillets into thin slices and wash with lime juice",
@@ -145,17 +163,17 @@
     "cover": "./images/recipes/escondidinho-com-carne-seca.webp",
     "source": "Panelinha",
     "difficulty": "hard",
-    "cookTime": {"time": 120, "unit": "minutes"},
+    "cookTime": {"time": 120, "unit": "min"},
     "filters": ["Lunch"],
     "ingredients": [
-      {"item": "dried beef (carne-seca)", "quantity": 1, "unit": "kg"},
-      {"item": "cassava", "quantity": 1, "unit": "kg"},
-      {"item": "milk", "quantity": "to taste", "unit": null},
-      {"item": "butter", "quantity": "to taste", "unit": null},
-      {"item": "queijo coalho", "quantity": "to taste", "unit": null},
-      {"item": "onion", "quantity": "to taste", "unit": null},
-      {"item": "garlic", "quantity": "to taste", "unit": null},
-      {"item": "salt", "quantity": "to taste", "unit": null}
+      {"name": "dried beef (carne-seca)", "amount": 1, "unitShort": "kg"},
+      {"name": "cassava", "amount": 1, "unitShort": "kg"},
+      {"name": "milk", "amount": "to taste", "unitShort": null},
+      {"name": "butter", "amount": "to taste", "unitShort": null},
+      {"name": "queijo coalho", "amount": "to taste", "unitShort": null},
+      {"name": "onion", "amount": "to taste", "unitShort": null},
+      {"name": "garlic", "amount": "to taste", "unitShort": null},
+      {"name": "salt", "amount": "to taste", "unitShort": null}
     ],
     "instructions": [
       "Desalt the dried beef for 12 hours, changing water several times",
@@ -177,16 +195,16 @@
     "cover": "./images/recipes/escondidinho-de-frigideira.webp",
     "source": "Estadão Paladar",
     "difficulty": "easy",
-    "cookTime": {"time": 90, "unit": "minutes"},
+    "cookTime": {"time": 90, "unit": "min"},
     "filters": ["Lunch"],
     "ingredients": [
-      {"item": "dried beef (carne-seca)", "quantity": 600, "unit": "g"},
-      {"item": "cassava", "quantity": 1.2, "unit": "kg"},
-      {"item": "butter", "quantity": "to taste", "unit": null},
-      {"item": "creamy requeijão", "quantity": "to taste", "unit": null},
-      {"item": "onion", "quantity": "to taste", "unit": null},
-      {"item": "garlic", "quantity": "to taste", "unit": null},
-      {"item": "grated cheese", "quantity": "to taste", "unit": null}
+      {"name": "dried beef (carne-seca)", "amount": 600, "unitShort": "g"},
+      {"name": "cassava", "amount": 1.2, "unitShort": "kg"},
+      {"name": "butter", "amount": "to taste", "unitShort": null},
+      {"name": "creamy requeijão", "amount": "to taste", "unitShort": null},
+      {"name": "onion", "amount": "to taste", "unitShort": null},
+      {"name": "garlic", "amount": "to taste", "unitShort": null},
+      {"name": "grated cheese", "amount": "to taste", "unitShort": null}
     ],
     "instructions": [
       "Pressure cook the dried beef for 1h30, shred, and sauté with seasonings. Add 2 tbsp of requeijão at the end",
@@ -206,20 +224,20 @@
     "cover": "./images/recipes/arracacha-soup-recipe.webp",
     "source": "Terra",
     "difficulty": "easy",
-    "cookTime": {"time": 60, "unit": "minutes"},
+    "cookTime": {"time": 60, "unit": "min"},
     "filters": ["Lunch", "Dinner"],
     "ingredients": [
-      {"item": "arracacha, in pieces", "quantity": 1, "unit": "kg"},
-      {"item": "salt", "quantity": "to taste", "unit": null},
-      {"item": "black pepper", "quantity": "to taste", "unit": null},
-      {"item": "milk", "quantity": 2, "unit": "cups"},
-      {"item": "vegetable bouillon cube", "quantity": 1, "unit": "piece"},
-      {"item": "butter", "quantity": 2, "unit": "tbsp"},
-      {"item": "chopped onion", "quantity": 1, "unit": "piece"},
-      {"item": "dried beef, desalted and shredded", "quantity": 500, "unit": "g"},
-      {"item": "table cream", "quantity": 400, "unit": "g"},
-      {"item": "grated Parmesan cheese", "quantity": "to taste", "unit": null},
-      {"item": "chopped chives", "quantity": "to taste", "unit": null}
+      {"name": "arracacha, in pieces", "amount": 1, "unitShort": "kg"},
+      {"name": "salt", "amount": "to taste", "unitShort": null},
+      {"name": "black pepper", "amount": "to taste", "unitShort": null},
+      {"name": "milk", "amount": 2, "unitShort": "cups"},
+      {"name": "vegetable bouillon cube", "amount": 1, "unitShort": "piece"},
+      {"name": "butter", "amount": 2, "unitShort": "tbsp"},
+      {"name": "chopped onion", "amount": 1, "unitShort": "piece"},
+      {"name": "dried beef, desalted and shredded", "amount": 500, "unitShort": "g"},
+      {"name": "table cream", "amount": 400, "unitShort": "g"},
+      {"name": "grated Parmesan cheese", "amount": "to taste", "unitShort": null},
+      {"name": "chopped chives", "amount": "to taste", "unitShort": null}
     ],
     "instructions": [
       "Cook arracacha in boiling salted water until tender",
@@ -241,14 +259,14 @@
     "cover": "./images/recipes/pudin.webp",
     "source": "TudoGostoso",
     "difficulty": "medium",
-    "cookTime": {"time": 50, "unit": "minutes"},
+    "cookTime": {"time": 50, "unit": "min"},
     "filters": ["Dessert"],
     "ingredients": [
-      {"item": "condensed milk", "quantity": 1, "unit": "can"},
-      {"item": "milk", "quantity": 1, "unit": "can"},
-      {"item": "whole eggs", "quantity": 3, "unit": "piece"},
-      {"item": "sugar for caramel", "quantity": 1, "unit": "cup"},
-      {"item": "water for caramel", "quantity": 0.5, "unit": "cup"}
+      {"name": "condensed milk", "amount": 1, "unitShort": "can"},
+      {"name": "milk", "amount": 1, "unitShort": "can"},
+      {"name": "whole eggs", "amount": 3, "unitShort": "piece"},
+      {"name": "sugar for caramel", "amount": 1, "unitShort": "cup"},
+      {"name": "water for caramel", "amount": 0.5, "unitShort": "cup"}
     ],
     "instructions": [
       "Melt sugar over low heat until golden caramel forms",
@@ -270,15 +288,15 @@
     "cover": "./images/recipes/paodequeijo.webp",
     "source": "Estadão Paladar",
     "difficulty": "easy",
-    "cookTime": {"time": 40, "unit": "minutes"},
+    "cookTime": {"time": 40, "unit": "min"},
     "filters": ["Snack"],
     "ingredients": [
-      {"item": "finely grated Parmesan cheese", "quantity": 200, "unit": "g"},
-      {"item": "sour cassava starch", "quantity": 200, "unit": "g"},
-      {"item": "sunflower oil", "quantity": 40, "unit": "ml"},
-      {"item": "water", "quantity": 100, "unit": "ml"},
-      {"item": "egg", "quantity": 1, "unit": "piece"},
-      {"item": "salt", "quantity": "to taste", "unit": null}
+      {"name": "finely grated Parmesan cheese", "amount": 200, "unitShort": "g"},
+      {"name": "sour cassava starch", "amount": 200, "unitShort": "g"},
+      {"name": "sunflower oil", "amount": 40, "unitShort": "ml"},
+      {"name": "water", "amount": 100, "unitShort": "ml"},
+      {"name": "egg", "amount": 1, "unitShort": "piece"},
+      {"name": "salt", "amount": "to taste", "unitShort": null}
     ],
     "instructions": [
       "Preheat oven to 180°C (350°F)",
@@ -301,15 +319,15 @@
     "cover": "./images/recipes/pao-de-queijo-tradicional.webp",
     "source": "Estadão Paladar",
     "difficulty": "easy",
-    "cookTime": {"time": 40, "unit": "minutes"},
+    "cookTime": {"time": 40, "unit": "min"},
     "filters": ["Snack"],
     "ingredients": [
-      {"item": "meia cura cheese", "quantity": 200, "unit": "g"},
-      {"item": "sour cassava starch", "quantity": 200, "unit": "g"},
-      {"item": "milk", "quantity": 100, "unit": "ml"},
-      {"item": "butter", "quantity": 40, "unit": "g"},
-      {"item": "Egg", "quantity": 1, "unit": "piece"},
-      {"item": "Salt", "quantity": "to taste", "unit": null}
+      {"name": "meia cura cheese", "amount": 200, "unitShort": "g"},
+      {"name": "sour cassava starch", "amount": 200, "unitShort": "g"},
+      {"name": "milk", "amount": 100, "unitShort": "ml"},
+      {"name": "butter", "amount": 40, "unitShort": "g"},
+      {"name": "Egg", "amount": 1, "unitShort": "piece"},
+      {"name": "Salt", "amount": "to taste", "unitShort": null}
     ],
     "instructions": [
       "Preheat the oven to 180°C (350°F). This step is crucial for the success of the recipe.",
