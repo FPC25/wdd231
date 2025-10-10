@@ -147,6 +147,16 @@ export function displayRecipe(recipe) {
             sourceElement.textContent = `Based on "${recipe.forkedFromName}"`;
         } else if (isUserRecipe) {
             sourceElement.innerHTML = `<span class="source-badge user">Your Recipe</span>`;
+        } else if (recipe.source && typeof recipe.source === 'object') {
+            // Handle source object with name and url
+            const sourceName = recipe.source.name || 'External source';
+            const sourceUrl = recipe.source.url;
+            
+            if (sourceUrl) {
+                sourceElement.innerHTML = `<a href="${sourceUrl}" target="_blank" rel="noopener">${sourceName}</a>`;
+            } else {
+                sourceElement.textContent = sourceName;
+            }
         } else {
             // Just show the source without badge for external recipes
             sourceElement.textContent = recipe.source || 'External source';
@@ -370,14 +380,17 @@ export function displayIngredients(recipe) {
     
     if (recipe.ingredients && recipe.ingredients.length > 0) {
         ingredientsList.innerHTML = recipe.ingredients.map(ingredient => {
-            const quantity = ingredient.quantity;
-            const unit = ingredient.unit ? ` ${ingredient.unit}` : '';
-            const quantityText = `${quantity}${unit}`;
+            // Use the correct property names from our converted format
+            const amount = ingredient.amount || '';
+            const unit = ingredient.unit || '';
+            const name = ingredient.name || 'Unknown ingredient';
+            
+            const quantityText = `${amount} ${unit}`;
             
             return `
                 <li class="ingredient-item">
                     <span class="ingredient-quantity">${quantityText}</span>
-                    <span class="ingredient-name">${ingredient.item}</span>
+                    <span class="ingredient-name">${name}</span>
                 </li>
             `;
         }).join('');
