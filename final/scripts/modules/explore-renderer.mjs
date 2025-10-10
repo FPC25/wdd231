@@ -4,6 +4,7 @@ import { getState } from './explore-state.mjs';
 import { loadRecipes, filterRecipes } from './recipe-data.mjs';
 import { filterRecipesByCategory } from './recipe-filters.mjs';
 import { renderEnhancedRecipes } from './recipe-renderer.mjs';
+import { updateDailyRecipesIndicator } from './explore-ui.mjs';
 
 export async function renderCurrentView() {
     const { currentFilter, currentSearch } = getState();
@@ -32,8 +33,35 @@ export async function renderCurrentView() {
 
     // Use enhanced renderer with copy buttons for API recipes
     renderEnhancedRecipes(recipes, recipesGrid, emptyMessage, true);
+    
+    // Show/hide daily recipes indicator
+    updateDailyRecipesIndicator(!currentSearch);
 
     if (currentSearch) {
         categoryButtons.forEach(btn => btn.classList.remove('active'));
     }
+}
+
+export async function renderSearchResults(apiResults, searchTerm) {
+    const recipesGrid = document.querySelector('.recipe-grid');
+    const { currentSearch } = getState();
+    
+    // Combine API results with local search results
+    await loadRecipes();
+    const localResults = filterRecipes('all', searchTerm);
+    
+    // Merge results, prioritizing local recipes
+    const allResults = [...localResults, ...apiResults];
+    
+    // Remove duplicates based on name similarity
+    const uniqueResults = allResults.filter((recipe, index, arr) => {
+        return index === arr.findIndex(r => 
+            r.name.toLowerCase().trim() === recipe.name.toLowerCase().trim()
+        );
+    });
+    
+    const emptyMessage = `No recipes found for "${searchTerm}". Try a different search term.`;
+    
+    // Render with enhanced options for API recipes
+    renderEnhancedRecipes(uniqueResults, recipesGrid, emptyMessage, true);
 }
