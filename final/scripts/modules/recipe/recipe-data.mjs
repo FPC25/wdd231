@@ -1,5 +1,7 @@
 // Data management for recipes
 
+import { getDailyRecipes, searchRecipes, convertSpoonacularRecipe } from '../api/spoonacular-client.mjs';
+
 let recipesData = [];
 let apiRecipes = [];
 let updateCallbacks = [];
@@ -19,7 +21,19 @@ export async function loadRecipes() {
         }
         
         // Load daily API recipes
-        apiRecipes = await getDailyRecipes();
+        try {
+            const spoonacularData = await getDailyRecipes();
+            if (spoonacularData && spoonacularData.recipes) {
+                apiRecipes = spoonacularData.recipes.map(convertSpoonacularRecipe);
+                console.log(`Loaded ${apiRecipes.length} recipes from Spoonacular API`);
+            } else {
+                apiRecipes = [];
+                console.log('No recipes returned from Spoonacular API');
+            }
+        } catch (apiError) {
+            console.error('Error loading API recipes:', apiError);
+            apiRecipes = [];
+        }
         
         initializeUserDataFromServer();
         applyLocalStorageChanges();
@@ -276,8 +290,17 @@ export function resetUserData() {
 // Busca receitas na API
 export async function searchApiRecipes(searchTerm) {
     try {
-        const results = await searchRecipes(searchTerm);
-        return results;
+        const spoonacularResults = await searchRecipes(searchTerm, {
+            number: 12,
+            addRecipeInformation: true,
+            fillIngredients: true
+        });
+        
+        if (spoonacularResults && spoonacularResults.results) {
+            return spoonacularResults.results.map(convertSpoonacularRecipe);
+        }
+        
+        return [];
     } catch (error) {
         console.error('Error searching API recipes:', error);
         return [];
