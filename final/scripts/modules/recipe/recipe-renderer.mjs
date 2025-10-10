@@ -364,9 +364,12 @@ export function displayCategories(recipe) {
     const categoriesContainer = document.getElementById('categories');
     if (!categoriesContainer) return;
     
-    if (recipe.filters && recipe.filters.length > 0) {
-        categoriesContainer.innerHTML = recipe.filters.map(filter => 
-            `<span class="category-tag">${filter}</span>`
+    // Try filters first, then categories as fallback
+    const categoriesToShow = recipe.filters || recipe.categories || [];
+    
+    if (categoriesToShow && categoriesToShow.length > 0) {
+        categoriesContainer.innerHTML = categoriesToShow.map(filter => 
+            `<span class="category-tag">${filter[0].toUpperCase()}${filter.slice(1).toLowerCase()}</span>`
         ).join('');
     } else {
         categoriesContainer.innerHTML = '<span class="category-tag">Uncategorized</span>';
