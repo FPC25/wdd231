@@ -5,7 +5,7 @@ import { performSearch, clearSearch } from './explore-search.mjs';
 import { setupBottomNavigation } from './explore-navigation.mjs';
 import { initializeScrollBehavior } from './explore-scroll.mjs';
 import { renderCurrentView } from './explore-renderer.mjs';
-import { loadRecipes } from './recipe/recipe-data.mjs';
+import { loadRecipes } from '../recipe/recipe-data.mjs';
 
 export async function initializeAllEvents(domElements) {
     const { categoryButtons, searchInput, searchButton, bottomNav, recipesGrid } = domElements;
