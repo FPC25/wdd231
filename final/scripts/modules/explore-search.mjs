@@ -1,25 +1,45 @@
 // Search functionality for explore page
 
 import { getState, setState } from './explore-state.mjs';
-import { renderCurrentView } from './explore-renderer.mjs';
+import { renderCurrentView, renderSearchResults } from './explore-renderer.mjs';
+import { searchApiRecipes } from './recipe-data.mjs';
+import { showSearchLoadingState, showSearchErrorState, updateDailyRecipesIndicator } from './explore-ui.mjs';
 
-export function performSearch(searchInput, categoryButtons) {
+export async function performSearch(searchInput, categoryButtons) {
     const searchValue = searchInput ? searchInput.value.trim() : '';
+    
+    if (!searchValue) {
+        clearSearch(searchInput, categoryButtons);
+        return;
+    }
+    
     setState({ currentSearch: searchValue.toLowerCase(), currentFilter: 'all' });
 
     // Visual feedback
-    if (searchValue) {
-        searchInput.style.backgroundColor = '#e8f5e8';
-    } else {
-        searchInput.style.backgroundColor = '';
-    }
+    searchInput.style.backgroundColor = '#e8f5e8';
+    
+    // Hide daily recipes indicator during search
+    updateDailyRecipesIndicator(false);
 
     // Reset category buttons
     categoryButtons.forEach(btn => btn.classList.remove('active'));
     const allButton = document.querySelector('[data-category="all"]');
     if (allButton) allButton.classList.add('active');
 
-    renderCurrentView();
+    try {
+        // Show loading state
+        showSearchLoadingState();
+        
+        // Search both local and API recipes
+        const apiResults = await searchApiRecipes(searchValue);
+        await renderSearchResults(apiResults, searchValue);
+        
+    } catch (error) {
+        console.error('Search error:', error);
+        // Show error state and fallback to local search
+        showSearchErrorState();
+        setTimeout(() => renderCurrentView(), 1500);
+    }
 }
 
 export function clearSearch(searchInput, categoryButtons) {
@@ -28,6 +48,9 @@ export function clearSearch(searchInput, categoryButtons) {
         searchInput.style.backgroundColor = '';
     }
     setState({ currentSearch: '', currentFilter: 'all' });
+    
+    // Show daily recipes indicator when not searching
+    updateDailyRecipesIndicator(true);
 
     // Reset category buttons
     categoryButtons.forEach(btn => btn.classList.remove('active'));
