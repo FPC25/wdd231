@@ -751,3 +751,16 @@
     background: #d1ecf1;
     color: #0c5460;
 }
+
+/* Source link styling */
+#source a {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#source a:hover {
+    border-bottom-color: var(--accent-color);
+    color: var(--primary-color);
+}
