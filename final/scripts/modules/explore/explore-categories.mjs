@@ -1,6 +1,6 @@
 // Category management for explore page
 
-import { setState } from './explore-state.mjs';
+import { setState } from '../explore-state.mjs';
 import { renderCurrentView } from './explore-renderer.mjs';
 
 export function setupCategoryButtons(categoryButtons, searchInput) {

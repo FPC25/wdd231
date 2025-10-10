@@ -4,8 +4,8 @@
  * Manages both user-created recipes and API recipe "forks"
  */
 
-import { getRecipesData } from './recipe-data.mjs';
-import { getUserRecipes, saveUserRecipes } from './index-utils.mjs';
+import { getRecipesData } from '../explore/recipe-data.mjs';
+import { getUserRecipes, saveUserRecipes } from '../index-utils.mjs';
 
 /**
  * Check if a recipe is user-created or from API

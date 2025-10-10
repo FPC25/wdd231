@@ -1,8 +1,8 @@
 // Search functionality for explore page
 
 import { getState, setState } from './explore-state.mjs';
-import { renderCurrentView, renderSearchResults } from './explore-renderer.mjs';
-import { searchApiRecipes } from './recipe-data.mjs';
+import { renderCurrentView, renderSearchResults } from './explore/explore-renderer.mjs';
+import { searchApiRecipes } from '../recipe/recipe-data.mjs';
 import { showSearchLoadingState, showSearchErrorState, updateDailyRecipesIndicator } from './explore-ui.mjs';
 
 export async function performSearch(searchInput, categoryButtons) {

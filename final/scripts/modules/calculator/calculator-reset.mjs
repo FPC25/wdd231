@@ -1,8 +1,8 @@
 // Reset and navigation for calculator page
 
-import { setState } from './calculator-state.mjs';
+import { setState } from '../calculator-state.mjs';
 import { populateRecipeSelect } from './calculator-renderer.mjs';
-import { setupCalculatorNavigation } from './shared-navigation.mjs';
+import { setupCalculatorNavigation } from '../shared-navigation.mjs';
 
 export function resetCalculator() {
     const recipeSelect = document.getElementById('recipe-select');

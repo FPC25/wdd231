@@ -4,10 +4,10 @@
  * Following SOLID principle: Single responsibility for rendering
  */
 
-import { filterRecipes } from './recipe-data.mjs';
-import { renderRecipes } from './recipe-renderer.mjs';
-import { getDraft, getUserRecipes, saveUserRecipes } from './index-utils.mjs';
-import { getDomElements } from './index-dom.mjs';
+import { filterRecipes } from '../explore/recipe-data.mjs';
+import { renderRecipes } from '../recipe/recipe-renderer.mjs';
+import { getDraft, getUserRecipes, saveUserRecipes } from '../index-utils.mjs';
+import { getDomElements } from '../index-dom.mjs';
 
 /**
  * Render the favorites section
@@ -210,7 +210,7 @@ function deleteDraft() {
  */
 async function editRecipe(recipeId) {
     try {
-        const { getRecipeById } = await import('./recipe-management.mjs');
+        const { getRecipeById } = await import('../recipe/recipe-management.mjs');
         const recipe = getRecipeById(recipeId);
         
         if (!recipe) {
@@ -240,7 +240,7 @@ async function editRecipe(recipeId) {
  */
 async function deleteRecipe(recipeId) {
     try {
-        const { getRecipeById, deleteUserRecipe } = await import('./recipe-management.mjs');
+        const { getRecipeById, deleteUserRecipe } = await import('../recipe/recipe-management.mjs');
         const recipe = getRecipeById(recipeId);
         
         if (!recipe) {

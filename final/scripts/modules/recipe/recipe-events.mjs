@@ -1,9 +1,9 @@
 // Event handling functions for recipes
 
-import { addIngredientRow, handleImageUpload, setupDifficultySelect } from './recipe-dom.mjs';
-import { toggleFavorite, toggleSaved, onFavoritesChange } from './recipe-favorites.mjs';
-import { getRecipesData } from './recipe-data.mjs';
-import { setupRecipeDetailNavigation } from './shared-navigation.mjs';
+import { addIngredientRow, handleImageUpload, setupDifficultySelect } from '../recipe-dom.mjs';
+import { toggleFavorite, toggleSaved, onFavoritesChange } from '../recipe-favorites.mjs';
+import { getRecipesData } from '../explore/recipe-data.mjs';
+import { setupRecipeDetailNavigation } from '../shared-navigation.mjs';
 
 // Adiciona event listeners aos botões de ação
 export function addButtonListeners(container) {
@@ -96,7 +96,7 @@ export function setupEventListeners(recipeId) {
     // Listener para mudanças no localStorage de outras páginas
     window.addEventListener('storage', function(e) {
         if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
-            import('./recipe-data.mjs').then(module => {
+            import('../explore/recipe-data.mjs').then(module => {
                 module.loadRecipes().then(() => {
                     const recipes = getRecipesData();
                     const recipe = recipes.find(r => r.id === recipeId);
@@ -112,7 +112,7 @@ export function setupEventListeners(recipeId) {
 // Setup recipe management buttons (edit, copy, delete)
 async function setupRecipeManagementButtons(recipeId) {
     try {
-        const { getRecipeById, deleteUserRecipe } = await import('./recipe-management.mjs');
+        const { getRecipeById, deleteUserRecipe } = await import('../recipe-management.mjs');
         const recipe = getRecipeById(recipeId);
         
         if (!recipe) return;

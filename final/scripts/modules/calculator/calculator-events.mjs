@@ -1,10 +1,10 @@
 // Event handling for calculator page
 
 import { loadSelectedRecipe } from './calculator-renderer.mjs';
-import { calculateCosts, toggleCostBreakdown } from './calculator-calculations.mjs';
-import { saveCalculation } from './calculator-history.mjs';
-import { resetCalculator } from './calculator-reset.mjs';
-import { updateProfitCalculations } from './calculator-utils.mjs';
+import { calculateCosts, toggleCostBreakdown } from '../calculator-calculations.mjs';
+import { saveCalculation } from '../calculator-history.mjs';
+import { resetCalculator } from '../calculator-reset.mjs';
+import { updateProfitCalculations } from '../calculator-utils.mjs';
 
 export function setupEventListeners(domElements) {
     const { recipeSelect, loadBtn, calculateBtn, profitMarginInput, toggleBreakdownBtn, saveBtn, resetBtn } = domElements;

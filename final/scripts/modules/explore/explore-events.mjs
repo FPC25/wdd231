@@ -3,7 +3,7 @@
 import { setupCategoryButtons } from './explore-categories.mjs';
 import { performSearch, clearSearch } from './explore-search.mjs';
 import { setupBottomNavigation } from './explore-navigation.mjs';
-import { initializeScrollBehavior } from './explore-scroll.mjs';
+import { initializeScrollBehavior } from '../explore-scroll.mjs';
 import { renderCurrentView } from './explore-renderer.mjs';
 import { loadRecipes } from './recipe-data.mjs';
 
