@@ -117,10 +117,64 @@ export async function getDailyRecipes() {
 }
 
 /**
+ * Map Spoonacular categories to our local categories
+ */
+function mapCategoriesToLocal(apiCategories) {
+    const localCategories = ['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Snack'];
+    const mapped = [];
+    
+    if (!apiCategories || !Array.isArray(apiCategories)) {
+        return [];
+    }
+    
+    apiCategories.forEach(category => {
+        const categoryLower = category.toLowerCase();
+        
+        // Map to local categories
+        if (categoryLower.includes('breakfast') || categoryLower.includes('brunch') || 
+            categoryLower.includes('morning')) {
+            if (!mapped.includes('Breakfast')) mapped.push('Breakfast');
+        }
+        
+        if (categoryLower.includes('lunch') || categoryLower.includes('salad') || 
+            categoryLower.includes('sandwich')) {
+            if (!mapped.includes('Lunch')) mapped.push('Lunch');
+        }
+        
+        if (categoryLower.includes('dinner') || categoryLower.includes('main course') || 
+            categoryLower.includes('entre') || categoryLower.includes('main') ||
+            categoryLower.includes('supper')) {
+            if (!mapped.includes('Dinner')) mapped.push('Dinner');
+        }
+        
+        if (categoryLower.includes('dessert') || categoryLower.includes('sweet') || 
+            categoryLower.includes('cake') || categoryLower.includes('cookie') ||
+            categoryLower.includes('pie') || categoryLower.includes('ice cream')) {
+            if (!mapped.includes('Dessert')) mapped.push('Dessert');
+        }
+        
+        if (categoryLower.includes('snack') || categoryLower.includes('appetizer') || 
+            categoryLower.includes('finger food') || categoryLower.includes('hors')) {
+            if (!mapped.includes('Snack')) mapped.push('Snack');
+        }
+    });
+    
+    // If no mapping found, try to use general meal timing
+    if (mapped.length === 0) {
+        // Default to Lunch if no clear categorization
+        mapped.push('Lunch');
+    }
+    
+    return mapped;
+}
+
+/**
  * Convert Spoonacular recipe to our format
  */
 export function convertSpoonacularRecipe(recipe) {
-    return {
+    const mappedCategories = mapCategoriesToLocal(recipe.dishTypes);
+
+    const result = {
         id: recipe.id,
         name: recipe.title || 'Unknown Recipe',
         description: recipe.summary ? recipe.summary.replace(/<[^>]*>/g, '').substring(0, 200) + '...' : '',
@@ -128,23 +182,20 @@ export function convertSpoonacularRecipe(recipe) {
         cookTime: { time: recipe.readyInMinutes || 30, unit: 'min' },
         serves: recipe.servings || 4,
         difficulty: 'medium',
-        categories: recipe.dishTypes || [],
+        categories: mappedCategories,
+        filters: mappedCategories,
         ingredients: (recipe.extendedIngredients || []).map(ing => {
-            // Use US measurements preferentially
-            const usMeasure = ing.measures?.us;
-            const amount = usMeasure?.amount || ing.amount || 1;
-            const unitShort = usMeasure?.unitShort || ing.unit || 'serving';
-            const unitLong = usMeasure?.unitLong || ing.unit || 'serving';
+            const metricMeasure = ing.measures?.metric;
+            const amount = metricMeasure?.amount || ing.amount || 1;
+            const unitShort = metricMeasure?.unitShort || 'piece';
+            const unitLong = metricMeasure?.unitLong || 'piece';
             
-            // Check for serving conversions
-            //const servingEquivalent = getServingEquivalent(ing.name, amount, unitShort);
             return {
                 name: ing.name || ing.original,
                 amount: amount,
                 unit: unitShort.toLowerCase(),
                 unitLong: unitLong.toLowerCase(),
                 original: ing.original,
-                //servingInfo: servingEquivalent // Additional serving context
             };
         }),
         
@@ -159,52 +210,8 @@ export function convertSpoonacularRecipe(recipe) {
         isFavorite: false,
         isSaved: false
     };
-}
 
-/**
- * Helper function to handle serving conversions
- * Based on USDA dietary guidelines
- */
-function getServingEquivalent(ingredient, amount, unit) {
-    const servingConversions = {
-        // Grains: 1 serving = 1 oz equivalent
-        'rice': '0.5 cup cooked',
-        'pasta': '0.5 cup cooked',
-        'bread': '1 slice',
-        'cereal': '1 cup flakes',
-        
-        // Vegetables: 1 serving = 1 cup equivalent
-        'vegetables': '1 cup raw or ½ cup cooked',
-        'salad': '2 cups leafy greens',
-        
-        // Fruits: 1 serving = 1 cup equivalent
-        'fruit': '1 cup fresh or ½ cup juice',
-        
-        // Protein: 1 serving = 1 oz equivalent
-        'meat': '1 oz cooked',
-        'fish': '1 oz cooked',
-        'egg': '1 large egg',
-        'beans': '¼ cup cooked',
-        'nuts': '½ oz',
-        
-        // Dairy: 1 serving = 1 cup equivalent
-        'milk': '1 cup',
-        'yogurt': '1 cup',
-        'cheese': '1½ oz natural cheese'
-    };
-    
-    if (unit === 'serving' || unit === 'servings') {
-        // Try to find a better description
-        const name = ingredient.toLowerCase();
-        for (const [key, value] of Object.entries(servingConversions)) {
-            if (name.includes(key)) {
-                return `${amount} ${value}`;
-            }
-        }
-        return `${amount} serving${amount > 1 ? 's' : ''}`;
-    }
-    
-    return null;
+    return result;
 }
 
 /**
