@@ -1,6 +1,6 @@
 // Data management for recipes
 
-import { getDailyRecipes, searchRecipes, convertSpoonacularRecipe } from '../api/spoonacular-client.mjs';
+import { getDailyRecipes, searchRecipes, convertSpoonacularRecipe } from '../api/spoonacular-simple.mjs';
 
 let recipesData = [];
 let apiRecipes = [];
