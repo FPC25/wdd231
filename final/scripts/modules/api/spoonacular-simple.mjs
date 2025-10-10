@@ -137,17 +137,17 @@ export function convertSpoonacularRecipe(recipe) {
             const unitLong = usMeasure?.unitLong || ing.unit || 'serving';
             
             // Check for serving conversions
-            const servingEquivalent = getServingEquivalent(ing.name, amount, unitShort);
-            
+            //const servingEquivalent = getServingEquivalent(ing.name, amount, unitShort);
             return {
                 name: ing.name || ing.original,
                 amount: amount,
-                unit: unitShort,
-                unitLong: unitLong,
+                unit: unitShort.toLowerCase(),
+                unitLong: unitLong.toLowerCase(),
                 original: ing.original,
-                servingInfo: servingEquivalent // Additional serving context
+                //servingInfo: servingEquivalent // Additional serving context
             };
         }),
+        
         instructions: recipe.analyzedInstructions?.[0]?.steps?.map(step => step.step) || 
                     recipe.instructions?.split('.').filter(s => s.trim()) || 
                     ['Instructions not available'],
