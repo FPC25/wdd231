@@ -112,7 +112,7 @@ export function setupEventListeners(recipeId) {
 // Setup recipe management buttons (edit, copy, delete)
 async function setupRecipeManagementButtons(recipeId) {
     try {
-        const { getRecipeById, deleteUserRecipe } = await import('../recipe-management.mjs');
+        const { getRecipeById, deleteUserRecipe } = await import('./recipe-management.mjs');
         const recipe = getRecipeById(recipeId);
         
         if (!recipe) return;
