@@ -194,7 +194,7 @@ export function displayRecipeImage(recipe) {
  */
 function toggleFavorite(recipeId, button) {
     // Import dynamic to avoid circular dependency
-    import('../recipe/recipe-data.mjs').then(({ getRecipesData, saveFavoritesToStorage, getFavoritesFromStorage, saveSavedToStorage, getSavedFromStorage, notifyFavoritesChange }) => {
+    import('./recipe-data.mjs').then(({ getRecipesData, saveFavoritesToStorage, getFavoritesFromStorage, saveSavedToStorage, getSavedFromStorage, notifyFavoritesChange }) => {
         const recipesData = getRecipesData();
         
         // Use flexible comparison for ID matching
@@ -257,7 +257,7 @@ function toggleFavorite(recipeId, button) {
  */
 function toggleSave(recipeId, button) {
     // Import dynamic to avoid circular dependency
-    import('../recipe/recipe-data.mjs').then(({ getRecipesData, saveSavedToStorage, getSavedFromStorage, saveFavoritesToStorage, getFavoritesFromStorage, notifyFavoritesChange }) => {
+    import('./recipe-data.mjs').then(({ getRecipesData, saveSavedToStorage, getSavedFromStorage, saveFavoritesToStorage, getFavoritesFromStorage, notifyFavoritesChange }) => {
         const recipesData = getRecipesData();
         
         // Use flexible comparison for ID matching
