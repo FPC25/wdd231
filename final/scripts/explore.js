@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Listen for daily recipes updates
     window.addEventListener('daily-recipes-updated', () => {
-        console.log('Daily recipes updated, refreshing view...');
         renderCurrentView();
     });
 });

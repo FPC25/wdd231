@@ -36,22 +36,14 @@ export function setupSearchEvents(searchInput, searchButton) {
  */
 export function setupStorageEvents() {
     window.addEventListener('storage', function(e) {
-        if (['flavorfy_favorites', 'flavorfy_saved', 'recipesData'].includes(e.key)) {
-            console.log('Storage changed, updating page:', e.key);
-            loadRecipes().then(() => {
-                renderFavoritesSection();
-                renderSavedSection();
-            });
+        if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
+            updateRecipeCards();
         }
     });
     
     // Also listen for custom events for same-page updates
-    window.addEventListener('flavorfy-data-changed', function() {
-        console.log('Data changed event received');
-        loadRecipes().then(() => {
-            renderFavoritesSection();
-            renderSavedSection();
-        });
+        window.addEventListener('data-changed', () => {
+        updateRecipeCards();
     });
 }
 
