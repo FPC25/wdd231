@@ -25,10 +25,8 @@ export async function loadRecipes() {
             const spoonacularData = await getDailyRecipes();
             if (spoonacularData && spoonacularData.recipes) {
                 apiRecipes = spoonacularData.recipes.map(convertSpoonacularRecipe);
-                console.log(`Loaded ${apiRecipes.length} recipes from Spoonacular API`);
             } else {
                 apiRecipes = [];
-                console.log('No recipes returned from Spoonacular API');
             }
         } catch (apiError) {
             console.error('Error loading API recipes:', apiError);
@@ -207,11 +205,6 @@ export function saveSavedToStorage(saved) {
 
 // Obtém dados atualizados das receitas
 export function getRecipesData() {
-    const localStorageRecipes = localStorage.getItem('recipesData');
-    if (localStorageRecipes) {
-        recipesData = JSON.parse(localStorageRecipes);
-        applyLocalStorageChanges();
-    }
     // Combine local and API recipes
     return [...recipesData, ...apiRecipes];
 }
