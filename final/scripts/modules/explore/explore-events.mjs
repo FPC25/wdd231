@@ -57,7 +57,6 @@ export async function initializeAllEvents(domElements) {
 function setupStorageEvents() {
     window.addEventListener('storage', function(e) {
         if (['flavorfy_favorites', 'flavorfy_saved', 'recipesData'].includes(e.key)) {
-            console.log('Storage changed in explore, updating page:', e.key);
             loadRecipes().then(() => {
                 renderCurrentView();
             });
@@ -66,7 +65,6 @@ function setupStorageEvents() {
     
     // Also listen for custom events for same-page updates
     window.addEventListener('flavorfy-data-changed', function() {
-        console.log('Data changed event received in explore');
         loadRecipes().then(() => {
             renderCurrentView();
         });
