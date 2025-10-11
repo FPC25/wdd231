@@ -15,6 +15,14 @@ const unitConversions = {
     unit: {
         baseUnit: 'piece',
         conversions: { 'piece': 1 }
+    },
+    serving: {
+        baseUnit: 'serving',
+        conversions: { 
+            'serving': 1, 'servings': 1,
+            // Conversões de serving para outras unidades
+            'ml': 120, 'g': 100, 'piece': 1
+        }
     }
 };
 
@@ -37,6 +45,7 @@ export function getUnitType(unit) {
     if (unitConversions.weight.conversions[lowerUnit]) return 'weight';
     if (unitConversions.volume.conversions[lowerUnit]) return 'volume';
     if (unitConversions.unit.conversions[lowerUnit]) return 'unit';
+    if (unitConversions.serving.conversions[lowerUnit]) return 'serving';
     
     throw new Error(`Unknown unit type for: ${unit}`);
 }
@@ -55,6 +64,21 @@ export function convertUnits(fromQuantity, fromUnit, toUnit) {
     try {
         const fromType = getUnitType(fromUnit);
         const toType = getUnitType(toUnit);
+
+        // Conversões especiais para serving
+        if (fromType === 'serving' && toType !== 'serving') {
+            // Converter de serving para outras unidades
+            const servingConversions = unitConversions.serving.conversions;
+            if (servingConversions[toUnit.toLowerCase()]) {
+                return fromQuantity * servingConversions[toUnit.toLowerCase()];
+            }
+        } else if (fromType !== 'serving' && toType === 'serving') {
+            // Converter de outras unidades para serving
+            const servingConversions = unitConversions.serving.conversions;
+            if (servingConversions[fromUnit.toLowerCase()]) {
+                return fromQuantity / servingConversions[fromUnit.toLowerCase()];
+            }
+        }
 
         if (fromType !== toType) {
             console.warn(`Incompatible unit types: ${fromUnit} (${fromType}) to ${toUnit} (${toType})`);
@@ -139,11 +163,31 @@ export function calculateIngredientCost(index, ingredient, itemDiv) {
             targetUnit = actualUnitSelect.value;
         }
 
-        // Converter 1 unidade da receita para a unidade base (ml para volume, g para peso, piece para unidade)
+        // Converter 1 unidade da receita para a unidade base ou fazer conversão direta
         const recipeUnitType = getUnitType(targetUnit);
         const purchaseUnitType = getUnitType(purchaseUnit);
         
-        if (recipeUnitType === purchaseUnitType) {
+        // Se a unidade da receita é "serving", usar conversão especial
+        if (recipeUnitType === 'serving') {
+            // Para serving, podemos converter para qualquer outra unidade
+            if (purchaseUnitType === 'serving') {
+                // Conversão direta serving para serving
+                unitCost = purchasePrice / purchaseQuantity;
+            } else {
+                // Conversão de outras unidades para serving
+                // 1 serving corresponde aos valores definidos em unitConversions
+                const servingConversions = unitConversions.serving.conversions;
+                if (servingConversions[purchaseUnit.toLowerCase()]) {
+                    // Ex: Se comprou em ml e 1 serving = 120ml
+                    const mlPerServing = servingConversions[purchaseUnit.toLowerCase()];
+                    const costPerMl = purchasePrice / purchaseQuantity;
+                    unitCost = costPerMl * mlPerServing;
+                } else {
+                    // Fallback para cálculo simples
+                    unitCost = purchasePrice / purchaseQuantity;
+                }
+            }
+        } else if (recipeUnitType === purchaseUnitType) {
             // Converter para unidade base comum para fazer o cálculo
             const baseUnit = unitConversions[recipeUnitType].baseUnit;
             
@@ -181,12 +225,12 @@ export function calculateIngredientCost(index, ingredient, itemDiv) {
 
         if (!isNaN(actualQuantity) && actualUnit) {
             // Se a unidade atual é a mesma usada para calcular unitCost, multiplicação direta
-            if (actualUnit === (ingredient.unit === 'unit' ? 'piece' : (ingredient.unit || 'piece'))) {
+            const targetUnit = ingredient.unit === 'unit' ? 'piece' : (ingredient.unit || 'piece');
+            if (actualUnit === targetUnit) {
                 recipeCost = actualQuantity * unitCost;
             } else {
                 // Caso contrário, converter para a unidade base e calcular
                 try {
-                    const targetUnit = ingredient.unit === 'unit' ? 'piece' : (ingredient.unit || 'piece');
                     const convertedQuantity = convertUnits(actualQuantity, actualUnit, targetUnit);
                     recipeCost = convertedQuantity * unitCost;
                 } catch (error) {
@@ -199,7 +243,8 @@ export function calculateIngredientCost(index, ingredient, itemDiv) {
         // Para ingredientes essenciais, usar a quantidade da receita
         const recipeQuantity = parseFloat(ingredient.quantity);
         if (!isNaN(recipeQuantity)) {
-            // Multiplicação direta já que unitCost está na unidade correta da receita
+            // Para servings, o unitCost já está calculado corretamente
+            // Para outras unidades, também está correto
             recipeCost = recipeQuantity * unitCost;
         }
     }
