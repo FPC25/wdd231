@@ -381,14 +381,38 @@ export function displayIngredients(recipe) {
     const ingredientsList = document.getElementById('ingredients-list');
     if (!ingredientsList) return;
     
-    if (recipe.ingredients && recipe.ingredients.length > 0) {
-        ingredientsList.innerHTML = recipe.ingredients.map(ingredient => {
-            // Use the correct property names from our converted format
-            const amount = ingredient.amount || '';
-            const unit = ingredient.unit || '';
-            const name = ingredient.name || 'Unknown ingredient';
+    // Support both old format (ingredients) and new format (extendedIngredients)
+    const ingredientsArray = recipe.extendedIngredients || recipe.ingredients || [];
+    
+    if (ingredientsArray.length > 0) {
+        ingredientsList.innerHTML = ingredientsArray.map(ingredient => {
+            let quantityText = '';
+            let name = ingredient.name || 'Unknown ingredient';
             
-            const quantityText = `${amount} ${unit}`;
+            // Handle new measures format (extendedIngredients)
+            if (ingredient.measures) {
+                // Default to metric, but could add user preference later
+                const measures = ingredient.measures.metric || ingredient.measures.us;
+                const amount = measures.amount;
+                const unit = measures.unitShort || measures.unitLong || '';
+                
+                if (amount === 'to taste' || amount === 'to taste') {
+                    quantityText = 'to taste';
+                } else {
+                    quantityText = `${amount} ${unit}`.trim();
+                }
+            }
+            // Handle old format for backward compatibility
+            else if (ingredient.amount !== undefined) {
+                const amount = ingredient.amount || '';
+                const unit = ingredient.unit || '';
+                quantityText = `${amount} ${unit}`.trim();
+            }
+            // Fallback to original if available
+            else if (ingredient.original) {
+                quantityText = ingredient.original;
+                name = ingredient.name || name;
+            }
             
             return `
                 <li class="ingredient-item">

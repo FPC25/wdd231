@@ -37,6 +37,10 @@ export async function loadRecipes() {
         
         initializeUserDataFromServer();
         applyLocalStorageChanges();
+        
+        // Add backward compatibility for calculator
+        recipesData = recipesData.map(addIngredientsCompatibility);
+        
         localStorage.setItem('recipesData', JSON.stringify(recipesData));
         
     } catch (error) {
@@ -310,4 +314,38 @@ export async function searchApiRecipes(searchTerm) {
 // Sincroniza dados do usuário com servidor (implementação futura)
 export function syncUserDataToServer() {
     return 
+}
+
+/**
+ * Add backward compatibility by creating ingredients array from extendedIngredients
+ * @param {Object} recipe - Recipe object
+ * @returns {Object} Recipe with both extendedIngredients and ingredients arrays
+ */
+function addIngredientsCompatibility(recipe) {
+    // If recipe already has ingredients array, don't override
+    if (recipe.ingredients && recipe.ingredients.length > 0) {
+        return recipe;
+    }
+    
+    // Create ingredients array from extendedIngredients for calculator compatibility
+    if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
+        recipe.ingredients = recipe.extendedIngredients.map(ingredient => {
+            // Default to metric measures, could add user preference later
+            const measures = ingredient.measures?.metric || ingredient.measures?.us;
+            const amount = measures?.amount || 1;
+            const unitShort = measures?.unitShort || 'piece';
+            
+            return {
+                name: ingredient.name,
+                amount: amount,
+                unit: unitShort.toLowerCase(),
+                original: ingredient.original,
+                // Calculator-specific properties
+                quantity: amount,
+                item: ingredient.name
+            };
+        });
+    }
+    
+    return recipe;
 }
