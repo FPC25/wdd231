@@ -231,7 +231,8 @@ export function convertSpoonacularRecipe(recipe) {
                     recipe.instructions?.split('.').filter(s => s.trim()) || 
                     ['Instructions not available'],
         source: {
-            name: recipe.sourceName || 'Spoonacular',
+            // Use creditsText as primary source name if available, fallback to sourceName
+            name: recipe.creditsText || recipe.sourceName || 'Spoonacular',
             url: recipe.sourceUrl || recipe.spoonacularSourceUrl || null
         },
         isApiRecipe: true,
