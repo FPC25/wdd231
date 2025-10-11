@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Ratatouille",
     "description": "A classic French vegetable dish that's both healthy and delicious. Perfect combination of fresh vegetables slowly cooked to perfection.",
-    "cover": "./images/recipes/Ratatouille.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/Ratatouille.webp",
     "source": {
       "name": "Mother's Recipe",
       "url": null
@@ -143,7 +143,7 @@
     "id": 2,
     "name": "Simple Crepioca",
     "description": "A delicious Brazilian fusion of crepe and tapioca. Quick, easy, and incredibly versatile with sweet or savory fillings.",
-    "cover": "./images/recipes/crepioca.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/crepioca.webp",
     "source": {
       "name": "Papinhas da Xica",
       "url": null
@@ -228,7 +228,7 @@
     "id": 3,
     "name": "Traditional Chicken Coxinha",
     "description": "The most beloved Brazilian snack! Crispy golden coxinhas filled with seasoned shredded chicken. Perfect for parties or afternoon treats.",
-    "cover": "./images/recipes/Coxinha.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/Coxinha.webp",
     "source": {
       "name": "Estadão Paladar",
       "url": null
@@ -386,7 +386,7 @@
     "id": 4,
     "name": "Grilled Chicken with Vegetables",
     "description": "Healthy and flavorful grilled chicken with perfectly steamed vegetables. A complete and nutritious meal that's easy to prepare.",
-    "cover": "./images/recipes/Grilled_Chicken_with_Vegetables.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/Grilled_Chicken_with_Vegetables.webp",
     "source": {
       "name": "TudoGostoso",
       "url": null
@@ -503,7 +503,7 @@
     "id": 5,
     "name": "Dried Beef Escondidinho (Traditional Version)",
     "description": "Traditional Brazilian casserole made with desalted dried beef and cassava puree. A comfort food classic that requires time and patience but delivers incredible flavor.",
-    "cover": "./images/recipes/escondidinho-com-carne-seca.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/escondidinho-com-carne-seca.webp",
     "source": {
       "name": "Panelinha",
       "url": null
@@ -597,7 +597,7 @@
     "id": 6,
     "name": "Dried Beef Escondidinho (Creamy Version)",
     "description": "A quicker and creamier version of the traditional escondidinho. Perfect for busy weekdays while maintaining the authentic Brazilian flavors.",
-    "cover": "./images/recipes/escondidinho-de-frigideira.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/escondidinho-de-frigideira.webp",
     "source": {
       "name": "Estadão Paladar",
       "url": null
@@ -681,7 +681,7 @@
     "id": 7,
     "name": "Arracacha Soup with Dried Beef",
     "description": "A creamy and hearty Brazilian soup featuring arracacha (Peruvian parsnip) and tender dried beef. Perfect comfort food for cold days.",
-    "cover": "./images/recipes/arracacha-soup-recipe.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/arracacha-soup-recipe.webp",
     "source": {
       "name": "Terra",
       "url": null
@@ -799,7 +799,7 @@
     "id": 8,
     "name": "Condensed Milk Pudding",
     "description": "Classic Brazilian pudding with rich caramel sauce and silky custard texture. A traditional dessert that never goes out of style.",
-    "cover": "./images/recipes/pudin.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/pudin.webp",
     "source": {
       "name": "TudoGostoso",
       "url": null
@@ -869,7 +869,7 @@
     "id": 9,
     "name": "Cheese Bread with Parmesan",
     "description": "Traditional Brazilian pão de queijo with an extra kick of Parmesan cheese. Perfect for wine pairings and sophisticated gatherings.",
-    "cover": "./images/recipes/paodequeijo.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/paodequeijo.webp",
     "source": {
       "name": "Estadão Paladar",
       "url": null
@@ -948,7 +948,7 @@
     "id": 10,
     "name": "Traditional Cheese Bread",
     "description": "The most authentic Brazilian pão de queijo recipe using meia cura cheese. Perfectly elastic texture and golden brown exterior make this a favorite across Brazil.",
-    "cover": "./images/recipes/pao-de-queijo-tradicional.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/pao-de-queijo-tradicional.webp",
     "source": {
       "name": "Estadão Paladar",
       "url": null
@@ -1025,7 +1025,7 @@
     "id": 25,
     "name": "Protein Smoothie",
     "description": "A nutritious protein smoothie perfect for post-workout recovery.",
-    "cover": "./images/recipes/Grilled_Chicken_with_Vegetables.webp",
+    "cover": "https://fpc25.github.io/wdd231/final/images/recipes/Grilled_Chicken_with_Vegetables.webp",
     "source": {
       "name": "Health Recipe",
       "url": null
