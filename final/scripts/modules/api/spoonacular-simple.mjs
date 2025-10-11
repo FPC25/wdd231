@@ -1,6 +1,3 @@
-// Spoonacular API Client - KISS Version
-// Simple and direct API calls
-
 const API_KEY = '66860e68188d417ca9ce3fdb7964b505';
 const BASE_URL = 'https://api.spoonacular.com';
 

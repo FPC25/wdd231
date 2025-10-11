@@ -1,6 +1,3 @@
-// Modal Dialog Utility
-// Provides a reusable modal dialog system for notifications and confirmations
-
 let modalContainer = null;
 
 /**

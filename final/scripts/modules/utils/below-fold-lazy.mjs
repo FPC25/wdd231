@@ -1,6 +1,3 @@
-// Simple lazy loading for images below the fold - KISS implementation
-// Uses existing placeholder.svg
-
 /**
  * Initialize lazy loading only for images below the fold
  */

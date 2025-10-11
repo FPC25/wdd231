@@ -1,6 +1,3 @@
-// Lazy loading utility - KISS implementation
-// Simple and effective lazy loading for all images
-
 /**
  * Initialize lazy loading for all images
  */

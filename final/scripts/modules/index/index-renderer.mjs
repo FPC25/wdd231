@@ -1,9 +1,3 @@
-/**
- * index-renderer.mjs
- * Responsible for rendering content on the index page
- * Following SOLID principle: Single responsibility for rendering
- */
-
 import { filterRecipes } from '../recipe/recipe-data.mjs';
 import { renderRecipes } from '../recipe/recipe-renderer.mjs';
 import { getDraft, getUserRecipes, saveUserRecipes } from './index-utils.mjs';

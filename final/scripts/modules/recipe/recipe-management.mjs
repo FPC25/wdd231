@@ -1,9 +1,3 @@
-/**
- * recipe-management.mjs
- * Handles recipe CRUD operations: Create, Read, Update, Delete
- * Manages both user-created recipes and API recipe "forks"
- */
-
 import { getRecipesData } from './recipe-data.mjs';
 import { getUserRecipes, saveUserRecipes } from '../index/index-utils.mjs';
 

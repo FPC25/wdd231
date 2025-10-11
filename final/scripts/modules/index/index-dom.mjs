@@ -1,10 +1,4 @@
 /**
- * index-dom.mjs
- * Responsible for DOM element selection and management for the index page
- * Following SOLID principle: Single responsibility for DOM operations
- */
-
-/**
  * Get all DOM elements used by the index page
  * @returns {Object} Object containing all necessary DOM elements
  */

@@ -1,10 +1,4 @@
 /**
- * shared-navigation.mjs
- * Unified bottom navigation setup for all pages
- * Follows SOLID principles while maintaining KISS simplicity
- */
-
-/**
  * Setup bottom navigation with page-specific behavior
  * @param {string} activePage - Current page identifier ('calculator', 'explore', 'recipe-detail', 'index')
  * @param {Object} options - Page-specific options

@@ -1,9 +1,3 @@
-/**
- * index-events.mjs
- * Event handling for the index page
- * Following SOLID principle: Single responsibility for event management
- */
-
 import { loadRecipes } from '../recipe/recipe-data.mjs';
 import { renderFavoritesSection, renderSavedSection } from './index-renderer.mjs';
 import { performSearch } from './index-navigation.mjs';

@@ -1,6 +1,3 @@
-// Rendering functions for recipes
-
-// Cria HTML do card da receita
 export function createRecipeCard(recipe) {
     const favoriteClass = recipe.isFavorite ? 'active' : '';
     const savedClass = recipe.isSaved ? 'active' : '';

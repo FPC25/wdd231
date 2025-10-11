@@ -1,4 +1,4 @@
-// Simple modal test - only for debugging
+
 export function testModal() {
     // Remove existing modal if any
     const existing = document.querySelector('.modal-overlay');

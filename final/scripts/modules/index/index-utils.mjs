@@ -1,10 +1,4 @@
 /**
- * index-utils.mjs
- * Utility functions for the index page
- * Following SOLID principle: Single responsibility for utility operations
- */
-
-/**
  * Load draft from localStorage
  * @returns {Object|null} Draft object or null if not found
  */
