@@ -13,21 +13,119 @@
     "serves": 10,
     "categories": ["Lunch", "Dinner"],
     "filters": ["Lunch", "Dinner"],
-    "ingredients": [
-      {"name": "zucchini", "amount": 2, "unitShort": "piece", "unitLong": "pieces", "original": "2 zucchini"},
-      {"name": "eggplants", "amount": 2, "unitShort": "piece", "unitLong": "pieces", "original": "2 eggplants"},
-      {"name": "onions", "amount": 2, "unitShort": "piece", "unitLong": "pieces", "original": "2 onions"},
-      {"name": "tomatoes", "amount": 3, "unitShort": "piece", "unitLong": "pieces", "original": "3 tomatoes"},
-      {"name": "green pepper", "amount": 1, "unitShort": "piece", "unitLong": "piece", "original": "1 green pepper"},
-      {"name": "yellow pepper", "amount": 1, "unitShort": "piece", "unitLong": "piece", "original": "1 yellow pepper"},
-      {"name": "red pepper", "amount": 1, "unitShort": "piece", "unitLong": "piece", "original": "1 red pepper"},
-      {"name": "olive oil", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "olive oil to taste"},
-      {"name": "rosemary", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "rosemary to taste"},
-      {"name": "basil", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "basil to taste"},
-      {"name": "garlic", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "garlic to taste"},
-      {"name": "salt", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "salt to taste"},
-      {"name": "blonde", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "blonde to taste"},
-      {"name": "tomate sauce", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "tomato sauce to taste"}
+    "extendedIngredients": [
+      {
+        "name": "zucchini", 
+        "original": "2 zucchini",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 2, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "eggplants", 
+        "original": "2 eggplants",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 2, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "onions", 
+        "original": "2 onions",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 2, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "tomatoes", 
+        "original": "3 tomatoes",
+        "measures": {
+          "us": {"amount": 3, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 3, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "green pepper", 
+        "original": "1 green pepper",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      },
+      {
+        "name": "yellow pepper", 
+        "original": "1 yellow pepper",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      },
+      {
+        "name": "red pepper", 
+        "original": "1 red pepper",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      },
+      {
+        "name": "olive oil", 
+        "original": "olive oil to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "rosemary", 
+        "original": "rosemary to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "basil", 
+        "original": "basil to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "garlic", 
+        "original": "garlic to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "salt", 
+        "original": "salt to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "blonde", 
+        "original": "blonde to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "tomato sauce", 
+        "original": "tomato sauce to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      }
     ],
     "instructions": [
       "Cut the vegetables into thin slices without the seeds", 
@@ -55,14 +153,63 @@
     "serves": 1,
     "categories": ["Snack", "Breakfast", "Dessert"],
     "filters": ["Snack", "Breakfast", "Dessert"],
-    "ingredients": [
-      {"name": "Egg", "amount": 1, "unitShort": "piece", "unitLong": "piece", "original": "1 egg"},
-      {"name": "Hydrated tapioca starch", "amount": 25, "unitShort": "g", "unitLong": "grams", "original": "25g hydrated tapioca starch"},
-      {"name": "Cheese", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "cheese to taste"},
-      {"name": "Shredded Chicken", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "shredded chicken to taste"},
-      {"name": "Banana", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "banana to taste"},
-      {"name": "Cinnamon", "amount": "to taste", "unitShort": "", "unitLong": "", "original": "cinnamon to taste"},
-      {"name": "Nutella", "amount":"to taste", "unitShort": "", "unitLong": "", "original": "nutella to taste"}
+    "extendedIngredients": [
+      {
+        "name": "Egg", 
+        "original": "1 egg",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      },
+      {
+        "name": "Hydrated tapioca starch", 
+        "original": "25g hydrated tapioca starch",
+        "measures": {
+          "us": {"amount": 0.88, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 25, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "Cheese", 
+        "original": "cheese to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "Shredded Chicken", 
+        "original": "shredded chicken to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "Banana", 
+        "original": "banana to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "Cinnamon", 
+        "original": "cinnamon to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "Nutella", 
+        "original": "nutella to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      }
     ],
     "instructions": [
       "In a bowl, place the tapioca starch and the egg.",
@@ -91,23 +238,135 @@
     "serves": 20,
     "categories": ["Snack"],
     "filters": ["Snack"],
-    "ingredients": [
-      {"name": "Water", "amount": 1.5, "unitShort": "l", "unitLong": "liters", "original": "1.5L water"},
-      {"name": "chicken bouillon powder", "amount": 30, "unitShort": "g", "unitLong": "grams", "original": "30g chicken bouillon powder"},
-      {"name": "poultry seasoning", "amount": 20, "unitShort": "g", "unitLong": "grams", "original": "20g poultry seasoning"},
-      {"name": "salt", "amount": 25, "unitShort": "g", "unitLong": "grams", "original": "25g salt"},
-      {"name": "oil", "amount": 250, "unitShort": "ml", "unitLong": "milliliters", "original": "250ml oil"},
-      {"name": "all-purpose flour", "amount": 1, "unitShort": "kg", "unitLong": "kilogram", "original": "1kg all-purpose flour"},
-      {"name": "chicken breast", "amount": 2, "unitShort": "kg", "unitLong": "kilograms", "original": "2kg chicken breast"},
-      {"name": "minced garlic", "amount": 30, "unitShort": "g", "unitLong": "grams", "original": "30g minced garlic"},
-      {"name": "chopped onion", "amount": 40, "unitShort": "g", "unitLong": "grams", "original": "40g chopped onion"},
-      {"name": "annatto powder", "amount": 20, "unitShort": "g", "unitLong": "grams", "original": "20g annatto powder"},
-      {"name": "oregano", "amount": "1 pinch", "unitShort": "", "unitLong": "", "original": "1 pinch oregano"},
-      {"name": "tomato sauce", "amount": "1/2 sachet", "unitShort": "", "unitLong": "", "original": "1/2 sachet tomato sauce"},
-      {"name": "breadcrumbs", "amount": 1, "unitShort": "kg", "unitLong": "kilogram", "original": "1kg breadcrumbs"},
-      {"name": "water for breading", "amount": 1, "unitShort": "l", "unitLong": "liter", "original": "1L water for breading"},
-      {"name": "flour for breading", "amount": 2, "unitShort": "tbsp", "unitLong": "tablespoons", "original": "2 tbsp flour for breading"},
-      {"name": "salt for breading", "amount": 1, "unitShort": "tbsp", "unitLong": "tablespoon", "original": "1 tbsp salt for breading"}
+    "extendedIngredients": [
+      {
+        "name": "Water", 
+        "original": "1.5L water",
+        "measures": {
+          "us": {"amount": 1.58, "unitShort": "qt", "unitLong": "quarts"},
+          "metric": {"amount": 1.5, "unitShort": "l", "unitLong": "liters"}
+        }
+      },
+      {
+        "name": "chicken bouillon powder", 
+        "original": "30g chicken bouillon powder",
+        "measures": {
+          "us": {"amount": 1.06, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 30, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "poultry seasoning", 
+        "original": "20g poultry seasoning",
+        "measures": {
+          "us": {"amount": 0.71, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 20, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "salt", 
+        "original": "25g salt",
+        "measures": {
+          "us": {"amount": 0.88, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 25, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "oil", 
+        "original": "250ml oil",
+        "measures": {
+          "us": {"amount": 1.06, "unitShort": "cup", "unitLong": "cups"},
+          "metric": {"amount": 250, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "all-purpose flour", 
+        "original": "1kg all-purpose flour",
+        "measures": {
+          "us": {"amount": 2.2, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 1, "unitShort": "kg", "unitLong": "kilogram"}
+        }
+      },
+      {
+        "name": "chicken breast", 
+        "original": "2kg chicken breast",
+        "measures": {
+          "us": {"amount": 4.4, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 2, "unitShort": "kg", "unitLong": "kilograms"}
+        }
+      },
+      {
+        "name": "minced garlic", 
+        "original": "30g minced garlic",
+        "measures": {
+          "us": {"amount": 1.06, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 30, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "chopped onion", 
+        "original": "40g chopped onion",
+        "measures": {
+          "us": {"amount": 1.41, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 40, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "annatto powder", 
+        "original": "20g annatto powder",
+        "measures": {
+          "us": {"amount": 0.71, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 20, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "oregano", 
+        "original": "1 pinch oregano",
+        "measures": {
+          "us": {"amount": "1 pinch", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "1 pinch", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "tomato sauce", 
+        "original": "1/2 sachet tomato sauce",
+        "measures": {
+          "us": {"amount": "1/2 sachet", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "1/2 sachet", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "breadcrumbs", 
+        "original": "1kg breadcrumbs",
+        "measures": {
+          "us": {"amount": 2.2, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 1, "unitShort": "kg", "unitLong": "kilogram"}
+        }
+      },
+      {
+        "name": "water for breading", 
+        "original": "1L water for breading",
+        "measures": {
+          "us": {"amount": 1.06, "unitShort": "qt", "unitLong": "quarts"},
+          "metric": {"amount": 1, "unitShort": "l", "unitLong": "liter"}
+        }
+      },
+      {
+        "name": "flour for breading", 
+        "original": "2 tbsp flour for breading",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "tbsp", "unitLong": "tablespoons"},
+          "metric": {"amount": 30, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "salt for breading", 
+        "original": "1 tbsp salt for breading",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "tbsp", "unitLong": "tablespoon"},
+          "metric": {"amount": 15, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      }
     ],
     "instructions": [
       "Cook the chicken breast in water with salt, reserve the water and shred the chicken",
@@ -126,23 +385,106 @@
   {
     "id": 4,
     "name": "Grilled Chicken with Vegetables",
+    "description": "Healthy and flavorful grilled chicken with perfectly steamed vegetables. A complete and nutritious meal that's easy to prepare.",
     "cover": "./images/recipes/Grilled_Chicken_with_Vegetables.webp",
-    "source": "TudoGostoso",
+    "source": {
+      "name": "TudoGostoso",
+      "url": null
+    },
     "difficulty": "easy",
     "cookTime": {"time": 120, "unit": "min"},
+    "serves": 6,
+    "categories": ["Lunch", "Dinner"],
     "filters": ["Lunch", "Dinner"],
-    "ingredients": [
-      {"name": "chicken breast fillets", "amount": 2, "unitShort": "kg"},
-      {"name": "medium carrots", "amount": 3, "unitShort": "piece"},
-      {"name": "medium potatoes", "amount": 4, "unitShort": "piece"},
-      {"name": "medium green beans", "amount": 18, "unitShort": "piece"},
-      {"name": "Arisco complete seasoning", "amount": 2, "unitShort": "tsp"},
-      {"name": "Sazón for meats", "amount": 2, "unitShort": "sachets"},
-      {"name": "black pepper", "amount": 1, "unitShort": "tsp"},
-      {"name": "cilantro", "amount": "to taste", "unitShort": null},
-      {"name": "margarine", "amount": 1, "unitShort": "tbsp"},
-      {"name": "olive oil", "amount": "to taste", "unitShort": null},
-      {"name": "lime", "amount": 1, "unitShort": "piece"}
+    "extendedIngredients": [
+      {
+        "name": "chicken breast fillets", 
+        "original": "2kg chicken breast fillets",
+        "measures": {
+          "us": {"amount": 4.4, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 2, "unitShort": "kg", "unitLong": "kilograms"}
+        }
+      },
+      {
+        "name": "medium carrots", 
+        "original": "3 medium carrots",
+        "measures": {
+          "us": {"amount": 3, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 3, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "medium potatoes", 
+        "original": "4 medium potatoes",
+        "measures": {
+          "us": {"amount": 4, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 4, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "medium green beans", 
+        "original": "18 medium green beans",
+        "measures": {
+          "us": {"amount": 18, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 18, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "Arisco complete seasoning", 
+        "original": "2 tsp Arisco complete seasoning",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "tsp", "unitLong": "teaspoons"},
+          "metric": {"amount": 10, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "Sazón for meats", 
+        "original": "2 sachets Sazón for meats",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "sachets", "unitLong": "sachets"},
+          "metric": {"amount": 2, "unitShort": "sachets", "unitLong": "sachets"}
+        }
+      },
+      {
+        "name": "black pepper", 
+        "original": "1 tsp black pepper",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "tsp", "unitLong": "teaspoon"},
+          "metric": {"amount": 5, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "cilantro", 
+        "original": "cilantro to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "margarine", 
+        "original": "1 tbsp margarine",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "tbsp", "unitLong": "tablespoon"},
+          "metric": {"amount": 15, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "olive oil", 
+        "original": "olive oil to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "lime", 
+        "original": "1 lime",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      }
     ],
     "instructions": [
       "Cut chicken fillets into thin slices and wash with lime juice",
@@ -155,25 +497,87 @@
     ],
     "isSaved": true,
     "isFavorite": false,
-    "serves": 6
+    "isApiRecipe": false
   },
   {
     "id": 5,
     "name": "Dried Beef Escondidinho (Traditional Version)",
+    "description": "Traditional Brazilian casserole made with desalted dried beef and cassava puree. A comfort food classic that requires time and patience but delivers incredible flavor.",
     "cover": "./images/recipes/escondidinho-com-carne-seca.webp",
-    "source": "Panelinha",
+    "source": {
+      "name": "Panelinha",
+      "url": null
+    },
     "difficulty": "hard",
     "cookTime": {"time": 120, "unit": "min"},
+    "serves": 8,
+    "categories": ["Lunch"],
     "filters": ["Lunch"],
-    "ingredients": [
-      {"name": "dried beef (carne-seca)", "amount": 1, "unitShort": "kg"},
-      {"name": "cassava", "amount": 1, "unitShort": "kg"},
-      {"name": "milk", "amount": "to taste", "unitShort": null},
-      {"name": "butter", "amount": "to taste", "unitShort": null},
-      {"name": "queijo coalho", "amount": "to taste", "unitShort": null},
-      {"name": "onion", "amount": "to taste", "unitShort": null},
-      {"name": "garlic", "amount": "to taste", "unitShort": null},
-      {"name": "salt", "amount": "to taste", "unitShort": null}
+    "extendedIngredients": [
+      {
+        "name": "dried beef (carne-seca)", 
+        "original": "1kg dried beef (carne-seca)",
+        "measures": {
+          "us": {"amount": 2.2, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 1, "unitShort": "kg", "unitLong": "kilogram"}
+        }
+      },
+      {
+        "name": "cassava", 
+        "original": "1kg cassava",
+        "measures": {
+          "us": {"amount": 2.2, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 1, "unitShort": "kg", "unitLong": "kilogram"}
+        }
+      },
+      {
+        "name": "milk", 
+        "original": "milk to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "butter", 
+        "original": "butter to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "queijo coalho", 
+        "original": "queijo coalho to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "onion", 
+        "original": "onion to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "garlic", 
+        "original": "garlic to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "salt", 
+        "original": "salt to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      }
     ],
     "instructions": [
       "Desalt the dried beef for 12 hours, changing water several times",
@@ -187,24 +591,79 @@
     ],
     "isSaved": false,
     "isFavorite": false,
-    "serves": 8
+    "isApiRecipe": false
   },
   {
     "id": 6,
     "name": "Dried Beef Escondidinho (Creamy Version)",
+    "description": "A quicker and creamier version of the traditional escondidinho. Perfect for busy weekdays while maintaining the authentic Brazilian flavors.",
     "cover": "./images/recipes/escondidinho-de-frigideira.webp",
-    "source": "Estadão Paladar",
+    "source": {
+      "name": "Estadão Paladar",
+      "url": null
+    },
     "difficulty": "easy",
     "cookTime": {"time": 90, "unit": "min"},
+    "serves": 4,
+    "categories": ["Lunch"],
     "filters": ["Lunch"],
-    "ingredients": [
-      {"name": "dried beef (carne-seca)", "amount": 600, "unitShort": "g"},
-      {"name": "cassava", "amount": 1.2, "unitShort": "kg"},
-      {"name": "butter", "amount": "to taste", "unitShort": null},
-      {"name": "creamy requeijão", "amount": "to taste", "unitShort": null},
-      {"name": "onion", "amount": "to taste", "unitShort": null},
-      {"name": "garlic", "amount": "to taste", "unitShort": null},
-      {"name": "grated cheese", "amount": "to taste", "unitShort": null}
+    "extendedIngredients": [
+      {
+        "name": "dried beef (carne-seca)", 
+        "original": "600g dried beef (carne-seca)",
+        "measures": {
+          "us": {"amount": 1.3, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 600, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "cassava", 
+        "original": "1.2kg cassava",
+        "measures": {
+          "us": {"amount": 2.6, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 1.2, "unitShort": "kg", "unitLong": "kilograms"}
+        }
+      },
+      {
+        "name": "butter", 
+        "original": "butter to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "creamy requeijão", 
+        "original": "creamy requeijão to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "onion", 
+        "original": "onion to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "garlic", 
+        "original": "garlic to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "grated cheese", 
+        "original": "grated cheese to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      }
     ],
     "instructions": [
       "Pressure cook the dried beef for 1h30, shred, and sauté with seasonings. Add 2 tbsp of requeijão at the end",
@@ -216,28 +675,111 @@
     ],
     "isSaved": false,
     "isFavorite": false,
-    "serves": 4
+    "isApiRecipe": false
   },
   {
     "id": 7,
     "name": "Arracacha Soup with Dried Beef",
+    "description": "A creamy and hearty Brazilian soup featuring arracacha (Peruvian parsnip) and tender dried beef. Perfect comfort food for cold days.",
     "cover": "./images/recipes/arracacha-soup-recipe.webp",
-    "source": "Terra",
+    "source": {
+      "name": "Terra",
+      "url": null
+    },
     "difficulty": "easy",
     "cookTime": {"time": 60, "unit": "min"},
+    "serves": 6,
+    "categories": ["Lunch", "Dinner"],
     "filters": ["Lunch", "Dinner"],
-    "ingredients": [
-      {"name": "arracacha, in pieces", "amount": 1, "unitShort": "kg"},
-      {"name": "salt", "amount": "to taste", "unitShort": null},
-      {"name": "black pepper", "amount": "to taste", "unitShort": null},
-      {"name": "milk", "amount": 2, "unitShort": "cups"},
-      {"name": "vegetable bouillon cube", "amount": 1, "unitShort": "piece"},
-      {"name": "butter", "amount": 2, "unitShort": "tbsp"},
-      {"name": "chopped onion", "amount": 1, "unitShort": "piece"},
-      {"name": "dried beef, desalted and shredded", "amount": 500, "unitShort": "g"},
-      {"name": "table cream", "amount": 400, "unitShort": "g"},
-      {"name": "grated Parmesan cheese", "amount": "to taste", "unitShort": null},
-      {"name": "chopped chives", "amount": "to taste", "unitShort": null}
+    "extendedIngredients": [
+      {
+        "name": "arracacha, in pieces", 
+        "original": "1kg arracacha, in pieces",
+        "measures": {
+          "us": {"amount": 2.2, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 1, "unitShort": "kg", "unitLong": "kilogram"}
+        }
+      },
+      {
+        "name": "salt", 
+        "original": "salt to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "black pepper", 
+        "original": "black pepper to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "milk", 
+        "original": "2 cups milk",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "cups", "unitLong": "cups"},
+          "metric": {"amount": 480, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "vegetable bouillon cube", 
+        "original": "1 vegetable bouillon cube",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      },
+      {
+        "name": "butter", 
+        "original": "2 tbsp butter",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "tbsp", "unitLong": "tablespoons"},
+          "metric": {"amount": 30, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "chopped onion", 
+        "original": "1 chopped onion",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      },
+      {
+        "name": "dried beef, desalted and shredded", 
+        "original": "500g dried beef, desalted and shredded",
+        "measures": {
+          "us": {"amount": 1.1, "unitShort": "lb", "unitLong": "pounds"},
+          "metric": {"amount": 500, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "table cream", 
+        "original": "400g table cream",
+        "measures": {
+          "us": {"amount": 14, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 400, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "grated Parmesan cheese", 
+        "original": "grated Parmesan cheese to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      },
+      {
+        "name": "chopped chives", 
+        "original": "chopped chives to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      }
     ],
     "instructions": [
       "Cook arracacha in boiling salted water until tender",
@@ -251,22 +793,63 @@
     ],
     "isSaved": false,
     "isFavorite": false,
-    "serves": 6
+    "isApiRecipe": false
   },
   {
     "id": 8,
     "name": "Condensed Milk Pudding",
+    "description": "Classic Brazilian pudding with rich caramel sauce and silky custard texture. A traditional dessert that never goes out of style.",
     "cover": "./images/recipes/pudin.webp",
-    "source": "TudoGostoso",
+    "source": {
+      "name": "TudoGostoso",
+      "url": null
+    },
     "difficulty": "medium",
     "cookTime": {"time": 50, "unit": "min"},
+    "serves": 8,
+    "categories": ["Dessert"],
     "filters": ["Dessert"],
-    "ingredients": [
-      {"name": "condensed milk", "amount": 1, "unitShort": "can"},
-      {"name": "milk", "amount": 1, "unitShort": "can"},
-      {"name": "whole eggs", "amount": 3, "unitShort": "piece"},
-      {"name": "sugar for caramel", "amount": 1, "unitShort": "cup"},
-      {"name": "water for caramel", "amount": 0.5, "unitShort": "cup"}
+    "extendedIngredients": [
+      {
+        "name": "condensed milk", 
+        "original": "1 can condensed milk",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "can", "unitLong": "can"},
+          "metric": {"amount": 397, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "milk", 
+        "original": "1 can milk",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "can", "unitLong": "can"},
+          "metric": {"amount": 397, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "whole eggs", 
+        "original": "3 whole eggs",
+        "measures": {
+          "us": {"amount": 3, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 3, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "sugar for caramel", 
+        "original": "1 cup sugar for caramel",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "cup", "unitLong": "cup"},
+          "metric": {"amount": 200, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "water for caramel", 
+        "original": "1/2 cup water for caramel",
+        "measures": {
+          "us": {"amount": 0.5, "unitShort": "cup", "unitLong": "cup"},
+          "metric": {"amount": 120, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      }
     ],
     "instructions": [
       "Melt sugar over low heat until golden caramel forms",
@@ -280,23 +863,71 @@
     ],
     "isSaved": false,
     "isFavorite": false,
-    "serves": 8
+    "isApiRecipe": false
   },
   {
     "id": 9,
     "name": "Cheese Bread with Parmesan",
+    "description": "Traditional Brazilian pão de queijo with an extra kick of Parmesan cheese. Perfect for wine pairings and sophisticated gatherings.",
     "cover": "./images/recipes/paodequeijo.webp",
-    "source": "Estadão Paladar",
+    "source": {
+      "name": "Estadão Paladar",
+      "url": null
+    },
     "difficulty": "easy",
     "cookTime": {"time": 40, "unit": "min"},
+    "serves": 4,
+    "categories": ["Snack"],
     "filters": ["Snack"],
-    "ingredients": [
-      {"name": "finely grated Parmesan cheese", "amount": 200, "unitShort": "g"},
-      {"name": "sour cassava starch", "amount": 200, "unitShort": "g"},
-      {"name": "sunflower oil", "amount": 40, "unitShort": "ml"},
-      {"name": "water", "amount": 100, "unitShort": "ml"},
-      {"name": "egg", "amount": 1, "unitShort": "piece"},
-      {"name": "salt", "amount": "to taste", "unitShort": null}
+    "extendedIngredients": [
+      {
+        "name": "finely grated Parmesan cheese", 
+        "original": "200g finely grated Parmesan cheese",
+        "measures": {
+          "us": {"amount": 7, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 200, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "sour cassava starch", 
+        "original": "200g sour cassava starch",
+        "measures": {
+          "us": {"amount": 7, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 200, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "sunflower oil", 
+        "original": "40ml sunflower oil",
+        "measures": {
+          "us": {"amount": 2.7, "unitShort": "tbsp", "unitLong": "tablespoons"},
+          "metric": {"amount": 40, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "water", 
+        "original": "100ml water",
+        "measures": {
+          "us": {"amount": 0.4, "unitShort": "cups", "unitLong": "cups"},
+          "metric": {"amount": 100, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "egg", 
+        "original": "1 egg",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      },
+      {
+        "name": "salt", 
+        "original": "salt to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      }
     ],
     "instructions": [
       "Preheat oven to 180°C (350°F)",
@@ -311,23 +942,71 @@
     ],
     "isSaved": false,
     "isFavorite": false,
-    "serves": 10
+    "isApiRecipe": false
   }, 
   {
     "id": 10,
     "name": "Traditional Cheese Bread",
+    "description": "The most authentic Brazilian pão de queijo recipe using meia cura cheese. Perfectly elastic texture and golden brown exterior make this a favorite across Brazil.",
     "cover": "./images/recipes/pao-de-queijo-tradicional.webp",
-    "source": "Estadão Paladar",
+    "source": {
+      "name": "Estadão Paladar",
+      "url": null
+    },
     "difficulty": "easy",
     "cookTime": {"time": 40, "unit": "min"},
+    "serves": 5,
+    "categories": ["Snack"],
     "filters": ["Snack"],
-    "ingredients": [
-      {"name": "meia cura cheese", "amount": 200, "unitShort": "g"},
-      {"name": "sour cassava starch", "amount": 200, "unitShort": "g"},
-      {"name": "milk", "amount": 100, "unitShort": "ml"},
-      {"name": "butter", "amount": 40, "unitShort": "g"},
-      {"name": "Egg", "amount": 1, "unitShort": "piece"},
-      {"name": "Salt", "amount": "to taste", "unitShort": null}
+    "extendedIngredients": [
+      {
+        "name": "meia cura cheese", 
+        "original": "200g meia cura cheese",
+        "measures": {
+          "us": {"amount": 7, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 200, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "sour cassava starch", 
+        "original": "200g sour cassava starch",
+        "measures": {
+          "us": {"amount": 7, "unitShort": "oz", "unitLong": "ounces"},
+          "metric": {"amount": 200, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "milk", 
+        "original": "100ml milk",
+        "measures": {
+          "us": {"amount": 0.4, "unitShort": "cups", "unitLong": "cups"},
+          "metric": {"amount": 100, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "butter", 
+        "original": "40g butter",
+        "measures": {
+          "us": {"amount": 2.8, "unitShort": "tbsp", "unitLong": "tablespoons"},
+          "metric": {"amount": 40, "unitShort": "g", "unitLong": "grams"}
+        }
+      },
+      {
+        "name": "Egg", 
+        "original": "1 Egg",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "piece"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "piece"}
+        }
+      },
+      {
+        "name": "Salt", 
+        "original": "Salt to taste",
+        "measures": {
+          "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
+          "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
+        }
+      }
     ],
     "instructions": [
       "Preheat the oven to 180°C (350°F). This step is crucial for the success of the recipe.",
@@ -340,6 +1019,6 @@
     ],
     "isSaved": false,
     "isFavorite": false,
-    "serves": 5
+    "isApiRecipe": false
   }
 ]
