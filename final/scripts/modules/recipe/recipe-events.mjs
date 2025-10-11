@@ -121,16 +121,11 @@ async function setupRecipeManagementButtons(recipeId) {
         const copyBtn = document.getElementById('copy-btn');
         const deleteBtn = document.getElementById('delete-btn');
         
-        console.log('Setting up management buttons for recipe:', recipe.name);
-        console.log('Recipe is API recipe:', recipe.isApiRecipe);
-        console.log('Buttons found:', { editBtn: !!editBtn, copyBtn: !!copyBtn, deleteBtn: !!deleteBtn });
-        
         // Show appropriate buttons based on recipe type
         if (recipe.isApiRecipe) {
             // API Recipe - show copy button
             if (copyBtn) {
                 copyBtn.style.display = 'flex';
-                console.log('Showing copy button for API recipe');
                 copyBtn.addEventListener('click', function() {
                     if (confirm(`Create a personal copy of "${recipe.name}" that you can edit?`)) {
                         window.location.href = `./recipe.html?fork=${recipeId}`;
@@ -141,7 +136,6 @@ async function setupRecipeManagementButtons(recipeId) {
             // User Recipe - show edit and delete buttons
             if (editBtn) {
                 editBtn.style.display = 'flex';
-                console.log('Showing edit button for user recipe');
                 editBtn.addEventListener('click', function() {
                     window.location.href = `./recipe.html?edit=${recipeId}`;
                 });
@@ -149,7 +143,6 @@ async function setupRecipeManagementButtons(recipeId) {
             
             if (deleteBtn) {
                 deleteBtn.style.display = 'flex';
-                console.log('Showing delete button for user recipe');
                 deleteBtn.addEventListener('click', async function() {
                     const recipeName = recipe.name || 'this recipe';
                     if (confirm(`Are you sure you want to delete "${recipeName}"? This action cannot be undone.`)) {
