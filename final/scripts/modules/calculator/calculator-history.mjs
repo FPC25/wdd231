@@ -18,6 +18,9 @@ export async function saveCalculation() {
     
     const calculation = {
         id: Date.now(),
+        recipeId: state.currentRecipe?.id,
+        recipeName: state.currentRecipe?.name,
+        ingredientCosts: state.ingredientCosts,
         ...state.calculationResults,
         savedAt: new Date().toISOString()
     };
@@ -92,29 +95,44 @@ async function loadCalculationById(calcId) {
         const savedCalculations = loadCalculationHistory();
         const calculation = loadSavedCalculation(calcId, savedCalculations);
         
-        // Load the recipe data first
-        const { loadRecipes, getRecipeById } = await import('../recipe/recipe-data.mjs');
-        await loadRecipes();
+        console.log('Loading calculation:', calculation); // Debug log
         
-        const recipe = getRecipeById(calculation.recipeId);
-        if (!recipe) {
-            await notification.error('Receita Não Encontrada', 'A receita associada a este cálculo não foi encontrada.');
+        if (!calculation.recipeId) {
+            await notification.warning('Dados Incompletos', 'Este cálculo não possui uma receita associada.');
             return;
         }
+        
+        // Load the recipe data first
+        const { loadRecipes, getRecipesData } = await import('../recipe/recipe-data.mjs');
+        await loadRecipes();
+        
+        // Find the recipe by ID
+        const allRecipes = getRecipesData();
+        console.log('Looking for recipe ID:', calculation.recipeId, 'in', allRecipes.length, 'recipes'); // Debug log
+        const recipe = allRecipes.find(r => r.id == calculation.recipeId); // Use == for type coercion
+        
+        if (!recipe) {
+            await notification.error('Receita Não Encontrada', `A receita (ID: ${calculation.recipeId}) associada a este cálculo não foi encontrada.`);
+            return;
+        }
+        
+        console.log('Found recipe:', recipe.name); // Debug log
         
         // Set the recipe in the selector
         const recipeSelect = document.getElementById('recipe-select');
         if (recipeSelect) {
             recipeSelect.value = calculation.recipeId;
             
-            // Trigger change event to load the recipe
-            const changeEvent = new Event('change');
-            recipeSelect.dispatchEvent(changeEvent);
+            // Trigger the loadSelectedRecipe function directly
+            const { loadSelectedRecipe } = await import('./calculator-renderer.mjs');
+            await loadSelectedRecipe();
         }
         
         // Wait a bit for the recipe to load, then set the costs
         setTimeout(async () => {
             try {
+                console.log('Setting ingredient costs:', calculation.ingredientCosts); // Debug log
+                
                 // Set the ingredient costs
                 if (calculation.ingredientCosts) {
                     Object.keys(calculation.ingredientCosts).forEach(index => {
