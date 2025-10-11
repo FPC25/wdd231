@@ -1020,5 +1020,77 @@
     "isSaved": false,
     "isFavorite": false,
     "isApiRecipe": false
+  },
+  {
+    "id": 25,
+    "name": "Protein Smoothie",
+    "description": "A nutritious protein smoothie perfect for post-workout recovery.",
+    "cover": "./images/recipes/Grilled_Chicken_with_Vegetables.webp",
+    "source": {
+      "name": "Health Recipe",
+      "url": null
+    },
+    "difficulty": "easy",
+    "cookTime": {"time": 5, "unitShort": "min"},
+    "serves": 2,
+    "categories": ["Breakfast", "Snack"],
+    "filters": ["Breakfast", "Snack"],
+    "extendedIngredients": [
+      {
+        "name": "protein powder", 
+        "original": "2 servings protein powder",
+        "measures": {
+          "us": {"amount": 2, "unitShort": "serving", "unitLong": "servings"},
+          "metric": {"amount": 2, "unitShort": "serving", "unitLong": "servings"}
+        }
+      },
+      {
+        "name": "banana", 
+        "original": "1 banana",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "piece", "unitLong": "pieces"},
+          "metric": {"amount": 1, "unitShort": "piece", "unitLong": "pieces"}
+        }
+      },
+      {
+        "name": "milk", 
+        "original": "250ml milk",
+        "measures": {
+          "us": {"amount": 250, "unitShort": "ml", "unitLong": "milliliters"},
+          "metric": {"amount": 250, "unitShort": "ml", "unitLong": "milliliters"}
+        }
+      },
+      {
+        "name": "honey", 
+        "original": "1 serving honey",
+        "measures": {
+          "us": {"amount": 1, "unitShort": "serving", "unitLong": "servings"},
+          "metric": {"amount": 1, "unitShort": "serving", "unitLong": "servings"}
+        }
+      }
+    ],
+    "analyzedInstructions": [
+      {
+        "name": "",
+        "steps": [
+          {
+            "number": 1,
+            "step": "Add all ingredients to a blender."
+          },
+          {
+            "number": 2,
+            "step": "Blend until smooth and creamy."
+          },
+          {
+            "number": 3,
+            "step": "Pour into glasses and serve immediately."
+          }
+        ]
+      }
+    ],
+    "summary": "A quick and nutritious protein smoothie that's perfect for breakfast or post-workout recovery.",
+    "isSaved": false,
+    "isFavorite": false,
+    "isApiRecipe": false
   }
 ]
