@@ -1,4 +1,5 @@
 // Rendering functions for recipes
+import { createLazyImage } from '../utils/lazy-loading.mjs';
 
 // Cria HTML do card da receita
 export function createRecipeCard(recipe) {
@@ -16,7 +17,7 @@ export function createRecipeCard(recipe) {
     return `
         <div class="recipe-card" data-recipe-id="${recipe.id}">
             <div class="recipe-image ${imageClass}">
-                <img src="${imageSrc}" alt="${recipe.name}" loading="lazy">
+                ${createLazyImage(imageSrc, recipe.name, 'recipe-card-img')}
                 <div class="recipe-actions">
                     <button class="action-btn save-btn ${savedClass}" 
                             data-recipe-id="${recipe.id}" 
@@ -488,7 +489,7 @@ export function createEnhancedRecipeCard(recipe) {
     return `
         <div class="recipe-card ${recipeTypeClass}" data-recipe-id="${recipe.id}">
             <div class="recipe-image ${imageClass}">
-                <img src="${imageSrc}" alt="${recipe.name}" loading="lazy">
+                ${createLazyImage(imageSrc, recipe.name, 'recipe-card-img')}
                 <div class="recipe-actions">
                     <button class="action-btn save-btn ${savedClass}" 
                             data-recipe-id="${recipe.id}" 

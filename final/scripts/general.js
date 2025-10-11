@@ -98,4 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
         closeMenu,
         toggleMenu
     };
+    
+    // Initialize lazy loading
+    initLazyLoading();
 });
+
+// Import and initialize lazy loading
+import { initLazyLoading } from './modules/utils/lazy-loading.mjs';
