@@ -184,6 +184,31 @@ export function convertSpoonacularRecipe(recipe) {
         difficulty: 'medium',
         categories: mappedCategories,
         filters: mappedCategories,
+        
+        // Use extendedIngredients format to match local JSON structure
+        extendedIngredients: (recipe.extendedIngredients || []).map(ing => {
+            const metricMeasure = ing.measures?.metric;
+            const usMeasure = ing.measures?.us;
+            
+            return {
+                name: ing.name || ing.original,
+                original: ing.original,
+                measures: {
+                    us: {
+                        amount: usMeasure?.amount || ing.amount || 1,
+                        unitShort: usMeasure?.unitShort || 'piece',
+                        unitLong: usMeasure?.unitLong || 'piece'
+                    },
+                    metric: {
+                        amount: metricMeasure?.amount || ing.amount || 1,
+                        unitShort: metricMeasure?.unitShort || 'piece',
+                        unitLong: metricMeasure?.unitLong || 'piece'
+                    }
+                }
+            };
+        }),
+        
+        // Keep backward compatibility - create ingredients array for calculator
         ingredients: (recipe.extendedIngredients || []).map(ing => {
             const metricMeasure = ing.measures?.metric;
             const amount = metricMeasure?.amount || ing.amount || 1;
@@ -196,6 +221,9 @@ export function convertSpoonacularRecipe(recipe) {
                 unit: unitShort.toLowerCase(),
                 unitLong: unitLong.toLowerCase(),
                 original: ing.original,
+                // Add calculator-compatible properties
+                quantity: amount,
+                item: ing.name || ing.original
             };
         }),
         
