@@ -133,7 +133,7 @@
       "Assemble everything by alternating the vegetables",
       "Crush the garlic and spread it on top, adding salt and rosemary to taste", 
       "Drizzle with a little olive oil and cover with parchment paper or aluminum foil",
-      "Bake in the oven for 40 minutes at a temperature of 180° C to 200° C (350° F to 400° F)"
+      "Bake in the oven for 40 minutes at a temperature of 180 degrees C to 200 degrees C (350 degrees F to 400 degrees F)"
     ], 
     "isApiRecipe": false,
     "isSaved": true,
@@ -230,7 +230,7 @@
     "description": "The most beloved Brazilian snack! Crispy golden coxinhas filled with seasoned shredded chicken. Perfect for parties or afternoon treats.",
     "cover": "https://fpc25.github.io/wdd231/final/images/recipes/Coxinha.webp",
     "source": {
-      "name": "Estadão Paladar",
+      "name": "Estadao Paladar",
       "url": null
     },
     "difficulty": "medium",
@@ -370,7 +370,7 @@
     ],
     "instructions": [
       "Cook the chicken breast in water with salt, reserve the water and shred the chicken",
-      "In a pan, heat oil and sauté garlic and onion, add annatto powder, oregano, tomato sauce, and shredded chicken",
+      "In a pan, heat oil and saute garlic and onion, add annatto powder, oregano, tomato sauce, and shredded chicken",
       "In a large pot, boil 1.5L of chicken cooking water with bouillon, seasoning, salt, and oil",
       "Add all flour at once when boiling, stir vigorously for 10 minutes until dough pulls away from pan",
       "Knead the hot dough until smooth and elastic, let cool",
@@ -438,8 +438,8 @@
         }
       },
       {
-        "name": "Sazón for meats", 
-        "original": "2 sachets Sazón for meats",
+        "name": "Sazon for meats", 
+        "original": "2 sachets Sazon for meats",
         "measures": {
           "us": {"amount": 2, "unitShort": "sachets", "unitLong": "sachets"},
           "metric": {"amount": 2, "unitShort": "sachets", "unitLong": "sachets"}
@@ -488,7 +488,7 @@
     ],
     "instructions": [
       "Cut chicken fillets into thin slices and wash with lime juice",
-      "Mix Arisco seasoning, Sazón, and black pepper, season each chicken slice",
+      "Mix Arisco seasoning, Sazon, and black pepper, season each chicken slice",
       "Cut carrots and potatoes into rounds, green beans into three parts",
       "Steam each vegetable separately until tender but firm",
       "Season vegetables with salt and chopped cilantro",
@@ -583,7 +583,7 @@
       "Desalt the dried beef for 12 hours, changing water several times",
       "Pressure cook the desalted beef until tender, then shred",
       "Cook cassava until tender, mash with milk and butter",
-      "Sauté onion and garlic, add shredded beef and seasonings",
+      "Saute onion and garlic, add shredded beef and seasonings",
       "Layer cassava puree, beef filling, and more puree in baking dish",
       "Top with cheese and bake until golden",
       "The desalting process is crucial for the final flavor",
@@ -599,7 +599,7 @@
     "description": "A quicker and creamier version of the traditional escondidinho. Perfect for busy weekdays while maintaining the authentic Brazilian flavors.",
     "cover": "https://fpc25.github.io/wdd231/final/images/recipes/escondidinho-de-frigideira.webp",
     "source": {
-      "name": "Estadão Paladar",
+      "name": "Estadao Paladar",
       "url": null
     },
     "difficulty": "easy",
@@ -633,8 +633,8 @@
         }
       },
       {
-        "name": "creamy requeijão", 
-        "original": "creamy requeijão to taste",
+        "name": "creamy requeijao", 
+        "original": "creamy requeijao to taste",
         "measures": {
           "us": {"amount": "to taste", "unitShort": "", "unitLong": ""},
           "metric": {"amount": "to taste", "unitShort": "", "unitLong": ""}
@@ -666,10 +666,10 @@
       }
     ],
     "instructions": [
-      "Pressure cook the dried beef for 1h30, shred, and sauté with seasonings. Add 2 tbsp of requeijão at the end",
+      "Pressure cook the dried beef for 1h30, shred, and saute with seasonings. Add 2 tbsp of requeijao at the end",
       "Cook the cassava for 15 min. Mash with a fork",
-      "In a pan, sauté the mashed cassava with butter, onion, and garlic",
-      "Add the rest of the requeijão to the puree and mix well",
+      "In a pan, saute the mashed cassava with butter, onion, and garlic",
+      "Add the rest of the requeijao to the puree and mix well",
       "Assemble in a baking dish with a layer of puree, the filling, and another layer of puree",
       "Cover with grated cheese and bake to gratinate"
     ],
@@ -784,7 +784,7 @@
     "instructions": [
       "Cook arracacha in boiling salted water until tender",
       "Drain and blend with milk and bouillon cube until smooth",
-      "Sauté onion in butter, add dried beef and cook for 3 minutes",
+      "Saute onion in butter, add dried beef and cook for 3 minutes",
       "Add arracacha cream and cook until boiling",
       "Stir in table cream, season with salt and pepper, turn off heat before boiling again",
       "Serve hot with Parmesan and chives",
@@ -857,7 +857,7 @@
       "Pour caramel into pudding mold, covering bottom and sides",
       "In blender, beat eggs for 1 minute, add condensed milk and milk, blend until smooth",
       "Pour mixture into caramelized mold",
-      "Cover with aluminum foil and bake in water bath at 180°C for 45 minutes",
+      "Cover with aluminum foil and bake in water bath at 180 degreesC for 45 minutes",
       "Test doneness with toothpick - should come out clean",
       "Cool completely and refrigerate before unmolding"
     ],
@@ -868,10 +868,10 @@
   {
     "id": 9,
     "name": "Cheese Bread with Parmesan",
-    "description": "Traditional Brazilian pão de queijo with an extra kick of Parmesan cheese. Perfect for wine pairings and sophisticated gatherings.",
+    "description": "Traditional Brazilian pao de queijo with an extra kick of Parmesan cheese. Perfect for wine pairings and sophisticated gatherings.",
     "cover": "https://fpc25.github.io/wdd231/final/images/recipes/paodequeijo.webp",
     "source": {
-      "name": "Estadão Paladar",
+      "name": "Estadao Paladar",
       "url": null
     },
     "difficulty": "easy",
@@ -930,7 +930,7 @@
       }
     ],
     "instructions": [
-      "Preheat oven to 180°C (350°F)",
+      "Preheat oven to 180 degreesC (350 degreesF)",
       "Heat water and oil until boiling",
       "Pour boiling mixture over cassava starch and stir vigorously",
       "Add Parmesan cheese and mix well",
@@ -947,10 +947,10 @@
   {
     "id": 10,
     "name": "Traditional Cheese Bread",
-    "description": "The most authentic Brazilian pão de queijo recipe using meia cura cheese. Perfectly elastic texture and golden brown exterior make this a favorite across Brazil.",
+    "description": "The most authentic Brazilian pao de queijo recipe using meia cura cheese. Perfectly elastic texture and golden brown exterior make this a favorite across Brazil.",
     "cover": "https://fpc25.github.io/wdd231/final/images/recipes/pao-de-queijo-tradicional.webp",
     "source": {
-      "name": "Estadão Paladar",
+      "name": "Estadao Paladar",
       "url": null
     },
     "difficulty": "easy",
@@ -1009,13 +1009,13 @@
       }
     ],
     "instructions": [
-      "Preheat the oven to 180°C (350°F). This step is crucial for the success of the recipe.",
+      "Preheat the oven to 180 degreesC (350 degreesF). This step is crucial for the success of the recipe.",
       "In a small saucepan, heat the milk and butter until it boils.", 
       "Pour the boiling mixture over the cassava starch and stir vigorously with a spoon to form a uniform paste. This process, known as 'scalding the starch', is the secret to the characteristic elastic texture.",
       "Add the grated cheese and mix well to incorporate it into the dough. Then, add the egg and mix again. Adjust the salt if necessary, remembering that the cheese is already salty.",
       "With oiled hands, shape small balls",
       "Arrange the cheese breads on a baking sheet (no need to grease) and bake in the preheated medium oven until they are well-browned.",
-      "Tip: For a flawless result, don't be afraid to bake the cheese breads until they are golden—the ideal color is more bronze than yellow. The perfect texture depends on balance: if the dough is too sticky, it may have too much liquid; if it's dry, it may lack fat. Feel the dough and adjust if necessary."
+      "Tip: For a flawless result, don't be afraid to bake the cheese breads until they are golden-the ideal color is more bronze than yellow. The perfect texture depends on balance: if the dough is too sticky, it may have too much liquid; if it's dry, it may lack fat. Feel the dough and adjust if necessary."
     ],
     "isSaved": false,
     "isFavorite": false,
