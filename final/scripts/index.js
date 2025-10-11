@@ -2,7 +2,7 @@ import { loadRecipes, onFavoritesChange } from './modules/recipe/recipe-data.mjs
 import { getDomElements } from './modules/index/index-dom.mjs';
 import { setupSearchEvents, setupStorageEvents, setupVisibilityEvents } from './modules/index/index-events.mjs';
 import { renderFavoritesSection, renderSavedSection, displayUserRecipes } from './modules/index/index-renderer.mjs';
-import { initLazyLoading } from './modules/utils/lazy-loading.mjs';
+import { initBelowFoldLazyLoading } from './modules/utils/below-fold-lazy.mjs';
 
 document.addEventListener('DOMContentLoaded', async function() {
     // Carregar dados das receitas
@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     renderSavedSection();
     displayUserRecipes();
     
-    // Initialize lazy loading after content is rendered
-    setTimeout(initLazyLoading, 100);
+    // Initialize below-fold lazy loading after content is rendered
+    setTimeout(initBelowFoldLazyLoading, 100);
     
     // Configurar event listeners
     setupSearchEvents(searchInput, searchButton);
@@ -30,6 +30,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         renderSavedSection();
         displayUserRecipes();
         // Re-initialize lazy loading after content updates
-        setTimeout(initLazyLoading, 100);
+        setTimeout(initBelowFoldLazyLoading, 100);
     });
 });

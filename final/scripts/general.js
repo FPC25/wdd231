@@ -1,3 +1,6 @@
+// Import below-fold lazy loading
+import { initBelowFoldLazyLoading } from './modules/utils/below-fold-lazy.mjs';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos do DOM
     const hamburger = document.getElementById('hamburger');
@@ -99,9 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleMenu
     };
     
-    // Initialize lazy loading
-    initLazyLoading();
+    // Initialize below-fold lazy loading
+    initBelowFoldLazyLoading();
 });
-
-// Import and initialize lazy loading
-import { initLazyLoading } from './modules/utils/lazy-loading.mjs';

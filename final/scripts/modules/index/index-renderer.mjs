@@ -8,7 +8,6 @@ import { filterRecipes } from '../recipe/recipe-data.mjs';
 import { renderRecipes } from '../recipe/recipe-renderer.mjs';
 import { getDraft, getUserRecipes, saveUserRecipes } from './index-utils.mjs';
 import { getDomElements } from './index-dom.mjs';
-import { createLazyImage } from '../utils/lazy-loading.mjs';
 
 /**
  * Render the favorites section
@@ -123,7 +122,7 @@ function createUserRecipeCard(recipe) {
     return `
         <div class="recipe-card ${recipe.isDraft ? 'draft-card' : 'user-recipe-card'}" data-recipe-id="${recipe.id}">
             <div class="recipe-image ${imageClass}">
-                ${createLazyImage(imageSrc, recipe.name, 'user-recipe-img')}
+                <img src="${imageSrc}" alt="${recipe.name}" loading="lazy">
                 ${draftBadge}
                 <div class="recipe-actions">
                     ${actions}

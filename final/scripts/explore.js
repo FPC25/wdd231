@@ -3,7 +3,7 @@ import { getDomElements } from './modules/explore/explore-dom.mjs';
 import { setupEventListeners } from './modules/explore/explore-events.mjs';
 import { renderCurrentView } from './modules/explore/explore-renderer.mjs';
 import { getStateFromURL } from './modules/explore/explore-url.mjs';
-import { initLazyLoading } from './modules/utils/lazy-loading.mjs';
+import { initBelowFoldLazyLoading } from './modules/utils/below-fold-lazy.mjs';
 
 document.addEventListener('DOMContentLoaded', async function() {
     // Load recipes
@@ -17,14 +17,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     getStateFromURL();
     await renderCurrentView();
     
-    // Initialize lazy loading after initial render
-    setTimeout(initLazyLoading, 100);
+    // Initialize below-fold lazy loading after initial render
+    setTimeout(initBelowFoldLazyLoading, 100);
     
     // Listen for daily recipes updates
     window.addEventListener('daily-recipes-updated', () => {
         renderCurrentView().then(() => {
             // Re-initialize lazy loading after content updates
-            setTimeout(initLazyLoading, 100);
+            setTimeout(initBelowFoldLazyLoading, 100);
         });
     });
 });
