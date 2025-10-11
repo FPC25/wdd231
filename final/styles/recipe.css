@@ -438,56 +438,25 @@
     opacity: 0.7;
 }
 
-/* Remove button - enhanced styling */
+/* Remove button - specific styles only */
 .remove-ingredient {
-    background: var(--accent-color);
-    color: var(--secondary-color);
-    border: none;
     border-radius: 50%;
     width: 44px;
     height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
     font-size: 18px;
     font-weight: bold;
     flex-shrink: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     align-self: end;
-    margin-top: 1.5rem; /* Reduzido de 1.75rem para 1.5rem */
-}
-
-.remove-ingredient:hover {
-    background: #8B4A28;
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Add ingredient button - enhanced styling */
-#add-ingredient-btn {
-    background: var(--accent-color);
-    color: var(--secondary-color);
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.3s ease;
     margin-top: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+/* Add ingredient button - specific styles only */
+#add-ingredient-btn {
+    margin-top: 1.5rem;
     gap: 0.5rem;
     min-height: 48px;
 }
-
 #add-ingredient-btn:hover {
-    background: var(--primary-color);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }

@@ -116,7 +116,7 @@ export function addIngredientRow() {
             <label>Ingredient</label>
             <input type="text" class="ingredient-input" placeholder="e.g., flour, sugar">
         </div>
-        <button type="button" class="remove-ingredient" onclick="removeIngredientRow(this)">×</button>
+        <button type="button" class="remove-ingredient btn btn-danger flex-center" onclick="removeIngredientRow(this)">×</button>
     `;
 
     container.appendChild(ingredientRow);
