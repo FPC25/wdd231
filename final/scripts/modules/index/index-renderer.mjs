@@ -114,7 +114,7 @@ function createUserRecipeCard(recipe) {
     `;
     
     return `
-        <div class="recipe-card ${recipe.isDraft ? 'draft-card' : 'user-recipe-card'}" data-recipe-id="${recipe.id}">
+        <div class="recipe-card card ${recipe.isDraft ? 'draft-card' : 'user-recipe-card'}" data-recipe-id="${recipe.id}">
             <div class="recipe-image ${imageClass}">
                 <img src="${imageSrc}" alt="${recipe.name}" loading="lazy">
                 ${draftBadge}
