@@ -11,7 +11,7 @@ export function createRecipeCard(recipe) {
     const imageClass = hasImage ? 'has-photo' : 'no-photo';
     
     return `
-        <div class="recipe-card" data-recipe-id="${recipe.id}">
+        <div class="recipe-card card" data-recipe-id="${recipe.id}">
             <div class="recipe-image ${imageClass}">
                 <img src="${imageSrc}" alt="${recipe.name}" loading="lazy">
                 <div class="recipe-actions">
@@ -483,7 +483,7 @@ export function createEnhancedRecipeCard(recipe) {
     const recipeTypeClass = isApiRecipe ? 'api-recipe' : 'user-recipe';
     
     return `
-        <div class="recipe-card ${recipeTypeClass}" data-recipe-id="${recipe.id}">
+        <div class="recipe-card card ${recipeTypeClass}" data-recipe-id="${recipe.id}">
             <div class="recipe-image ${imageClass}">
                 <img src="${imageSrc}" alt="${recipe.name}" loading="lazy">
                 <div class="recipe-actions">
