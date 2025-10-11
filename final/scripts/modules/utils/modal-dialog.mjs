@@ -72,7 +72,7 @@ function setupModalEvents() {
  */
 export function showNotification(title, message, type = 'info') {
     return new Promise((resolve) => {
-        console.log('Showing modal:', title, message, type); // Debug log
+
         
         initializeModal();
         
@@ -103,7 +103,6 @@ export function showNotification(title, message, type = 'info') {
         
         // Setup primary button action
         primaryBtn.onclick = () => {
-            console.log('Modal OK clicked'); // Debug log
             closeModal();
             resolve(true);
         };
@@ -123,7 +122,6 @@ export function showNotification(title, message, type = 'info') {
  */
 export function showConfirmation(title, message, confirmText = 'OK', cancelText = 'Cancel') {
     return new Promise((resolve) => {
-        console.log('Showing confirmation:', title, message); // Debug log
         
         initializeModal();
         
@@ -149,13 +147,11 @@ export function showConfirmation(title, message, confirmText = 'OK', cancelText 
         
         // Setup button actions
         primaryBtn.onclick = () => {
-            console.log('Confirmation OK clicked'); // Debug log
             closeModal();
             resolve(true);
         };
         
         secondaryBtn.onclick = () => {
-            console.log('Confirmation Cancel clicked'); // Debug log
             closeModal();
             resolve(false);
         };
@@ -169,13 +165,10 @@ export function showConfirmation(title, message, confirmText = 'OK', cancelText 
  * Show the modal
  */
 function showModal() {
-    console.log('showModal called, modalContainer exists:', !!modalContainer); // Debug log
     if (!modalContainer) return;
     
     modalContainer.classList.add('active');
     document.body.classList.add('modal-open');
-    
-    console.log('Modal classes added, should be visible now'); // Debug log
     
     // Focus on the primary button
     setTimeout(() => {
@@ -190,7 +183,6 @@ function showModal() {
  * Close the modal
  */
 function closeModal() {
-    console.log('closeModal called'); // Debug log
     if (!modalContainer) return;
     
     modalContainer.classList.remove('active');
