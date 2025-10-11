@@ -1,5 +1,7 @@
 /* Import modal styles */
 @import './components/modal.css';
+/* Import search bar styles */
+@import './components/search-bar.css';
 /* Import utilities */
 @import './utilities.css';
 
