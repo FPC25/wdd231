@@ -7,19 +7,15 @@ const BASE_URL = 'https://api.spoonacular.com';
 /**
  * Simple API call function
  */
-async function apiCall(endpoint, params = {}) {
-    const url = new URL(`${BASE_URL}${endpoint}`);
+async function fetchFromAPI(endpoint, params = {}) {
+    const url = new URL(endpoint, BASE_URL);
     url.searchParams.append('apiKey', API_KEY);
     
-    Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && value !== '') {
-            url.searchParams.append(key, value);
-        }
-    });
-
-    console.log(`API Call: ${url.toString()}`);
+    for (const [key, value] of Object.entries(params)) {
+        url.searchParams.append(key, value);
+    }
     
-    const response = await fetch(url.toString());
+    const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`API Error: ${response.status}`);
     }
@@ -31,14 +27,14 @@ async function apiCall(endpoint, params = {}) {
  * Get random recipes
  */
 export async function getRandomRecipes(number = 30) {
-    return await apiCall('/recipes/random', { number });
+    return await fetchFromAPI('/recipes/random', { number });
 }
 
 /**
  * Search recipes
  */
 export async function searchRecipes(query, number = 10) {
-    return await apiCall('/recipes/complexSearch', { 
+    return await fetchFromAPI('/recipes/complexSearch', { 
         query, 
         number,
         addRecipeInformation: true 
@@ -49,7 +45,7 @@ export async function searchRecipes(query, number = 10) {
  * Get recipe by ID
  */
 export async function getRecipeInformation(id) {
-    return await apiCall(`/recipes/${id}/information`);
+    return await fetchFromAPI(`/recipes/${id}/information`);
 }
 
 /**
@@ -89,7 +85,6 @@ function getRecipesFromStorage() {
 function saveToJsonFile(data) {
     try {
         const jsonData = JSON.stringify(data, null, 2);
-        console.log('Recipes saved to localStorage and JSON backup');
     } catch (error) {
         console.warn('Could not save JSON backup:', error);
     }
@@ -101,16 +96,13 @@ function saveToJsonFile(data) {
 export async function getDailyRecipes() {
     // Check if we have recipes and they're not expired
     if (!isRecipesExpired()) {
-        console.log('Using recipes from localStorage');
         return { recipes: getRecipesFromStorage() };
     }
     
-    console.log('Fetching new daily recipes (expired or not found)');
     const data = await getRandomRecipes(30);
     
     if (data.recipes && data.recipes.length > 0) {
         saveRecipesToStorage(data.recipes);
-        console.log(`Saved ${data.recipes.length} recipes to localStorage for 1 day`);
     }
     
     return data;
@@ -248,5 +240,4 @@ export function convertSpoonacularRecipe(recipe) {
  */
 export function clearRecipes() {
     localStorage.removeItem(STORAGE_KEY);
-    console.log('localStorage cleared - new recipes will be fetched');
 }
