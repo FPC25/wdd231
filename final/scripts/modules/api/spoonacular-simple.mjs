@@ -170,7 +170,7 @@ export function convertSpoonacularRecipe(recipe) {
         id: recipe.id,
         name: recipe.title || 'Unknown Recipe',
         description: recipe.summary ? recipe.summary.replace(/<[^>]*>/g, '').substring(0, 200) + '...' : '',
-        cover: recipe.image || './images/placeholder.svg',
+        cover: recipe.image || 'https://fpc25.github.io/wdd231/final/images/placeholder.svg',
         cookTime: { time: recipe.readyInMinutes || 30, unit: 'min' },
         serves: recipe.servings || 4,
         difficulty: 'medium',
