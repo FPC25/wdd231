@@ -122,22 +122,11 @@
         padding: 2rem;
         max-width: 1200px;
         margin: 0 auto;
-        padding-top: 2rem; /* Compensar altura do header */
-    }
-
-    /* Search container para páginas que têm search */
-    .search-container {
-        text-align: center;
-        margin: 2rem 0 3rem 0;
-    }
-
-    .search-box {
-        max-width: 500px;
-        margin: 0 auto;
+        padding-top: 2rem;
     }
 
     .bottom-nav {
-        display: none; /* Esconder banner no desktop */
+        display: none;
     }
 }
 

@@ -17,41 +17,12 @@
     padding: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-color);
-    margin: -2rem -2rem 2rem -2rem; /* Compensar padding do container */
-    background: var(--secondary-color); /* Fundo branco explícito */
-    border-radius: 12px 12px 0 0; /* Bordas arredondadas apenas no topo */
+    margin: -2rem -2rem 2rem -2rem;
+    background: var(--secondary-color);
+    border-radius: 12px 12px 0 0;
 }
 
-#back-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.75rem;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 8px;
-    color: var(--text-color);
-    font-size: 2.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-    line-height: 1;
-}
-
-#back-btn:hover {
-    background-color: var(--light-gray);
-    transform: translateX(-2px);
-}
-
-#back-btn:active {
-    transform: translateX(0);
-    background-color: var(--border-color);
-}
-
-/* Recipe name in header - agora ocupa todo o espaço */
-.recipe-header-name {
+.recipe-detail-header h1 {
     flex: 1;
     text-align: center;
     font-family: 'Lora', serif;

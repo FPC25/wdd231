@@ -88,30 +88,6 @@
     font-weight: 600;
 }
 
-/* Section Headers - Mobile First (garante lado a lado em mobile) */
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    width: 100%;
-    gap: 1rem;
-}
-
-.section-header h2 {
-    font-family: 'Lora', serif;
-    font-size: 1.4rem;
-    color: var(--text-color);
-    margin: 0;
-    flex: 1;
-    min-width: 0;
-    text-decoration: underline;
-    text-decoration-color: var(--text-color);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
-}
-
 /* Add recipe link */
 .add-recipe-link {
     color: var(--text-color);
@@ -361,6 +337,118 @@
     .delete-draft-btn img {
         width: 14px;
         height: 14px;
+    }
+}
+
+/* Desktop styles - 768px and above */
+@media (min-width: 768px) {
+    /* Link ativo específico para index - MÁXIMA ESPECIFICIDADE */
+    header .header-top .hamburger-menu a#home,
+    .header-top nav.hamburger-menu a#home {
+        background: var(--accent-color) !important;
+        color: var(--secondary-color) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    header .header-top .hamburger-menu a#home:hover,
+    .header-top nav.hamburger-menu a#home:hover {
+        background: var(--text-color) !important;
+        color: var(--secondary-color) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Main content adjustments específicos do index */
+    main {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Section headers desktop styling */
+    .section-header {
+        margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        text-decoration: underline;
+        text-decoration-color: var(--text-color);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+    }
+
+    .add-recipe-link {
+        font-size: 1.1rem;
+    }
+
+    /* Favorites: converter de horizontal scroll para grid */
+    .favorites .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        overflow-x: visible;
+        padding-bottom: 0;
+    }
+
+    .favorites .recipe-card {
+        width: 100%;
+        min-width: auto;
+    }
+
+    /* Your Recipes: melhor grid para desktop */
+    .your-recipes .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .your-recipes .recipe-card {
+        width: 100%;
+    }
+
+    /* Form styles específicos para add-recipe */
+    .add-recipe-form {
+        max-width: 800px;
+        margin: 0 auto;
+        background: var(--secondary-color);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Large desktop - 1024px and above */
+@media (min-width: 1024px) {
+    main {
+        padding: 3rem;
+    }
+
+    .favorites .recipe-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+
+    .your-recipes .recipe-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .section-header h2 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Extra large desktop - 1200px and above */
+@media (min-width: 1200px) {
+    main {
+        padding: 4rem;
+    }
+
+    /* Permitir até 4 colunas em favoritas se houver espaço */
+    .favorites .recipe-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        max-width: 1200px;
+        margin: 0 auto;
     }
 }
 
