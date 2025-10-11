@@ -75,7 +75,7 @@ async function loadRecipeDetail(recipeId) {
     }
     
     // Atualizar título da página
-    document.getElementById('page-title').textContent = `${recipe.name} - Flavorfy`;
+    document.title = `${recipe.name} - Flavorfy`;
     
     // Exibir conteúdo da receita
     displayRecipe(recipe);
