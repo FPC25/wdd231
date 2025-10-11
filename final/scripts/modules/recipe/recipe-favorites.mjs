@@ -34,7 +34,6 @@ export function toggleFavorite(recipeId) {
         
         saveFavoritesToStorage(favorites);
         saveSavedToStorage(saved);
-        localStorage.setItem('recipesData', JSON.stringify(recipesData));
         
         updateAllButtons(recipeId, recipe.isFavorite, recipe.isSaved);
         notifyFavoritesChange();
@@ -81,7 +80,6 @@ export function toggleSaved(recipeId) {
         
         saveFavoritesToStorage(favorites);
         saveSavedToStorage(saved);
-        localStorage.setItem('recipesData', JSON.stringify(recipesData));
         
         updateAllButtons(recipeId, recipe.isFavorite, recipe.isSaved);
         notifyFavoritesChange();
