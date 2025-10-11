@@ -53,26 +53,19 @@ async function loadRecipeDetail(recipeId) {
         return;
     }
     
-    console.log('🔍 [RECIPE DETAIL] Loading recipe:', recipe.name, 'isApiRecipe:', recipe.isApiRecipe);
-    
     // Se for uma receita da API, tentar buscar detalhes completos
     if (recipe.isApiRecipe && recipeId.toString().startsWith('api_')) {
-        console.log('🌐 [RECIPE DETAIL] Fetching detailed API recipe...');
         
         try {
             const detailedRecipe = await getRecipeDetails(recipeId);
             
             if (detailedRecipe) {
-                console.log('✅ [RECIPE DETAIL] Got detailed recipe:', detailedRecipe);
-                // Preserve user interactions from original recipe
                 recipe = {
                     ...detailedRecipe,
                     isFavorite: recipe.isFavorite,
                     isSaved: recipe.isSaved
-                };
-                console.log('📋 [RECIPE DETAIL] Using enhanced detailed recipe data');
+                };;
             } else {
-                console.log('ℹ️ [RECIPE DETAIL] Detailed fetch returned null, using existing search data');
             }
         } catch (error) {
             console.log('⚠️ [RECIPE DETAIL] Detailed fetch failed (expected with CORS), using existing data:', error.message);
