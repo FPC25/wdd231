@@ -70,3 +70,6 @@ function setupStorageEvents() {
         });
     });
 }
+
+// Export alias for backward compatibility
+export { initializeAllEvents as setupEventListeners };

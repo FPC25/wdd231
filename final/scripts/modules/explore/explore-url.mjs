@@ -14,3 +14,23 @@ export function updateUrl(search, filter) {
     if (filter !== undefined) urlParams.set('filter', filter);
     window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
 }
+
+export function getStateFromURL() {
+    const { searchParam, filterParam } = parseUrlParameters();
+    
+    // Apply search parameter if exists
+    if (searchParam) {
+        const searchInput = document.getElementById('recipe-search');
+        if (searchInput) {
+            searchInput.value = searchParam;
+        }
+    }
+    
+    // Apply filter parameter if exists
+    if (filterParam) {
+        const filterSelect = document.getElementById('recipe-filter');
+        if (filterSelect) {
+            filterSelect.value = filterParam;
+        }
+    }
+}
