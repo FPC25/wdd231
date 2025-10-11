@@ -7,8 +7,11 @@ export function createUnitOptions() {
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     const volumeOptions = ['ml', 'l', 'cup', 'tbsp', 'tsp', 'fl oz', 'pint', 'quart', 'gallon']
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
+    const servingOptions = ['serving', 'servings']
+        .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     
     return `
+        <optgroup label="Servings">${servingOptions}</optgroup>
         <optgroup label="Units">${unitOptions}</optgroup>
         <optgroup label="Weight">${weightOptions}</optgroup>
         <optgroup label="Volume">${volumeOptions}</optgroup>
@@ -18,15 +21,33 @@ export function createUnitOptions() {
 // Criar opções de unidades compatíveis com base no tipo de unidade selecionado
 export function createCompatibleUnitOptions(unitType, selectedUnit = null) {
     switch (unitType) {
-        case 'weight':
+        case 'serving':
+            // Para serving, permite conversão para todas as unidades
+            const servingOptions = ['serving', 'servings']
+                .map(unit => `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unit}</option>`).join('');
+            const unitOptions = ['piece']
+                .map(unit => `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unit}</option>`).join('');
             const weightOptions = ['g', 'kg', 'lb', 'oz']
                 .map(unit => `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unit}</option>`).join('');
-            return `<optgroup label="Weight">${weightOptions}</optgroup>`;
-        
-        case 'volume':
             const volumeOptions = ['ml', 'l', 'cup', 'tbsp', 'tsp', 'fl oz', 'pint', 'quart', 'gallon']
                 .map(unit => `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unit}</option>`).join('');
-            return `<optgroup label="Volume">${volumeOptions}</optgroup>`;
+            
+            return `
+                <optgroup label="Servings">${servingOptions}</optgroup>
+                <optgroup label="Units">${unitOptions}</optgroup>
+                <optgroup label="Weight">${weightOptions}</optgroup>
+                <optgroup label="Volume">${volumeOptions}</optgroup>
+            `;
+        
+        case 'weight':
+            const weightOptionsOnly = ['g', 'kg', 'lb', 'oz']
+                .map(unit => `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unit}</option>`).join('');
+            return `<optgroup label="Weight">${weightOptionsOnly}</optgroup>`;
+        
+        case 'volume':
+            const volumeOptionsOnly = ['ml', 'l', 'cup', 'tbsp', 'tsp', 'fl oz', 'pint', 'quart', 'gallon']
+                .map(unit => `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unit}</option>`).join('');
+            return `<optgroup label="Volume">${volumeOptionsOnly}</optgroup>`;
         
         case 'unit':
         default:
@@ -36,6 +57,10 @@ export function createCompatibleUnitOptions(unitType, selectedUnit = null) {
 
 export function getUnitTypeForTemplate(unit) {
     const lowerUnit = unit.toLowerCase();
+    
+    // Unidades de serving
+    const servingUnits = ['serving', 'servings'];
+    if (servingUnits.includes(lowerUnit)) return 'serving';
     
     // Unidades de peso
     const weightUnits = ['g', 'kg', 'lb', 'oz', 'gram', 'grams', 'kilogram', 'kilograms', 'pound', 'pounds', 'ounce', 'ounces'];
