@@ -290,7 +290,7 @@ footer {
         padding: 1rem;
     }
     
-    .recipe-grid {
+    .recipe-grid:not(.favorites .recipe-grid) {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 0.75rem;
     }
@@ -301,7 +301,7 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .recipe-grid {
+    .recipe-grid:not(.favorites .recipe-grid) {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 0.5rem;
     }

@@ -32,25 +32,27 @@
 
 /* Recipe Grid - Favorites Section (Horizontal Scroll) */
 .favorites .recipe-grid {
-    display: flex;
+    display: flex !important;
+    grid-template-columns: none !important;
     gap: 1rem;
-    overflow-x: auto;
     padding-bottom: 0.5rem;
-    scroll-behavior: smooth;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) transparent;
 }
 
 .favorites .recipe-grid::-webkit-scrollbar {
-    height: 6px;
+    height: 8px;
 }
 
 .favorites .recipe-grid::-webkit-scrollbar-track {
-    background: var(--light-gray);
-    border-radius: 3px;
+    background: var(--light-background);
+    border-radius: 4px;
 }
 
 .favorites .recipe-grid::-webkit-scrollbar-thumb {
     background: var(--accent-color);
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .favorites .recipe-grid::-webkit-scrollbar-thumb:hover {
@@ -64,21 +66,21 @@
 /* Recipe Grid - Recent/Saved Section (Grid Layout like explore) */
 .recent .recipe-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1rem;
 }
 
 /* Recipe Card - Favorites Section (Fixed Width for horizontal scroll) */
 .favorites .recipe-card {
-    width: 220px;
-    min-width: 220px;
+    width: 180px;
+    min-width: 180px;
     flex-shrink: 0;
 }
 
 /* Recipe Card - Recent/Saved Section (Responsive width for grid) */
 .recent .recipe-card {
     width: 100%;
-    min-width: 200px;
+    min-width: 180px;
     max-width: none;
 }
 
@@ -318,6 +320,21 @@
 
 /* Responsividade */
 @media (max-width: 768px) {
+    /* Favorites: manter scroll horizontal e tamanho fixo em mobile */
+    .favorites .recipe-grid {
+        display: flex !important;
+        grid-template-columns: none !important;
+        gap: 0.75rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .favorites .recipe-card {
+        width: 160px;
+        min-width: 160px;
+        flex-shrink: 0;
+    }
+
     .draft-badge {
         font-size: 0.7rem;
         padding: 0.2rem 0.4rem;
@@ -337,6 +354,23 @@
     .delete-draft-btn img {
         width: 14px;
         height: 14px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .favorites .recipe-grid {
+        display: flex !important;
+        grid-template-columns: none !important;
+        gap: 0.5rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .favorites .recipe-card {
+        width: 140px;
+        min-width: 140px;
+        flex-shrink: 0;
     }
 }
 
@@ -381,18 +415,19 @@
         font-size: 1.1rem;
     }
 
-    /* Favorites: converter de horizontal scroll para grid */
+    /* Favorites: manter scroll horizontal em desktop */
     .favorites .recipe-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        display: flex !important;
+        grid-template-columns: none !important;
         gap: 1.5rem;
-        overflow-x: visible;
-        padding-bottom: 0;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
     }
 
     .favorites .recipe-card {
-        width: 100%;
-        min-width: auto;
+        width: 180px;
+        min-width: 180px;
+        flex-shrink: 0;
     }
 
     /* Your Recipes: melhor grid para desktop */
@@ -424,8 +459,9 @@
     }
 
     .favorites .recipe-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
+        display: flex !important;
+        grid-template-columns: none !important;
+        gap: 1.5rem;
     }
 
     .your-recipes .recipe-grid {
@@ -444,9 +480,11 @@
         padding: 4rem;
     }
 
-    /* Permitir até 4 colunas em favoritas se houver espaço */
+    /* Manter favorites como scroll horizontal com mais espaço */
     .favorites .recipe-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        display: flex !important;
+        grid-template-columns: none !important;
+        gap: 2rem;
         max-width: 1200px;
         margin: 0 auto;
     }
