@@ -2,7 +2,6 @@
 
 import { getState } from './calculator-state.mjs';
 import { notification, showConfirmation } from '../utils/modal-dialog.mjs';
-import { testModal } from '../utils/modal-test.mjs';
 
 export function loadCalculationHistory() {
     const savedCalculations = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
@@ -27,10 +26,7 @@ export async function saveCalculation() {
     savedCalculations.push(calculation);
     localStorage.setItem('calculationHistory', JSON.stringify(savedCalculations));
     
-    // Test with simple modal first
-    testModal();
-    
-    // await notification.success('Cálculo Salvo!', 'Seu cálculo foi salvo com sucesso na sua coleção.');
+    await notification.success('Cálculo Salvo!', 'Seu cálculo foi salvo com sucesso na sua coleção.');
     
     // Update the history display
     displayCalculationHistory();
@@ -96,7 +92,80 @@ async function loadCalculationById(calcId) {
         const savedCalculations = loadCalculationHistory();
         const calculation = loadSavedCalculation(calcId, savedCalculations);
         
-        await notification.info('Cálculo Carregado!', 'O cálculo foi carregado. (Funcionalidade em desenvolvimento)');
+        // Load the recipe data first
+        const { loadRecipes, getRecipeById } = await import('../recipe/recipe-data.mjs');
+        await loadRecipes();
+        
+        const recipe = getRecipeById(calculation.recipeId);
+        if (!recipe) {
+            await notification.error('Receita Não Encontrada', 'A receita associada a este cálculo não foi encontrada.');
+            return;
+        }
+        
+        // Set the recipe in the selector
+        const recipeSelect = document.getElementById('recipe-select');
+        if (recipeSelect) {
+            recipeSelect.value = calculation.recipeId;
+            
+            // Trigger change event to load the recipe
+            const changeEvent = new Event('change');
+            recipeSelect.dispatchEvent(changeEvent);
+        }
+        
+        // Wait a bit for the recipe to load, then set the costs
+        setTimeout(async () => {
+            try {
+                // Set the ingredient costs
+                if (calculation.ingredientCosts) {
+                    Object.keys(calculation.ingredientCosts).forEach(index => {
+                        const costData = calculation.ingredientCosts[index];
+                        if (!costData) return;
+                        
+                        // Find the cost input for this ingredient
+                        const costInput = document.querySelector(`[data-ingredient-index="${index}"] .cost-input`);
+                        const unitSelect = document.querySelector(`[data-ingredient-index="${index}"] .unit-select`);
+                        const quantityInput = document.querySelector(`[data-ingredient-index="${index}"] .quantity-input`);
+                        
+                        if (costInput && costData.totalCost) {
+                            costInput.value = costData.totalCost.toFixed(2);
+                        }
+                        
+                        if (unitSelect && costData.unit) {
+                            unitSelect.value = costData.unit;
+                        }
+                        
+                        if (quantityInput && costData.quantity) {
+                            quantityInput.value = costData.quantity;
+                        }
+                        
+                        // Trigger input events to update calculations
+                        if (costInput) {
+                            costInput.dispatchEvent(new Event('input'));
+                        }
+                    });
+                }
+                
+                // Set serves if available
+                const servesInput = document.getElementById('recipe-serves');
+                if (servesInput && calculation.serves) {
+                    servesInput.value = calculation.serves;
+                    servesInput.dispatchEvent(new Event('input'));
+                }
+                
+                // Set profit margin if available
+                const profitInput = document.getElementById('profit-margin');
+                if (profitInput && calculation.profitMargin) {
+                    profitInput.value = calculation.profitMargin;
+                    profitInput.dispatchEvent(new Event('input'));
+                }
+                
+                await notification.success('Cálculo Carregado!', 'O cálculo foi carregado com sucesso. Todos os custos e configurações foram restaurados.');
+                
+            } catch (loadError) {
+                console.error('Error setting calculation data:', loadError);
+                await notification.warning('Carregamento Parcial', 'A receita foi carregada, mas alguns dados podem não ter sido restaurados completamente.');
+            }
+        }, 500);
         
     } catch (error) {
         console.error('Error loading calculation:', error);
