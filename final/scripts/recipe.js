@@ -18,13 +18,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     await loadRecipes();
     initializeForm();
     addEventListeners();
-    checkForEditMode(); // Changed from loadDraftIfExists to handle edit/fork modes
+    checkForEditMode();
 });
 
 let ingredientCount = 0;
 
-// MANTER ESTAS FUNÇÕES (não foram migradas):
-// Coleta dados do formulário
+// Collect form data
 function collectFormData() {
     let existingRecipes = [];
     try {
@@ -58,7 +57,6 @@ function collectFormData() {
         const item = row.querySelector('.ingredient-input').value.trim();
         const unit = row.querySelector('.unit-input').value.trim();
         
-        // Check if "to taste" is active
         const isToTaste = toTasteBtn && toTasteBtn.dataset.active === 'true';
         const quantityValue = quantityInput.value.trim();
         
@@ -104,7 +102,7 @@ function collectFormData() {
     };
 }
 
-// Valida dados do formulário
+// Validate form data
 function validateForm() {
     const name = document.getElementById('recipe-name').value.trim();
     const difficulty = document.getElementById('difficulty').value;
@@ -151,14 +149,13 @@ function validateForm() {
     return true;
 }
 
-// Manipula submissão do formulário
+// Handle form submission
 async function handleFormSubmit(event) {
     event.preventDefault();
     
     if (!validateForm()) return;
     
     try {
-        // Check if we're in edit or fork mode
         if (window.editMode?.isEditing) {
             await handleRecipeUpdate();
         } else if (window.editMode?.isForking) {
@@ -172,12 +169,10 @@ async function handleFormSubmit(event) {
     }
 }
 
-// Handle updating existing user recipe
 async function handleRecipeUpdate() {
     const { updateUserRecipe } = await import('./modules/recipe/recipe-management.mjs');
     const recipeData = collectFormData();
-    
-    // Keep the original ID
+
     recipeData.id = window.editMode.recipeId;
     
     const success = updateUserRecipe(window.editMode.recipeId, recipeData);
@@ -221,7 +216,6 @@ async function handleRecipeFork() {
 async function handleNewRecipe() {
     const recipeData = collectFormData();
     
-    // 1. Salvar nas receitas principais (recipesData)
     let existingRecipes = [];
     try {
         existingRecipes = getRecipesData() || [];
@@ -233,7 +227,6 @@ async function handleNewRecipe() {
     existingRecipes.push(recipeData);
     localStorage.setItem('recipesData', JSON.stringify(existingRecipes));
     
-    // 2. CORREÇÃO: Também salvar nas receitas do usuário (userRecipes)
     let userRecipes = [];
     try {
         const storedUserRecipes = localStorage.getItem('userRecipes');
@@ -253,7 +246,7 @@ async function handleNewRecipe() {
     window.location.href = './index.html';
 }
 
-// Salva rascunho da receita
+// Save recipe draft
 function saveDraft() {
     if (!document.getElementById('recipe-name').value.trim()) {
         alert('Please enter at least a recipe name before saving draft');
@@ -265,7 +258,7 @@ function saveDraft() {
     alert('Draft saved successfully!');
 }
 
-// Carrega rascunho se existir
+// Load draft if exists
 function loadDraftIfExists() {
     const draftData = localStorage.getItem('recipeDraft');
     if (draftData) {
@@ -282,7 +275,7 @@ function loadDraftIfExists() {
     }
 }
 
-// Expor funções globais necessárias
+// Expose required global functions
 window.removeIngredientRow = removeIngredientRow;
 window.removeImageSimple = removeImageSimple;
 

@@ -1,9 +1,7 @@
 const API_KEY = '66860e68188d417ca9ce3fdb7964b505';
 const BASE_URL = 'https://api.spoonacular.com';
 
-/**
- * Simple API call function
- */
+// Basic API fetch function
 async function fetchFromAPI(endpoint, params = {}) {
     const url = new URL(endpoint, BASE_URL);
     url.searchParams.append('apiKey', API_KEY);
@@ -20,16 +18,12 @@ async function fetchFromAPI(endpoint, params = {}) {
     return await response.json();
 }
 
-/**
- * Get random recipes
- */
+// Get random recipes from API
 export async function getRandomRecipes(number = 30) {
     return await fetchFromAPI('/recipes/random', { number });
 }
 
-/**
- * Search recipes
- */
+// Search for recipes by query
 export async function searchRecipes(query, number = 10) {
     return await fetchFromAPI('/recipes/complexSearch', { 
         query, 
@@ -38,18 +32,14 @@ export async function searchRecipes(query, number = 10) {
     });
 }
 
-/**
- * Get recipe by ID
- */
+// Get detailed recipe information
 export async function getRecipeInformation(id) {
     return await fetchFromAPI(`/recipes/${id}/information`);
 }
 
-/**
- * Simple localStorage management (1 day)
- */
+// LocalStorage management for caching recipes
 const STORAGE_KEY = 'daily_recipes';
-const ONE_DAY = 24 * 60 * 60 * 1000; // 1 day
+const ONE_DAY = 24 * 60 * 60 * 1000; // cache for one day
 
 function isRecipesExpired() {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -87,9 +77,7 @@ function saveToJsonFile(data) {
     }
 }
 
-/**
- * Get daily recipes from localStorage (1 day storage)
- */
+// Get daily recipes with localStorage caching
 export async function getDailyRecipes() {
     // Check if we have recipes and they're not expired
     if (!isRecipesExpired()) {
@@ -105,9 +93,7 @@ export async function getDailyRecipes() {
     return data;
 }
 
-/**
- * Map Spoonacular categories to our local categories
- */
+// Map API categories to local app categories
 function mapCategoriesToLocal(apiCategories) {
     const localCategories = ['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Snack'];
     const mapped = [];
@@ -148,18 +134,15 @@ function mapCategoriesToLocal(apiCategories) {
         }
     });
     
-    // If no mapping found, try to use general meal timing
+    // Default fallback if no categories match
     if (mapped.length === 0) {
-        // Default to Lunch if no clear categorization
         mapped.push('Lunch');
     }
     
     return mapped;
 }
 
-/**
- * Convert Spoonacular recipe to our format
- */
+// Convert API recipe to app format
 export function convertSpoonacularRecipe(recipe) {
     const mappedCategories = mapCategoriesToLocal(recipe.dishTypes);
 
@@ -210,7 +193,7 @@ export function convertSpoonacularRecipe(recipe) {
                 unit: unitShort.toLowerCase(),
                 unitLong: unitLong.toLowerCase(),
                 original: ing.original,
-                // Add calculator-compatible properties
+                // Calculator compatibility
                 quantity: amount,
                 item: ing.name || ing.original
             };
@@ -220,7 +203,7 @@ export function convertSpoonacularRecipe(recipe) {
                     recipe.instructions?.split('.').filter(s => s.trim()) || 
                     ['Instructions not available'],
         source: {
-            // Use creditsText as primary source name if available, fallback to sourceName
+            // Primary source name with fallback
             name: recipe.creditsText || recipe.sourceName || 'Spoonacular',
             url: recipe.sourceUrl || recipe.spoonacularSourceUrl || null
         },
@@ -232,9 +215,7 @@ export function convertSpoonacularRecipe(recipe) {
     return result;
 }
 
-/**
- * Clear localStorage (force new recipes)
- */
+// Clear recipe cache
 export function clearRecipes() {
     localStorage.removeItem(STORAGE_KEY);
 }

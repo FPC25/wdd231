@@ -1,4 +1,4 @@
-// Data management for recipes
+// Recipe data management
 
 import { getDailyRecipes, searchRecipes, convertSpoonacularRecipe } from '../api/spoonacular-simple.mjs';
 
@@ -6,7 +6,7 @@ let recipesData = [];
 let apiRecipes = [];
 let updateCallbacks = [];
 
-// Carrega receitas do localStorage ou JSON inicial
+// Load recipes from localStorage or initial JSON
 export async function loadRecipes() {
     try {
         const localStorageRecipes = localStorage.getItem('recipesData');
@@ -36,7 +36,7 @@ export async function loadRecipes() {
         initializeUserDataFromServer();
         applyLocalStorageChanges();
         
-        // Add backward compatibility for calculator
+        // Add calculator compatibility
         recipesData = recipesData.map(addIngredientsCompatibility);
         
         localStorage.setItem('recipesData', JSON.stringify(recipesData));
@@ -48,17 +48,17 @@ export async function loadRecipes() {
     }
 }
 
-// Registra callback para mudanças nos favoritos
+// Register callback for favorites changes
 export function onFavoritesChange(callback) {
     updateCallbacks.push(callback);
 }
 
-// Notifica todos os callbacks registrados
+// Notify all registered callbacks
 export function notifyFavoritesChange() {
-    // Garantir que os dados estejam atualizados antes de notificar
+    // Update data before notifying
     applyLocalStorageChanges();
     
-    // Notificar todos os callbacks
+    // Notify all callbacks
     updateCallbacks.forEach(callback => {
         try {
             callback();
@@ -71,7 +71,7 @@ export function notifyFavoritesChange() {
     window.dispatchEvent(new CustomEvent('flavorfy-data-changed'));
 }
 
-// Inicializa dados do usuário na primeira execução
+// Initialize user data on first run
 export function initializeUserDataFromServer() {
     const hasUserData = localStorage.getItem('flavorfy_favorites') || localStorage.getItem('flavorfy_saved');
     
@@ -84,7 +84,7 @@ export function initializeUserDataFromServer() {
     }
 }
 
-// Aplica mudanças do localStorage aos dados das receitas
+// Apply localStorage changes to recipe data
 export function applyLocalStorageChanges() {
     const favorites = getFavoritesFromStorage();
     const saved = getSavedFromStorage();
@@ -120,8 +120,8 @@ export function applyLocalStorageChanges() {
 }
 
 /**
- * Enforce business rules for favorites and saved recipes
- * Rule: Favorites must be saved, but saved doesn't have to be favorite
+ * Business rule enforcement for favorites and saved recipes
+ * Rule: favorites must be saved, but saved doesn't have to be favorite
  */
 function enforceBusinessRules() {
     let favoritesChanged = false;
@@ -172,7 +172,7 @@ function enforceBusinessRules() {
         }
     });
     
-    // Update storage if changes were made
+    // Update storage if needed
     if (favoritesChanged) {
         saveFavoritesToStorage(favorites);
     }
@@ -181,35 +181,35 @@ function enforceBusinessRules() {
     }
 }
 
-// Obtém favoritos do localStorage
+// Get favorites from localStorage
 export function getFavoritesFromStorage() {
     const favorites = localStorage.getItem('flavorfy_favorites');
     return favorites ? JSON.parse(favorites) : [];
 }
 
-// Obtém receitas salvas do localStorage
+// Get saved recipes from localStorage
 export function getSavedFromStorage() {
     const saved = localStorage.getItem('flavorfy_saved');
     return saved ? JSON.parse(saved) : [];
 }
 
-// Salva favoritos no localStorage
+// Save favorites to localStorage
 export function saveFavoritesToStorage(favorites) {
     localStorage.setItem('flavorfy_favorites', JSON.stringify(favorites));
 }
 
-// Salva receitas no localStorage
+// Save recipes to localStorage
 export function saveSavedToStorage(saved) {
     localStorage.setItem('flavorfy_saved', JSON.stringify(saved));
 }
 
-// Obtém dados atualizados das receitas
+// Get updated recipe data
 export function getRecipesData() {
     // Combine local and API recipes
     return [...recipesData, ...apiRecipes];
 }
 
-// Filtra receitas por critério
+// Filter recipes by criteria
 export function filterRecipes(criteria, searchTerm = '') {
     let allRecipes = [...recipesData, ...apiRecipes];
     let filtered = [];
@@ -244,7 +244,7 @@ export function filterRecipes(criteria, searchTerm = '') {
     return filtered;
 }
 
-// Obtém estatísticas do usuário
+// Get user statistics
 export function getUserStats() {
     const favorites = getFavoritesFromStorage();
     const saved = getSavedFromStorage();
@@ -257,7 +257,7 @@ export function getUserStats() {
     };
 }
 
-// Gera ID único do dispositivo
+// Generate unique device ID
 export function getDeviceId() {
     let deviceId = localStorage.getItem('flavorfy_device_id');
     if (!deviceId) {
@@ -267,7 +267,7 @@ export function getDeviceId() {
     return deviceId;
 }
 
-// Reseta dados do usuário
+// Reset user data
 export function resetUserData() {
     localStorage.removeItem('flavorfy_favorites');
     localStorage.removeItem('flavorfy_saved');
@@ -284,7 +284,7 @@ export function resetUserData() {
     });
 }
 
-// Busca receitas na API
+// Search recipes in API
 export async function searchApiRecipes(searchTerm) {
     try {
         const spoonacularResults = await searchRecipes(searchTerm, {
@@ -304,26 +304,26 @@ export async function searchApiRecipes(searchTerm) {
     }
 }
 
-// Sincroniza dados do usuário com servidor (implementação futura)
+// Sync user data to server (future implementation)
 export function syncUserDataToServer() {
     return 
 }
 
 /**
- * Add backward compatibility by creating ingredients array from extendedIngredients
+ * Add calculator compatibility by creating ingredients array from extendedIngredients
  * @param {Object} recipe - Recipe object
  * @returns {Object} Recipe with both extendedIngredients and ingredients arrays
  */
 function addIngredientsCompatibility(recipe) {
-    // If recipe already has ingredients array, don't override
+    // Skip if recipe already has ingredients array
     if (recipe.ingredients && recipe.ingredients.length > 0) {
         return recipe;
     }
     
-    // Create ingredients array from extendedIngredients for calculator compatibility
+    // Create ingredients array from extendedIngredients for calculator
     if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
         recipe.ingredients = recipe.extendedIngredients.map(ingredient => {
-            // Default to metric measures, could add user preference later
+            // Use metric measures by default
             const measures = ingredient.measures?.metric || ingredient.measures?.us;
             const amount = measures?.amount || 1;
             const unitShort = measures?.unitShort || 'piece';
