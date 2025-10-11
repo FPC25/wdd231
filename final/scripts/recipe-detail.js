@@ -71,7 +71,7 @@ async function loadRecipeDetail(recipeId) {
             console.log('⚠️ [RECIPE DETAIL] Detailed fetch failed (expected with CORS), using existing data:', error.message);
         }
     } else {
-        console.log('📋 [RECIPE DETAIL] Using local recipe data');
+        //console.log('📋 [RECIPE DETAIL] Using local recipe data');
     }
     
     // Atualizar título da página
