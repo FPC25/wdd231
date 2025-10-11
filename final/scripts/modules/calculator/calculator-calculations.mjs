@@ -2,6 +2,7 @@
 
 import { getState, setState } from './calculator-state.mjs';
 import { updateProfitCalculations } from './calculator-utils.mjs';
+import { notification } from '../utils/modal-dialog.mjs';
 
 export function checkAllCostsEntered() {
     const state = getState();
@@ -24,13 +25,13 @@ export function checkAllCostsEntered() {
     }
 }
 
-export function calculateCosts() {
+export async function calculateCosts() {
     const state = getState();
     
     const costsWithData = Object.keys(state.ingredientCosts).filter(key => state.ingredientCosts[key] !== null);
     
     if (!state.currentRecipe || costsWithData.length === 0) {
-        alert('Please enter costs for at least one ingredient');
+        await notification.warning('Please enter costs for at least one ingredient');
         return;
     }
     

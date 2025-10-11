@@ -1,17 +1,19 @@
 // History management for calculator page
 
 import { getState } from './calculator-state.mjs';
+import { notification, showConfirmation } from '../utils/modal-dialog.mjs';
+import { testModal } from '../utils/modal-test.mjs';
 
 export function loadCalculationHistory() {
     const savedCalculations = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
     return savedCalculations;
 }
 
-export function saveCalculation() {
+export async function saveCalculation() {
     const state = getState();
     
     if (!state.calculationResults || Object.keys(state.calculationResults).length === 0 || !state.currentRecipe) {
-        alert('No calculation to save. Please calculate costs first.');
+        await notification.warning('No calculation to save. Please calculate costs first.');
         return;
     }
     
@@ -25,7 +27,10 @@ export function saveCalculation() {
     savedCalculations.push(calculation);
     localStorage.setItem('calculationHistory', JSON.stringify(savedCalculations));
     
-    alert('Calculation saved successfully!');
+    // Test with simple modal first
+    testModal();
+    
+    // await notification.success('Cálculo Salvo!', 'Seu cálculo foi salvo com sucesso na sua coleção.');
     
     // Update the history display
     displayCalculationHistory();
@@ -86,24 +91,34 @@ export function displayCalculationHistory() {
     });
 }
 
-function loadCalculationById(calcId) {
+async function loadCalculationById(calcId) {
     try {
         const savedCalculations = loadCalculationHistory();
         const calculation = loadSavedCalculation(calcId, savedCalculations);
         
-        alert('Calculation loaded! (Feature in development)');
+        await notification.info('Cálculo Carregado!', 'O cálculo foi carregado. (Funcionalidade em desenvolvimento)');
         
     } catch (error) {
         console.error('Error loading calculation:', error);
-        alert('Error loading calculation');
+        await notification.error('Erro ao Carregar', 'Não foi possível carregar o cálculo. Tente novamente.');
     }
 }
 
-function deleteCalculation(calcId) {
-    if (confirm('Are you sure you want to delete this calculation?')) {
+async function deleteCalculation(calcId) {
+    const calculation = loadCalculationHistory().find(calc => calc.id === calcId);
+    const recipeName = calculation?.recipeName || 'this calculation';
+    
+    const confirmed = await showConfirmation(
+        'Confirmar Exclusão',
+        `Tem certeza que deseja apagar o cálculo "${recipeName}"? Esta ação não pode ser desfeita.`,
+        'Apagar',
+        'Cancelar'
+    );
+    if (confirmed) {
         const savedCalculations = loadCalculationHistory();
         const filteredCalculations = savedCalculations.filter(calc => calc.id !== calcId);
         localStorage.setItem('calculationHistory', JSON.stringify(filteredCalculations));
         displayCalculationHistory(); // Refresh the display
+        await notification.success('Cálculo Apagado!', 'O cálculo foi removido com sucesso.');
     }
 }

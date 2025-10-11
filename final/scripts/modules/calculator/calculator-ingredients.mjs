@@ -3,6 +3,7 @@
 import { calculateIngredientCost, getUnitType } from './calculator-utils.mjs';
 import { createUnitOptions, createCompatibleUnitOptions, addSectionHeader, getUnitTypeForTemplate } from './calculator-template.mjs';
 import { getState, setState } from './calculator-state.mjs';
+import { notification } from '../utils/modal-dialog.mjs';
 
 export async function setupCostInputs(recipe) {
     const container = document.getElementById('ingredients-cost-grid');
@@ -238,7 +239,7 @@ export function setupToTasteEventListeners(toTasteIngredients) {
         );
         
         if (availableOptions.length === 0) {
-            alert('All optional ingredients have been added.');
+            notification.info('All optional ingredients have been added.');
             return;
         }
         
@@ -250,7 +251,7 @@ export function setupToTasteEventListeners(toTasteIngredients) {
     confirmBtn.addEventListener('click', () => {
         const selectedIndex = parseInt(select.value);
         if (!selectedIndex && selectedIndex !== 0) {
-            alert('Please select an ingredient.');
+            notification.warning('Please select an ingredient.');
             return;
         }
         

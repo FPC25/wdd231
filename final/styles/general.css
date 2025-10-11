@@ -595,3 +595,6 @@ img.lazy-loaded {
     to { opacity: 1; }
 }
 
+/* Import modal styles */
+@import './components/modal.css';
+
