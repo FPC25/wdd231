@@ -69,9 +69,15 @@ export function createIngredientTemplate(ingredient, index, recipeQuantity, isOp
     
     // Para ingredientes "to taste", começamos com todas as unidades disponíveis
     // Para ingredientes normais, usamos as unidades compatíveis da receita
-    const purchaseUnitOptions = ingredient.quantity === 'to taste' 
-        ? createUnitOptions() // Começar com todas as opções
-        : createCompatibleUnitOptions(getUnitTypeForTemplate(ingredient.unit || 'piece'));
+    // Para ingredientes com unidade "serving", permitimos todas as unidades
+    let purchaseUnitOptions;
+    if (ingredient.quantity === 'to taste') {
+        purchaseUnitOptions = createUnitOptions(); // Começar com todas as opções
+    } else if (ingredient.unit === 'serving' || ingredient.unit === 'servings') {
+        purchaseUnitOptions = createUnitOptions(); // Para serving, permitir todas as unidades
+    } else {
+        purchaseUnitOptions = createCompatibleUnitOptions(getUnitTypeForTemplate(ingredient.unit || 'piece'));
+    }
     
     const actualUsageSection = ingredient.quantity === 'to taste' ? `
         <div class="actual-usage">
